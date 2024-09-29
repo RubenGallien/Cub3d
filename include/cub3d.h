@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/27 13:46:30 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/29 17:01:04 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,11 @@
 # include <sys/time.h>
 # include <math.h>
 # include <string.h>
+
+typedef struct s_game
+{
+	void	*mlx;
+	void	*mlx_win;
+}			t_game;
 
 #endif
