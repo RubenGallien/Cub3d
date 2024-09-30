@@ -16,7 +16,7 @@ MAIN_OBJ	=	$(MAIN:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 MAIN_DEP	=	$(MAIN_OBJ:$(BUILD_DIR)/%.o=$(BUILD_DIR)/%.d)
 
 CC			=	cc
-CFLAGS		=	-Wall -Wextra -Werror -MMD -MP
+CFLAGS		=	-Wall -Wextra -Werror -MMD -MP -g3
 INCLUDE		=	-I include \
 				-I libft/include \
 				-I libft/ft_printf/include \
@@ -33,7 +33,7 @@ $(NAME)		:	$(MAIN_OBJ)
 	@if [ ! -e "$(LIBFT)" ]; then \
 		make -C libft; \
 	fi
-	$(CC) $(MAIN_OBJ) $(LIBFT) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -O3 -ffast-math -lm -lz -o $(NAME)
+	$(CC) $(MAIN_OBJ) $(LIBFT) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -g3 -ffast-math -lm -lz -o $(NAME)
 
 
 $(BUILD_DIR)/%.o	:	$(SRC_DIR)/%.c
