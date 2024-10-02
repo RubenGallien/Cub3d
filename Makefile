@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/10/02 14:25:51 by lvicino           #+#    #+#              #
+#    Updated: 2024/10/02 14:51:19 by lvicino          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME		=	cub3D
 
 LIBFT		=	libft/libft.a
@@ -9,11 +21,33 @@ BUILD_DIR	=	build
 
 SRC_DIR		=	src
 
-MAIN		=	main.c \
+MAIN		=	main.c
 
 MAIN		:=	$(MAIN:%=$(SRC_DIR)/%)
 MAIN_OBJ	=	$(MAIN:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 MAIN_DEP	=	$(MAIN_OBJ:$(BUILD_DIR)/%.o=$(BUILD_DIR)/%.d)
+
+
+
+PARSING_DIR	=	src/parsing
+
+PARSING		=	parsing.c
+
+PARSING		:=	$(PARSING:%=$(PARSING_DIR)/%)
+PARSING_OBJ	=	$(PARSING:$(PARSING_DIR)/%.c=$(BUILD_DIR)/%.o)
+PARSING_DEP	=	$(PARSING_OBJ:$(BUILD_DIR)/%.o=$(BUILD_DIR)/%.d)
+
+
+
+EXEC_DIR	=	src/exec
+
+EXEC		=
+
+EXEC		:=	$(EXEC:%=$(EXEC_DIR)/%)
+EXEC_OBJ	=	$(EXEC:$(EXEC_DIR)/%.c=$(BUILD_DIR)/%.o)
+EXEC_DEP	=	$(EXEC_OBJ:$(BUILD_DIR)/%.o=$(BUILD_DIR)/%.d)
+
+
 
 CC			=	cc
 CFLAGS		=	-Wall -Wextra -Werror -MMD -MP
@@ -41,7 +75,27 @@ $(BUILD_DIR)/%.o	:	$(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) $(INCLUDE) -c -o $@ $<
 
 
--include $(MAIN_DEP)
+$(BUILD_DIR)/%.o		:	$(EXEC_DIR)/%.c
+	$(DIR_DUP)
+	$(CC) $(CFLAGS) $(INCLUDE) -c -o $@ $<
+
+
+$(BUILD_DIR)/%.o		:	$(PARSING_DIR)/%.c
+	$(DIR_DUP)
+	$(CC) $(CFLAGS) $(INCLUDE) -c -o $@ $<
+
+
+-include $(MAIN_DEP) $(PARSING_DEP) $(EXEC_DEP)
+
+foo:
+	@if [ -d "$(MLX)" ] && [ -d "$(BUILD_DIR)" ]; then \
+		echo "make: Nothing to be done for 'all'."; \
+	fi
+	@if [ ! -d "$(MLX)" ]; then \
+		git clone https://github.com/42Paris/minilibx-linux.git ; \
+		mv minilibx-linux $(MLX) ; \
+		make -C $(MLX) ; \
+	fi
 
 clean	:
 	if [ -d "$(BUILD_DIR)" ]; then \
@@ -49,15 +103,6 @@ clean	:
 		rm -f $(MAIN_DEP); \
 		rm -rf $(BUILD_DIR); \
 		make clean -C libft; \
-	fi
-
-foo:
-	@if [ -d "$(MLX)" ]; then \
-		echo "La minilibx est deja clone"; \
-	else \
-		git clone https://github.com/42Paris/minilibx-linux.git ; \
-		mv minilibx-linux $(MLX) ; \
-		make -C $(MLX) ; \
 	fi
 
 fclean	:	clean
