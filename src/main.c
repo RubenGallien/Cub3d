@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:37:51 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/29 18:03:27 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/02 15:25:02 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,12 @@ int	on_keypress(int keysym, t_game *game)
 	return (0);
 }
 
-int	main()
+int	main(int argc, char **argv, char **envp)
 {
 	t_game game;
 
+	(void)envp;
+	parsing(argc, argv);
 	game.mlx = mlx_init();
 	game.mlx_win = mlx_new_window(game.mlx, 600, 300, "Welcome to Cub3D");
 	mlx_loop_hook(game.mlx, &game_loop, &game);

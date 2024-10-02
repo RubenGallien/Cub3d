@@ -6,7 +6,7 @@
 #    By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/02 14:25:51 by lvicino           #+#    #+#              #
-#    Updated: 2024/10/02 14:51:19 by lvicino          ###   ########.fr        #
+#    Updated: 2024/10/02 15:37:56 by lvicino          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,11 +63,11 @@ DIR_DUP		=	mkdir -p $(@D)
 
 all		:	foo $(NAME)
 
-$(NAME)		:	$(MAIN_OBJ)
+$(NAME)		:	$(MAIN_OBJ) $(PARSING_OBJ) $(EXEC_OBJ)
 	@if [ ! -e "$(LIBFT)" ]; then \
 		make -C libft; \
 	fi
-	$(CC) $(MAIN_OBJ) $(LIBFT) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -O3 -ffast-math -lm -lz -o $(NAME)
+	$(CC) $(MAIN_OBJ) $(PARSING_OBJ) $(EXEC_OBJ) $(LIBFT) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -O3 -ffast-math -lm -lz -o $(NAME)
 
 
 $(BUILD_DIR)/%.o	:	$(SRC_DIR)/%.c
@@ -75,12 +75,12 @@ $(BUILD_DIR)/%.o	:	$(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) $(INCLUDE) -c -o $@ $<
 
 
-$(BUILD_DIR)/%.o		:	$(EXEC_DIR)/%.c
+$(BUILD_DIR)/%.o		:	$(PARSING_DIR)/%.c
 	$(DIR_DUP)
 	$(CC) $(CFLAGS) $(INCLUDE) -c -o $@ $<
 
 
-$(BUILD_DIR)/%.o		:	$(PARSING_DIR)/%.c
+$(BUILD_DIR)/%.o		:	$(EXEC_DIR)/%.c
 	$(DIR_DUP)
 	$(CC) $(CFLAGS) $(INCLUDE) -c -o $@ $<
 

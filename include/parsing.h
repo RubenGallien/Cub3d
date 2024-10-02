@@ -1,36 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/02 14:58:34 by lvicino          ###   ########.fr       */
+/*   Created: 2024/10/02 14:57:14 by lvicino           #+#    #+#             */
+/*   Updated: 2024/10/02 15:23:04 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef PARSING_H
+# define PARSING_H
 
-# include "libft.h"
-
-# include "parsing.h"
-
-# include <mlx.h>
-# include <X11/keysym.h>
-# include <X11/X.h>
-# include <stdio.h>
-
-# include <time.h>
-# include <sys/time.h>
-# include <math.h>
-# include <string.h>
-
-typedef struct s_game
-{
-	void	*mlx;
-	void	*mlx_win;
-}			t_game;
+int	parsing(int ac, char **av);
 
 #endif

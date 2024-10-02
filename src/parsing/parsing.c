@@ -6,9 +6,16 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:31:25 by lvicino           #+#    #+#             */
-/*   Updated: 2024/10/02 14:45:10 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/10/02 15:40:03 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+int	parsing(int ac, char **av)
+{
+	printf("hello\n");
+	if (ac == 2)
+		printf("map = %s%%\n", av[1]);
+	return (1);
+}
