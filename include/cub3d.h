@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/09/30 18:14:56 by rgallien         ###   ########.fr       */
+=======
+/*   Updated: 2024/10/02 14:58:34 by lvicino          ###   ########.fr       */
+>>>>>>> origin/lvicino
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +18,14 @@
 # define CUB3D_H
 
 # include "libft.h"
+
+# include "parsing.h"
+
 # include <mlx.h>
-# include <stdio.h>
 # include <X11/keysym.h>
 # include <X11/X.h>
+# include <stdio.h>
+
 # include <time.h>
 # include <sys/time.h>
 # include <math.h>
