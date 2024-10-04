@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:14:12 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/04 11:34:52 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/04 15:39:43 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@ void	init_game(t_game *game, t_player *player, t_ray *ray, char **map)
 	game->player = player;
 	game->ray = ray;
 	game->map = map;
+	game->world.img = mlx_new_image(game->mlx, S_W, S_H);
+	game->world.pixels = (unsigned char *)mlx_get_data_addr\
+	(game->world.img, &game->world.bits_per_pixel, \
+	&game->world.line_length, &game->world.endian);
 }
 
 void	init_player(t_player *player, char **map)
@@ -44,7 +48,7 @@ void	init_player(t_player *player, char **map)
 			{
 				player->pos_x = j;
 				player->pos_y = i;
-				player->angle = 60.00;
+				player->angle = 90.00;
 				player->fov_half = FOV / 2;
 				return;
 			}

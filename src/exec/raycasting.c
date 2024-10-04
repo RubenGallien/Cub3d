@@ -6,22 +6,46 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:12:05 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/04 11:22:50 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/04 15:34:24 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+void minimap(t_game *game)
+{
+	int	start_x;
+	int	start_y;
+	int end_y;
+
+	start_y = 0;
+	end_y = S_W / 4;
+	printf("start_y = %d\n", start_y);
+	printf("end = %d\n", end_y);
+	while (start_y <= end_y)
+	{
+		start_x = S_W - (S_W / 4);
+		while (start_x < S_W)
+		{
+			my_mlx_pixel_put(&game->world, start_x, start_y, 0x808080);
+			start_x++;
+		}
+		start_y++;
+	}
+	printf("start_y at end = %d\n", start_y);
+	mlx_put_image_to_window(game->mlx, game->mlx_win, game->world.img, 0, 0);
+
+}
+
 int	game_loop(t_game *game)
 {
-	static int end_loop = 0;
 	float	ray_angle;
 	int	count;
 	int	wall;
 	double	distance;
 
 	ray_angle = game->player->angle - game->player->fov_half;
-	if (game->mlx_win && end_loop == 0)
+	if (game->mlx_win)
 	{
 		count = 0;
 		while (count < S_W)
@@ -52,11 +76,12 @@ int	game_loop(t_game *game)
         	if (drawEnd >= S_H)
 				drawEnd = S_H - 1;
 			for (int y = drawStart; y < drawEnd; y++) {
-            	mlx_pixel_put(game->mlx, game->mlx_win, count, y, 0xFF0000); // Red walls
+            	my_mlx_pixel_put(&game->world, count, y, 0xFF0000); // Red walls
 			}
 			ray_angle += game->ray->inc_angle;
 		}
-		end_loop++;
+		minimap(game);
+		mlx_put_image_to_window(game->mlx, game->mlx_win, game->world.img, 0, 0);
 	}
 	return (0);
 }

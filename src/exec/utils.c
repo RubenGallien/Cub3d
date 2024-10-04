@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 20:42:34 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/04 00:32:01 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/04 15:12:51 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,14 @@
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
 #endif
+
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
+{
+	unsigned char	*dst;
+
+	dst = img->pixels + (y * img->line_length + x * (img->bits_per_pixel / 8));
+	*(unsigned int *)dst = color;
+}
 
 double	to_radiant(unsigned long	number)
 {
