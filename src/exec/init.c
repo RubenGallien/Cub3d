@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:14:12 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/04 01:00:47 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/04 11:34:52 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	init_player(t_player *player, char **map)
 			{
 				player->pos_x = j;
 				player->pos_y = i;
-				player->angle = 90.00;
+				player->angle = 60.00;
 				player->fov_half = FOV / 2;
 				return;
 			}

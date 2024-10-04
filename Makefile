@@ -6,7 +6,7 @@
 #    By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/02 14:25:51 by lvicino           #+#    #+#              #
-#    Updated: 2024/10/03 12:16:14 by rgallien         ###   ########.fr        #
+#    Updated: 2024/10/04 10:57:13 by rgallien         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,10 @@ PARSING_DEP	=	$(PARSING_OBJ:$(BUILD_DIR)/%.o=$(BUILD_DIR)/%.d)
 
 EXEC_DIR	=	src/exec
 
-EXEC		=
+EXEC		=	events.c \
+				init.c \
+				raycasting.c \
+				utils.c \
 
 EXEC		:=	$(EXEC:%=$(EXEC_DIR)/%)
 EXEC_OBJ	=	$(EXEC:$(EXEC_DIR)/%.c=$(BUILD_DIR)/%.o)
