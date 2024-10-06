@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:13:17 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/30 18:13:47 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/06 23:51:35 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,15 @@
 int	on_keypress(int keysym, t_game *game)
 {
 	(void)game;
+	printf("%d\n", keysym);
 	if (keysym == XK_Escape)
 	{
 		mlx_destroy_window(game->mlx, game->mlx_win);
 		game->mlx_win = NULL;
+	}
+	else if (keysym == 65364)
+	{
+		minimap(game);
 	}
 	return (0);
 }

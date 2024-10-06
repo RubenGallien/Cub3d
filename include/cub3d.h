@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/04 15:39:53 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/06 23:33:44 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@
 #define PI	3.14159265359
 #define S_W 1024
 #define S_H 512
+
+#define MM_S_X 250
+#define MM_S_Y 250
+#define MM_TILE_X (MM_S_X / 5)
+#define MM_TILE_Y (MM_S_Y / 5)
 
 typedef struct s_img
 {
@@ -66,6 +71,8 @@ typedef struct s_player
 
 typedef struct s_game
 {
+	int			x;
+	int			y;
 	void		*mlx;
 	void		*mlx_win;
 	char		**map;
@@ -85,6 +92,7 @@ int		on_keypress(int keysym, t_game *game);
 
 // raycasting
 int		game_loop(t_game *game);
+void minimap(t_game *game);
 
 // utils
 double	to_radiant(unsigned long	number);

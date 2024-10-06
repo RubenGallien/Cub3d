@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:37:51 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/04 15:44:43 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/06 23:52:35 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int	main(int argc, char **argv, char **envp)
 
 	char *map[] = {
     "1111111111",
-    "100000P001",
     "1000000001",
+    "100000P001",
     "1001101001",
     "1001001001",
     "1001101001",
@@ -39,8 +39,8 @@ int	main(int argc, char **argv, char **envp)
 	init_player(&player, map);
 	init_ray(&ray);
 	init_game(&game, &player, &ray, map);
-	mlx_loop_hook(game.mlx, &game_loop, &game);
 	mlx_hook(game.mlx_win,KeyPress, KeyPressMask, &on_keypress, &game);
+	mlx_loop_hook(game.mlx, &game_loop, &game);
 	mlx_loop(game.mlx);
 	mlx_destroy_display(game.mlx);
 	free(game.mlx);
