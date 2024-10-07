@@ -6,19 +6,11 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:14:12 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/06 23:09:51 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/07 17:52:52 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	init_ray(t_ray *ray)
-{
-	ray->inc_angle = (float)FOV / (float)S_W;
-	ray->w_half = S_W / 2;
-	ray->h_half = S_H / 2;
-	ray->precision = 64;
-}
 
 void	init_game(t_game *game, t_player *player, t_ray *ray, char **map)
 {
@@ -59,11 +51,12 @@ void	init_player(t_player *player, char **map)
 		{
 			if (map[i][j] && map[i][j] == 'P')
 			{
-				player->pos_x = j;
-				player->pos_y = i;
-
-				player->angle = 90.00;
-				player->fov_half = FOV / 2;
+				player->pos_x = j * 50 + 20;
+				player->pos_y = i * 50 + 20;
+				player->left = 0;
+				player->right = 0;
+				player->down = 0;
+				player->up = 0;
 				return;
 			}
 		}

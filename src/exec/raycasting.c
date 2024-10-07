@@ -6,11 +6,29 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:12:05 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/06 23:46:42 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/07 18:36:56 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	draw_player(t_game *game, int start_x, int start_y, int color)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < 10)
+	{
+		j = 0;
+		while (j < 10)
+		{
+			my_mlx_pixel_put(&game->world, start_x + j, start_y + i, color);
+			j++;
+		}
+		i++;
+	}
+}
 
 void	draw_wall(t_game *game, int start_x, int start_y, int color)
 {
@@ -20,10 +38,10 @@ void	draw_wall(t_game *game, int start_x, int start_y, int color)
 
 	i = 0;
 	save = color;
-	while (i < MM_TILE_Y)
+	while (i < MM_TILE_Y - (game->player->pos_y % 50))
 	{
 		j = 0;
-		while (j < MM_TILE_X)
+		while (j < MM_TILE_X - (game->player->pos_x % 50))
 		{
 			if (i == 0 || j == 0)
 				color = 0x000000;
@@ -36,56 +54,58 @@ void	draw_wall(t_game *game, int start_x, int start_y, int color)
 	}
 }
 
+void	draw_minimap(t_game *game, int start_x, int start_y)
+{
+	int	y;
+	int	x;
+
+	y = 0;
+	while (y < MM_S_X)
+	{
+		x = 0;
+		while (x < MM_S_Y)
+		{
+			if ((start_y + y) / 50 < 0 || (start_x + x) / 50 < 0 || (start_y + y) / 50 > game->x || (start_x + x) / 50 > game->y)
+				my_mlx_pixel_put(&game->world, (S_W - MM_S_X) + x, y, 0xA9A9A9);
+			else if ((start_x + x) % 50 == 0 || (start_y + y) % 50 == 0)
+				my_mlx_pixel_put(&game->world, (S_W - MM_S_X) + x, y, 0x000000);
+			else if (game->map[(start_y + y) / 50][(start_x + x) / 50] == '1')
+				my_mlx_pixel_put(&game->world, (S_W - MM_S_X) + x, y, 0x0000FF);
+			else if (game->map[(start_y + y) / 50][(start_x + x) / 50] == '0' || game->map[(start_y + y) / 50][(start_x + x) / 50] == 'P')
+				my_mlx_pixel_put(&game->world, (S_W - MM_S_X) + x, y, 0xFFFFFF);
+			x++;
+		}
+		y++;
+	}
+
+}
+
 void minimap(t_game *game)
 {
 	int	start_x;
 	int	start_y;
-	int	map_x;
-	int	map_y;
-	int	i;
-	int	j;
 
-	printf("(%f,%f)\n", game->player->pos_x, game->player->pos_y);
-	start_x = game->player->pos_x - 2;
-	start_y = game->player->pos_y - 2;
-
-	if (start_x < 0)
-		start_x = 0;
-	if (start_y < 0)
-		start_y = 0;
-
-	if (start_x > 5)
-		start_x = 5;
-	if (start_y > 5)
-		start_y = 5;
-	i = 0;
-	while (i < 5)
-	{
-		j = 0;
-		while (j < 5)
-		{
-			map_x = start_x + j;
-			map_y = start_y + i;
-			if (game->map[map_y][map_x] == '1')
-				draw_wall(game, S_W - (MM_S_X) + (j * MM_TILE_X), i * MM_TILE_Y, 0x0000FF);
-			else if (game->map[map_y][map_x] == 'P')
-			{
-				draw_wall(game, S_W - (MM_S_X) + (j * MM_TILE_X), i * MM_TILE_Y, 0xFFFF00);
-			}
-			else
-				draw_wall(game, S_W - (MM_S_X) + (j * MM_TILE_X), i * MM_TILE_Y, 0x808080);
-			j++;
-		}
-		i++;
-	}
+	start_x = (game->player->pos_x) - 120;
+	start_y = (game->player->pos_y) - 120;
+	draw_minimap(game, start_x, start_y);
+	draw_player(game, (S_W - MM_S_X) + (MM_S_X / 2) - 5, (MM_S_Y / 2) - 5, 0xFF0000);
 }
 
 int	game_loop(t_game *game)
 {
+	int	sleep;
+
+	sleep = 0;
 	if (game->mlx_win)
 	{
-		minimap(game);
-		mlx_put_image_to_window(game->mlx, game->mlx_win, game->world.img, 0, 0);
+		while (!sleep)
+		{
+			move_player(game);
+			minimap(game);
+			mlx_put_image_to_window(game->mlx, game->mlx_win, game->world.img, 0, 0);
+		}
+		sleep++;
+		sleep %= (SPEED * 100);
 	}
 	return (0);
 }

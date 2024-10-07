@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/06 23:33:44 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/07 18:18:56 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include <string.h>
 
 #define FOV	60
+#define SPEED 100
 #define PI	3.14159265359
 #define S_W 1024
 #define S_H 512
@@ -50,23 +51,19 @@ typedef struct s_img
 
 typedef struct s_ray
 {
-	double ray_cos;
-	double ray_sin;
-	float wall_h;
-	int w_half;
-	int h_half;
-	float x;
-	float y;
-	float inc_angle;
-	float precision;
+
 }				t_ray;
 
 typedef struct s_player
 {
-	float pos_x;
-	float pos_y;
+	int pos_x;
+	int pos_y;
 	float angle;
 	float fov_half;
+	int left;
+	int up;
+	int down;
+	int right;
 }				t_player;
 
 typedef struct s_game
@@ -83,19 +80,20 @@ typedef struct s_game
 }			t_game;
 
 // init
-void	init_player(t_player *player, char **map);
-void	init_ray(t_ray *ray);
-void	init_game(t_game *game, t_player *player, t_ray *ray, char **map);
+void		init_player(t_player *player, char **map);
+void		init_ray(t_ray *ray);
+void		init_game(t_game *game, t_player *player, t_ray *ray, char **map);
 
 // events
-int		on_keypress(int keysym, t_game *game);
-
+int			on_keypress(int keysym, t_game *game);
+int			on_keyrelease(int keysym, t_game *game);
+void		move_player(t_game *game);
 // raycasting
-int		game_loop(t_game *game);
-void minimap(t_game *game);
+int			game_loop(t_game *game);
+void 		minimap(t_game *game);
 
 // utils
-double	to_radiant(unsigned long	number);
-void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
+double		to_radiant(unsigned long	number);
+void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
 
 #endif
