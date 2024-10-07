@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:12:05 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/07 18:36:56 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/07 20:53:52 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,11 @@ void	draw_minimap(t_game *game, int start_x, int start_y)
 		x = 0;
 		while (x < MM_S_Y)
 		{
-			if ((start_y + y) / 50 < 0 || (start_x + x) / 50 < 0 || (start_y + y) / 50 > game->x || (start_x + x) / 50 > game->y)
+			// printf("start_x = %d, start_y = %d\n", start_x, start_y);
+			// printf("x = %d, y = %d\n", x, y);
+			// printf("x: %d\n", (start_x + x) / 50);
+			// printf("y: %d\n", (start_y + y) / 50);
+			if ((start_y + y) / 50 < 0 || (start_x + x) / 50 < 0 || (start_y + y) / 50 > game->y - 1 || (start_x + x) / 50 > game->x - 1)
 				my_mlx_pixel_put(&game->world, (S_W - MM_S_X) + x, y, 0xA9A9A9);
 			else if ((start_x + x) % 50 == 0 || (start_y + y) % 50 == 0)
 				my_mlx_pixel_put(&game->world, (S_W - MM_S_X) + x, y, 0x000000);
@@ -93,19 +97,21 @@ void minimap(t_game *game)
 
 int	game_loop(t_game *game)
 {
-	int	sleep;
+	double x;
+	int		i;
 
-	sleep = 0;
+	i = 0;
+	x = 0.00;
 	if (game->mlx_win)
 	{
-		while (!sleep)
-		{
 			move_player(game);
 			minimap(game);
 			mlx_put_image_to_window(game->mlx, game->mlx_win, game->world.img, 0, 0);
-		}
-		sleep++;
-		sleep %= (SPEED * 100);
+			while (i < 5000000)
+			{
+				x += sqrt(i);
+				i++;
+			}
 	}
-	return (0);
+	return (x);
 }
