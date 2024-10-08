@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/08 15:35:57 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/10/08 15:44:12 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,20 @@
 
 #define SIZE_P_X (MM_TILE_X / 5)
 #define SIZE_P_Y (MM_TILE_Y / 5)
+
+typedef struct s_map
+{
+	char	*no;
+	char	*so;
+	char	*ea;
+	char	*we;
+	int		f[3];
+	int		c[3];
+	char	*seed;
+	char	**map;
+	int		x_max;
+	int		y_max;
+}			t_map;
 
 typedef struct s_img
 {
@@ -83,8 +97,10 @@ typedef struct s_game
 	t_img		world;
 	t_player	*player;
 	t_ray		*ray;
-	// t_map		info;
+	t_map		info;
 }			t_game;
+
+# include "parsing.h"
 
 // init
 void		init_player(t_player *player, char **map);
