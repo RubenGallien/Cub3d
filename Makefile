@@ -6,7 +6,7 @@
 #    By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/02 14:25:51 by lvicino           #+#    #+#              #
-#    Updated: 2024/10/03 15:31:34 by lvicino          ###   ########.fr        #
+#    Updated: 2024/10/08 15:37:54 by lvicino          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,10 @@ PARSING_DEP	=	$(PARSING_OBJ:$(BUILD_DIR)/%.o=$(BUILD_DIR)/%.d)
 
 EXEC_DIR	=	src/exec
 
-EXEC		=
+EXEC		=	events.c \
+				init.c \
+				raycasting.c \
+				utils.c \
 
 EXEC		:=	$(EXEC:%=$(EXEC_DIR)/%)
 EXEC_OBJ	=	$(EXEC:$(EXEC_DIR)/%.c=$(BUILD_DIR)/%.o)
@@ -52,7 +55,7 @@ EXEC_DEP	=	$(EXEC_OBJ:$(BUILD_DIR)/%.o=$(BUILD_DIR)/%.d)
 
 
 CC			=	cc
-CFLAGS		=	-Wall -Wextra -Werror -MMD -MP
+CFLAGS		=	-Wall -Wextra -Werror -MMD -MP -g3
 INCLUDE		=	-I include \
 				-I libft/include \
 				-I libft/ft_printf/include \
