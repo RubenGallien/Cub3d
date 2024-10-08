@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/08 15:44:12 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/10/08 17:29:35 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@
 #define FOV	60
 #define SPEED 100
 #define PI	3.14159265359
-#define S_W 1024
-#define S_H 512
+#define S_W 1920
+#define S_H 1080
 
 #define MM_S_X 250
 #define MM_S_Y 250
-#define MM_SIZE 10
+#define MM_SIZE 5
 #define MM_TILE_X (MM_S_X / MM_SIZE)
 #define MM_TILE_Y (MM_S_Y / MM_SIZE)
 

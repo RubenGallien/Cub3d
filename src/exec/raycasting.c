@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:12:05 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/08 14:45:25 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/08 17:14:16 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@ void	draw_player(t_game *game, int start_x, int start_y, int color)
 	int	j;
 
 	i = 0;
+	for (int z = 0; z < 2; z++)
+	{
+		for (int u = 0; u < 15; u++)
+			my_mlx_pixel_put(&game->world, start_x + 5 + u, start_y + 4 + z, 0x00FF00);
+	}
 	while (i < SIZE_P_Y)
 	{
 		j = 0;
@@ -28,6 +33,7 @@ void	draw_player(t_game *game, int start_x, int start_y, int color)
 		}
 		i++;
 	}
+
 }
 
 void	draw_wall(t_game *game, int start_x, int start_y, int color)
@@ -66,8 +72,8 @@ void	draw_minimap(t_game *game, int start_x, int start_y)
 		while (++x < MM_S_Y)
 		{
 			if (start_x + x < 0 || start_y + y < 0 || (start_y + y) / MM_TILE_Y < 0 || \
-			(start_x + x) / MM_TILE_X < 0 || (start_y + y) / MM_TILE_Y > game->y - 1 || (start_x + x) / MM_TILE_X > game->x - 1)
-				my_mlx_pixel_put(&game->world, (S_W - MM_S_X) + x, y, 0xA9A9A9);
+			(start_x + x) / MM_TILE_X < 0 || (start_y + y) / MM_TILE_Y > game->y - 1 || (start_x + x) / MM_TILE_X > game->x - 1 || !game->map[(start_y + y) / MM_TILE_Y][(start_x + x) / MM_TILE_X])
+				my_mlx_pixel_put(&game->world, (S_W - MM_S_X) + x, y, 0x000000);
 			else if ((start_x + x) % MM_TILE_X == 0 || (start_y + y) % MM_TILE_Y == 0)
 				my_mlx_pixel_put(&game->world, (S_W - MM_S_X) + x, y, 0x000000);
 			else if (game->map[(start_y + y) / MM_TILE_Y][(start_x + x) / MM_TILE_X] == '1')
@@ -77,7 +83,7 @@ void	draw_minimap(t_game *game, int start_x, int start_y)
 			game->map[(start_y + y) / MM_TILE_Y][(start_x + x) / MM_TILE_X] == 'S' || \
 			game->map[(start_y + y) / MM_TILE_Y][(start_x + x) / MM_TILE_X] == 'W' || \
 			game->map[(start_y + y) / MM_TILE_Y][(start_x + x) / MM_TILE_X] == 'E')
-				my_mlx_pixel_put(&game->world, (S_W - MM_S_X) + x, y, 0xFFFFFF);
+				my_mlx_pixel_put(&game->world, (S_W - MM_S_X) + x, y, 0x9e9494);
 		}
 	}
 }
