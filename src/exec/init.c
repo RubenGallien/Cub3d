@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:14:12 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/08 16:45:11 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/09 00:07:42 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 int	get_angle(char c)
 {
 	if (c == 'N')
-		return (90);
+		return (90 * (PI / 180));
 	else if (c == 'S')
-		return (270);
+		return (270 * (PI / 180));
 	else if (c == 'E')
 		return (0);
 	else
-		return (180);
+		return (180 * (PI / 180));
 }
 
 void	init_game(t_game *game, t_player *player, t_ray *ray, char **map)
@@ -69,6 +69,8 @@ void	init_player(t_player *player, char **map)
 				player->left = 0;
 				player->right = 0;
 				player->angle  = get_angle(map[i][j]);
+				player->left_r = 0;
+				player->right_r = 0;
 				player->down = 0;
 				player->up = 0;
 				player->pos = map[i][j];

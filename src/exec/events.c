@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:13:17 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/08 14:23:38 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/08 23:22:08 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,27 @@ void	move_player(t_game *game)
 		game->player->pos_y += 2;
 	if (game->player->right == 1 && game->map[game->player->pos_y / 50][((game->player->pos_x + 10) / 50)] != '1')
 		game->player->pos_x += 2;
+	if (game->player->left_r == 1)
+	{
+		game->player->angle -= 0.1;
+		if (game->player->angle < 0)
+			game->player->angle += 2 * PI;
+		game->player->pdx = cos(game->player->angle) * 5;
+		game->player->pdy = sin(game->player->angle) * 5;
+	}
+	if (game->player->right_r == 1)
+	{
+		game->player->angle += 0.1;
+		if (game->player->angle > 2 * PI)
+			game->player->angle -= 2 * PI;
+		game->player->pdx = cos(game->player->angle) * 5;
+		game->player->pdy = sin(game->player->angle) * 5;
+	}
 }
 
 int	on_keypress(int keysym, t_game *game)
 {
-	// printf("%d\n", keysym);
+	printf("%d\n", keysym);
 	if (keysym == XK_Escape)
 	{
 		mlx_destroy_window(game->mlx, game->mlx_win);
@@ -52,6 +68,16 @@ int	on_keypress(int keysym, t_game *game)
 		game->player->left = 1;
 		game->player->right = 0;
 	}
+	else if (keysym == 65361)
+	{
+		game->player->left_r = 1;
+		game->player->right_r = 0;
+	}
+	else if (keysym == 65363)
+	{
+		game->player->right_r = 1;
+		game->player->left_r = 0;
+	}
 	return (0);
 }
 
@@ -65,5 +91,9 @@ int	on_keyrelease(int keysym, t_game *game)
 		game->player->right = 0;
 	else if (keysym == 97)
 		game->player->left = 0;
+	else if (keysym == 65361)
+		game->player->left_r = 0;
+	else if (keysym == 65363)
+		game->player->right_r = 0;
 	return (0);
 }

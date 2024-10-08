@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/08 16:36:21 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/08 23:49:45 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,11 @@ typedef struct s_ray
 
 typedef struct s_player
 {
-	float	pdx;
-	float	pdy;
+	double	pdx;
+	double	pdy;
 	int pos_x;
 	int pos_y;
-	float angle;
+	double angle;
 	char pos;
 	int left;
 	int	left_r;
