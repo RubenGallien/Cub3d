@@ -6,13 +6,14 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 15:16:08 by lvicino           #+#    #+#             */
-/*   Updated: 2024/10/03 15:16:25 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/10/07 14:39:18 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	check_texture()
+int	check_texture(t_game *game)
 {
+	(void)game;
 	return (1);
 }

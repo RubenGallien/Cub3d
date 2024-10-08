@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/03 13:14:50 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/10/07 14:32:39 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 # define CUB3D_H
 
 # include "libft.h"
-
-# include "parsing.h"
 
 # include <mlx.h>
 # include <X11/keysym.h>
@@ -33,5 +31,7 @@ typedef struct s_game
 	void	*mlx;
 	void	*mlx_win;
 }			t_game;
+
+# include "parsing.h"
 
 #endif

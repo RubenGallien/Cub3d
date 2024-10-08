@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:37:51 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/02 16:05:33 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/10/07 14:36:41 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(int argc, char **argv, char **envp)
 	t_game game;
 
 	(void)envp;
-	if (!parsing(argc, argv))
+	if (!parsing(argc, argv, &game))
 		return (1);
 	game.mlx = mlx_init();
 	game.mlx_win = mlx_new_window(game.mlx, 600, 300, "Welcome to Cub3D");
