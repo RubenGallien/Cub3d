@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:14:12 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/07 17:52:52 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/08 15:04:59 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,16 @@ void	init_player(t_player *player, char **map)
 		j = -1;
 		while (map[i][++j])
 		{
-			if (map[i][j] && map[i][j] == 'P')
+			if (map[i][j] && (map[i][j] == 'N' || map[i][j] == 'S' || \
+			map[i][j] == 'E' || map[i][j] == 'W'))
 			{
-				player->pos_x = j * 50 + 20;
-				player->pos_y = i * 50 + 20;
+				player->pos_x = j * MM_TILE_X + (MM_TILE_Y / 2);
+				player->pos_y = i * MM_TILE_Y + (MM_TILE_Y / 2);
 				player->left = 0;
 				player->right = 0;
 				player->down = 0;
 				player->up = 0;
+				player->pos = map[i][j];
 				return;
 			}
 		}

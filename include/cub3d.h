@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/07 18:18:56 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/08 15:05:17 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,12 @@
 
 #define MM_S_X 250
 #define MM_S_Y 250
-#define MM_TILE_X (MM_S_X / 5)
-#define MM_TILE_Y (MM_S_Y / 5)
+#define MM_SIZE 10
+#define MM_TILE_X (MM_S_X / MM_SIZE)
+#define MM_TILE_Y (MM_S_Y / MM_SIZE)
+
+#define SIZE_P_X (MM_TILE_X / 5)
+#define SIZE_P_Y (MM_TILE_Y / 5)
 
 typedef struct s_img
 {
@@ -56,14 +60,18 @@ typedef struct s_ray
 
 typedef struct s_player
 {
+	float	pdx;
+	float	pdy;
 	int pos_x;
 	int pos_y;
 	float angle;
-	float fov_half;
+	char pos;
 	int left;
+	int	left_r;
 	int up;
 	int down;
 	int right;
+	int	right_r;
 }				t_player;
 
 typedef struct s_game

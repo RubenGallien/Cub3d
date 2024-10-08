@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:13:17 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/07 20:54:21 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/08 14:23:38 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@ void	move_player(t_game *game)
 		game->player->pos_y -= 2;
 	if (game->player->left == 1 && game->map[game->player->pos_y / 50][((game->player->pos_x - 2) / 50)] != '1')
 		game->player->pos_x -= 2;
-	if (game->player->down == 1 && game->map[((game->player->pos_y + 2) / 50)][game->player->pos_x / 50] != '1')
+	if (game->player->down == 1 && game->map[((game->player->pos_y + 10) / 50)][game->player->pos_x / 50] != '1')
 		game->player->pos_y += 2;
-	if (game->player->right == 1 && game->map[game->player->pos_y / 50][((game->player->pos_x + 2) / 50)] != '1')
+	if (game->player->right == 1 && game->map[game->player->pos_y / 50][((game->player->pos_x + 10) / 50)] != '1')
 		game->player->pos_x += 2;
 }
 
 int	on_keypress(int keysym, t_game *game)
 {
-	(void)game;
+	// printf("%d\n", keysym);
 	if (keysym == XK_Escape)
 	{
 		mlx_destroy_window(game->mlx, game->mlx_win);
