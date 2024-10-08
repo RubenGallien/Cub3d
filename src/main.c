@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:37:51 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/08 14:45:43 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/08 16:39:43 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ int	main(int argc, char **argv, char **envp)
 	map[3] = ft_strdup("1001101001");
 	map[4] = ft_strdup("1001001001");
 	map[5] = ft_strdup("1001101001");
-	map[6] = ft_strdup("1001011001");
-	map[7] = ft_strdup("1000100001");
-	map[8] = ft_strdup("1000000001");
-	map[9] = ft_strdup("1111111111");
+	map[6] = ft_strdup("1001011001111111111");
+	map[7] = ft_strdup("1000100000000000001");
+	map[8] = ft_strdup("1000000000000000001");
+	map[9] = ft_strdup("1111111111111111111");
 	map[10] = NULL;
 	(void)argc;
 	(void)argv;
