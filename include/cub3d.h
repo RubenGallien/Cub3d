@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/10 15:47:21 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/11 13:17:52 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,10 +99,12 @@ int			on_keyrelease(int keysym, t_game *game);
 void		move_player(t_game *game);
 // raycasting
 int			game_loop(t_game *game);
-void 		minimap(t_game *game);
 
 // utils
 double		to_radiant(unsigned long	number);
 void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
+
+// minimap
+void 		minimap(t_game *game);
 
 #endif
