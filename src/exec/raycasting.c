@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:12:05 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/09 00:10:28 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/10 19:45:21 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	draw_player(t_game *game, int start_x, int start_y, int color)
 	for (int z = 0; z < 2; z++)
 	{
 		for (int u = 0; u < 15; u++)
-			my_mlx_pixel_put(&game->world, start_x + 5 + (u * game->player->pdx) + z, start_y + 5 + (u * game->player->pdy) + z, 0x00FF00);
+			my_mlx_pixel_put(&game->world, start_x + 5 + (u * game->player->pdx), start_y + 5 - (u * game->player->pdy), 0x00FF00);
 	}
 	while (i < SIZE_P_Y)
 	{
@@ -106,6 +106,9 @@ int	game_loop(t_game *game)
 
 	i = 0;
 	x = 0.00;
+	// printf("angle = %f\n",game->player->angle);
+	// printf("pdx =  = %f\n",game->player->pdx);
+	// printf("pdy =  = %f\n",game->player->pdx);
 	if (game->mlx_win)
 	{
 			move_player(game);

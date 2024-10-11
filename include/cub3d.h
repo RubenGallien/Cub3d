@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/08 23:49:45 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/10 15:47:21 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,12 @@
 # include <math.h>
 # include <string.h>
 
+#define EPSILON 0.0001
 #define FOV	60
 #define SPEED 100
 #define PI	3.14159265359
-#define S_W 1920
-#define S_H 1080
+#define S_W 1024
+#define S_H 512
 
 #define MM_S_X 250
 #define MM_S_Y 250
