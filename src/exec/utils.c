@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 20:42:34 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/04 15:12:51 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/14 16:44:28 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
 #endif
+
+int	found_distance(int x1, int y1, int x2, int y2)
+{
+	return (sqrt(((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1))));
+}
 
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {

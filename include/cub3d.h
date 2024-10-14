@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/11 13:17:52 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/14 18:11:25 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 #define FOV	60
 #define SPEED 100
 #define PI	3.14159265359
+#define P2	(PI / 2)
+#define P3	(3 * PI / 2)
 #define S_W 1024
 #define S_H 512
 
@@ -56,7 +58,18 @@ typedef struct s_img
 
 typedef struct s_ray
 {
-
+	int	r;
+	int	mx;
+	int	my;
+	int	mp;
+	int	dof;
+	float	atan;
+	float	ntan;
+	float	rx;
+	float	ry;
+	float	ra;
+	float	xo;
+	float	yo;
 }				t_ray;
 
 typedef struct s_player
@@ -103,7 +116,7 @@ int			game_loop(t_game *game);
 // utils
 double		to_radiant(unsigned long	number);
 void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
-
+int	found_distance(int x1, int y1, int x2, int y2);
 // minimap
 void 		minimap(t_game *game);
 

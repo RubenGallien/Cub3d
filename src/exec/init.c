@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:14:12 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/11 15:24:44 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/14 16:52:45 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ double	get_angle(char c)
 	if (c == 'N')
 		return (90);
 	else if (c == 'S')
-		return (27);
+		return (270);
 	else if (c == 'E')
 		return (0);
 	else
@@ -71,8 +71,6 @@ void	init_player(t_player *player, char **map)
 				player->angle  = get_angle(map[i][j]);
 				player->pdx = cos(to_radiant(player->angle));
 				player->pdy = sin(to_radiant(player->angle));
-				printf("%f\n", player->angle);
-				printf("to_radiant : %f\n", to_radiant(player->angle));
 				player->left_r = 0;
 				player->right_r = 0;
 				player->down = 0;

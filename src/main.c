@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:37:51 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/10 19:23:49 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/14 16:52:18 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,16 @@ int	main(int argc, char **argv, char **envp)
 	char		**map;
 
 	map = malloc(sizeof(char *) * (10 + 1));
-	map[0] = ft_strdup("11111111111111111");
-	map[1] = ft_strdup("10000000000000001");
-	map[2] = ft_strdup("100000N0011111111");
+	map[0] = ft_strdup("1111111111");
+	map[1] = ft_strdup("1000001001");
+	map[2] = ft_strdup("100000S001");
 	map[3] = ft_strdup("1001101001");
-	map[4] = ft_strdup("100100100111111");
-	map[5] = ft_strdup("100001001101001");
-	map[6] = ft_strdup("1001011001111111111");
-	map[7] = ft_strdup("1000100000000000001");
-	map[8] = ft_strdup("1000000000000000001");
-	map[9] = ft_strdup("1111111111111111111");
+	map[4] = ft_strdup("1001001001");
+	map[5] = ft_strdup("1000010011");
+	map[6] = ft_strdup("1001011011");
+	map[7] = ft_strdup("1000100001");
+	map[8] = ft_strdup("1000000001");
+	map[9] = ft_strdup("1111111111");
 	map[10] = NULL;
 	(void)argc;
 	(void)argv;
