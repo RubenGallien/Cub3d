@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/14 18:11:25 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/15 12:40:49 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ typedef struct s_player
 {
 	double	pdx;
 	double	pdy;
-	int pos_x;
-	int pos_y;
+	double pos_x;
+	double pos_y;
 	double angle;
 	char pos;
 	int left;
@@ -114,7 +114,7 @@ void		move_player(t_game *game);
 int			game_loop(t_game *game);
 
 // utils
-double		to_radiant(unsigned long	number);
+double		to_radiant(double	number);
 void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
 int	found_distance(int x1, int y1, int x2, int y2);
 // minimap

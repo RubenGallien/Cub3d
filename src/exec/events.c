@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:13:17 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/14 17:59:46 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/15 12:48:53 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,12 @@ void	move_player(t_game *game)
 		game->player->pos_y += sin(to_radiant(game->player->angle + 90)) * 2;
 	}
 	if (game->player->left_r == 1)
-	{
-		game->player->angle += 1;
-		if (game->player->angle > 360)
-			game->player->angle -= 360;
-		game->player->pdx = cos(to_radiant(game->player->angle));
-		game->player->pdy = sin(to_radiant(game->player->angle));
-	}
+		game->player->angle += 2;
 	if (game->player->right_r == 1)
+		game->player->angle -= 2;
+	if (game->player->right_r == 1 || game->player->left_r == 1)
 	{
-		game->player->angle -= 1;
+		game->player->angle =  (int)game->player->angle % 360;
 		if (game->player->angle < 0)
 			game->player->angle += 360;
 		game->player->pdx = cos(to_radiant(game->player->angle));
