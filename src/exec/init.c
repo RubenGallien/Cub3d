@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:14:12 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/14 16:52:45 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/18 11:12:28 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ double	get_angle(char c)
 		return (90);
 	else if (c == 'S')
 		return (270);
+	else if (c == 'W')
+		return (180);
 	else if (c == 'E')
 		return (0);
 	else

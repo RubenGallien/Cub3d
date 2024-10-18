@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 13:18:05 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/15 14:28:20 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/18 16:07:34 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,33 @@ void	draw_lines(t_game *game)
 	while (++ray.r < 1)
 	{
 		// horizontal line
+		printf("\nHorizontal : \n\n");
 		ray.dof = 0;
 		ray.atan = -1 / tan(ray.ra);
+		printf("tan = %f\n", ray.atan);
 		if (ray.ra < PI)
 		{
-			ray.ry = (((int)game->player->pos_y / 50) * 50);
-			ray.rx = ((int)game->player->pos_y - ray.ry) * ray.atan + (int)game->player->pos_x;
+			printf("up : \n");
+			ray.ry = (((int)game->player->pos_y / 50) * 50) - 1;
+			printf("ry = %f\n", ray.ry);
+			ray.rx = (ray.ry - (int)game->player->pos_y) * ray.atan + (int)game->player->pos_x;
+			printf("rx = %f\n", ray.rx);
 			ray.yo = -50;
-			ray.xo = -ray.yo * ray.atan;
+			printf("yo = %f\n", ray.yo);
+			ray.xo = ray.yo * ray.atan;
+			printf("xo = %f\n", ray.xo);
 		}
 		if (ray.ra > PI)
 		{
+			printf("down : \n");
 			ray.ry = (((int)game->player->pos_y / 50) * 50) + 50;
-			ray.rx = ((int)game->player->pos_y - ray.ry) * ray.atan + (int)game->player->pos_x;
+			printf("ry = %f\n", ray.ry);
+			ray.rx = (ray.ry - (int)game->player->pos_y) * ray.atan + (int)game->player->pos_x;
+			printf("rx = %f\n", ray.rx);
 			ray.yo = 50;
-			ray.xo = -ray.yo * ray.atan;
+			printf("yo = %f\n", ray.yo);
+			ray.xo = ray.yo * ray.atan;
+			printf("xo = %f\n", ray.xo);
 		}
 		if (ray.ra == 0 || ray.ra == PI)
 		{
@@ -62,21 +74,32 @@ void	draw_lines(t_game *game)
 		int	distance;
 		distance = found_distance((int)game->player->pos_x, (int)game->player->pos_y, ray.rx, ray.ry);
 		// vertical lines
+		printf("\nVertical : \n\n");
 		ray.dof = 0;
 		ray.ntan = -tan(ray.ra);
 		if (ray.ra > P2 && ray.ra < P3)
 		{
-			ray.ry = (((int)game->player->pos_y / 50) * 50);
-			ray.rx = ((int)game->player->pos_y - ray.ry) * ray.ntan + (int)game->player->pos_x;
-			ray.yo = -50;
-			ray.xo = -ray.yo * ray.ntan;
+			printf("left : \n");
+			ray.rx = (((int)game->player->pos_x / 50) * 50) - 1;
+			printf("rx = %f\n", ray.rx);
+			ray.ry = (ray.rx - (int)game->player->pos_x) * ray.ntan + (int)game->player->pos_y;
+			printf("ry = %f\n", ray.ry);
+			ray.xo = -50;
+			printf("xo = %f\n", ray.xo);
+			ray.yo = ray.xo * ray.ntan;
+			printf("yo = %f\n", ray.yo);
 		}
 		if (ray.ra < P2 || ray.ra > P3)
 		{
-			ray.ry = (((int)game->player->pos_y / 50) * 50) + 50;
-			ray.rx = ((int)game->player->pos_y - ray.ry) * ray.ntan + (int)game->player->pos_x;
-			ray.yo = 50;
-			ray.xo = -ray.yo * ray.ntan;
+			printf("right : \n");
+			ray.rx = (((int)game->player->pos_x / 50) * 50) + 50;
+			printf("rx = %f\n", ray.rx);
+			ray.ry = (ray.rx - (int)game->player->pos_x) * ray.ntan + (int)game->player->pos_y;
+			printf("ry = %f\n", ray.ry);
+			ray.xo = 50;
+			printf("xo = %f\n", ray.xo);
+			ray.yo = ray.xo * ray.ntan;
+			printf("yo = %f\n", ray.yo);
 		}
 		if (ray.ra == 0 || ray.ra == PI)
 		{
@@ -112,7 +135,7 @@ void	draw_lines(t_game *game)
 		int start_x = (S_W - MM_S_X) + (MM_S_X / 2) - MM_SIZE;
 		int start_y = (MM_S_Y / 2) - MM_SIZE;
 		while (++u < f_dist && u < 124)
-			my_mlx_pixel_put(&game->world, start_x + 5 + (u * game->player->pdx), start_y + 5 - (u * game->player->pdy), 0x00FF00);
+			my_mlx_pixel_put(&game->world, (start_x + 5 + (u * (game->player->pdx))), start_y + 5 - (u * game->player->pdy), 0x00FF00);
 	}
 }
 
@@ -123,11 +146,11 @@ void	draw_player(t_game *game, int start_x, int start_y, int color)
 
 	i = 0;
 	for (int u = 0; u < 15; u++)
-		my_mlx_pixel_put(&game->world, start_x + 5 + (u * game->player->pdx), start_y + 5 - (u * game->player->pdy), 0x00FF00);
-	while (i < SIZE_P_Y)
+		my_mlx_pixel_put(&game->world, start_x+ (u * game->player->pdx), start_y - (u * game->player->pdy), 0xFF00FF);
+	while (i < 1)
 	{
 		j = 0;
-		while (j < SIZE_P_X)
+		while (j < 1)
 		{
 			my_mlx_pixel_put(&game->world, start_x + j, start_y + i, color);
 			j++;
@@ -208,5 +231,6 @@ void minimap(t_game *game)
 	start_y = (game->player->pos_y) - 125;
 	draw_minimap(game, start_x, start_y);
 	draw_lines(game);
-	draw_player(game, (S_W - MM_S_X) + ((MM_S_X / 2) - 5), ((MM_S_Y / 2) - 5), 0xFF0000);
+	// draw_player(game, (S_W - MM_S_X) + ((MM_S_X / 2) - 5), ((MM_S_Y / 2) - 5), 0xFF0000);
+	draw_player(game, (S_W - MM_S_X) + (MM_S_X / 2), (MM_S_Y / 2), 0xFF0000);
 }

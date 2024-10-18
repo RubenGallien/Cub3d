@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:37:51 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/14 16:52:18 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/18 12:54:12 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ int	main(int argc, char **argv, char **envp)
 
 	map = malloc(sizeof(char *) * (10 + 1));
 	map[0] = ft_strdup("1111111111");
-	map[1] = ft_strdup("1000001001");
-	map[2] = ft_strdup("100000S001");
-	map[3] = ft_strdup("1001101001");
-	map[4] = ft_strdup("1001001001");
+	map[1] = ft_strdup("1N01001001");
+	map[2] = ft_strdup("1000000001");
+	map[3] = ft_strdup("1100101001");
+	map[4] = ft_strdup("1001101001");
 	map[5] = ft_strdup("1000010011");
 	map[6] = ft_strdup("1001011011");
 	map[7] = ft_strdup("1000100001");

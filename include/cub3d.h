@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/15 12:40:49 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/18 15:04:49 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,13 @@ typedef struct s_ray
 	int	my;
 	int	mp;
 	int	dof;
-	float	atan;
-	float	ntan;
-	float	rx;
-	float	ry;
-	float	ra;
-	float	xo;
-	float	yo;
+	double	atan;
+	double	ntan;
+	double	rx;
+	double	ry;
+	double	ra;
+	double	xo;
+	double	yo;
 }				t_ray;
 
 typedef struct s_player
