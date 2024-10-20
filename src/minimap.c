@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 13:18:05 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/18 16:07:34 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/19 03:31:34 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,17 @@ void	draw_lines(t_game *game)
 	int	i;
 
 	i = 0;
-	ray.ra = to_radiant(game->player->angle);
+	ray.ra = to_radiant(game->player->angle + 30.00);
+	if (ray.ra < 0)
+		ray.ra += 2 * PI;
+	if (ray.ra > 2 * PI)
+		ray.ra -= 2 * PI;
 	ray.r = -1;
-	while (++ray.r < 1)
+	ray.rx = 0;
+	ray.ry = 0;
+	ray.xo = 0;
+	ray.yo = 0;
+	while (++ray.r < 59)
 	{
 		// horizontal line
 		printf("\nHorizontal : \n\n");
@@ -131,11 +139,16 @@ void	draw_lines(t_game *game)
 		else
 			f_dist = distance2;
 		printf("d_dist = %d\n", f_dist);
+		printf("%f\n", game->player->angle);
+		printf("%f\n", ray.ra);
 		int	u = -1;
 		int start_x = (S_W - MM_S_X) + (MM_S_X / 2) - MM_SIZE;
 		int start_y = (MM_S_Y / 2) - MM_SIZE;
+		double xx = cos(ray.ra);
+		double yy = sin(ray.ra);
 		while (++u < f_dist && u < 124)
-			my_mlx_pixel_put(&game->world, (start_x + 5 + (u * (game->player->pdx))), start_y + 5 - (u * game->player->pdy), 0x00FF00);
+			my_mlx_pixel_put(&game->world, (start_x + 5 + (u * xx)), start_y + 5 - (u * yy), 0x00FF00);
+		ray.ra -= ONE_DEGREE;
 	}
 }
 
