@@ -6,13 +6,14 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 14:27:49 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/21 18:17:07 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/22 19:17:33 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void draw_walls(double dist_t, int start, t_game *game, int color)
+
+void	draw_walls(double dist_t, int start, t_game *game, int color)
 {
 		float line_h;
 		int	width;
@@ -38,6 +39,19 @@ void draw_walls(double dist_t, int start, t_game *game, int color)
 			x++;
 		}
 }
+void	draw_gameplan(t_game *game)
+{
+	int	start;
+	int	i;
+
+	i = -1;
+	start = 0;
+	while (++i < 60)
+	{
+		draw_walls(game->ray[i].wall_height, start, game, game->ray[i].color);
+		start += S_W / FOV;
+	}
+}
 
 void	draw_lines(t_game *game)
 {
@@ -47,8 +61,8 @@ void	draw_lines(t_game *game)
 
 	dist_t = 0;
 	ray.ra = to_radiant(game->player->angle + 30.00);
-	ray.r = -1;
 	ray.rx = 0;
+	ray.r = 0;
 	ray.ry = 0;
 	ray.xo = 0;
 	ray.yo = 0;
@@ -162,5 +176,112 @@ void	draw_lines(t_game *game)
 		draw_walls(dist_t, start, game, color);
 		start += S_W / FOV;
 		ray.ra -= ONE_DEGREE;
+	}
+}
+
+int	distance_until_wall(t_game *game, int i)
+{
+	while (game->ray[i].dof < MM_SIZE)
+	{
+		game->ray[i].mx = game->ray[i].rx / 50;
+		game->ray[i].my = game->ray[i].ry / 50;
+		if (game->ray[i].mx >= 0 && game->ray[i].my >= 0 \
+		&& game->ray[i].mx < 10 && game->ray[i].my < 10 && \
+		game->map[game->ray[i].my][game->ray[i].mx] == '1')
+			game->ray[i].dof = MM_SIZE;
+		else
+		{
+			game->ray[i].rx += game->ray[i].xo;
+			game->ray[i].ry += game->ray[i].yo;
+			game->ray[i].dof += 1;
+		}
+	}
+	return (found_distance((int)game->player->pos_x, (int)game->player->pos_y,
+	game->ray[i].rx, game->ray[i].ry));
+}
+
+int	check_inter_h(t_game *game, int i)
+{
+	game->ray[i].dof = 0;
+	game->ray[i].atan = -1 / tan(game->ray[i].ra);
+	if (game->ray[i].ra < PI)
+	{
+		game->ray[i].ry = (((int)game->player->pos_y  / 50) * 50) - 1;
+		game->ray[i].rx = (game->ray[i].ry - (int)game->player->pos_y) * \
+		game->ray[i].atan + (int)game->player->pos_x;
+		game->ray[i].yo = -50;
+		game->ray[i].xo = game->ray[i].yo * game->ray[i].atan;
+	}
+	if (game->ray[i].ra > PI)
+	{
+		game->ray[i].ry = (((int)game->player->pos_y  / 50) * 50) + 50;
+		game->ray[i].rx = (game->ray[i].ry - (int)game->player->pos_y) * \
+		game->ray[i].atan + (int)game->player->pos_x;
+		game->ray[i].yo = 50;
+		game->ray[i].xo = game->ray[i].yo * game->ray[i].atan;
+	}
+	if (game->ray[i].ra == 0 || game->ray[i].ra == PI)
+	{
+		game->ray[i].rx = (int)game->player->pos_x;
+		game->ray[i].ry = (int)game->player->pos_y;
+		game->ray[i].dof = MM_SIZE;
+	}
+	return (distance_until_wall(game, i));
+}
+
+int	check_inter_v(t_game *game, int i)
+{
+	game->ray[i].dof = 0;
+	game->ray[i].ntan = -tan(game->ray[i].ra);
+	if (game->ray[i].ra > P2 && game->ray[i].ra < P3)
+	{
+		game->ray[i].rx = (((int)game->player->pos_x  / 50) * 50) - 1;
+		game->ray[i].ry = (game->ray[i].rx - (int)game->player->pos_x) * \
+		game->ray[i].ntan + (int)game->player->pos_y;
+		game->ray[i].xo = -50;
+		game->ray[i].yo = game->ray[i].xo * game->ray[i].ntan;
+	}
+	if (game->ray[i].ra < P2 || game->ray[i].ra < P3)
+	{
+		game->ray[i].rx = (((int)game->player->pos_x  / 50) * 50) + 50;
+		game->ray[i].ry = (game->ray[i].rx - (int)game->player->pos_x) * \
+		game->ray[i].ntan + (int)game->player->pos_y;
+		game->ray[i].xo = 50;
+		game->ray[i].yo = game->ray[i].xo * game->ray[i].ntan;
+	}
+	if (game->ray[i].ra == 0 || game->ray[i].ra == PI)
+	{
+		game->ray[i].rx = (int)game->player->pos_x;
+		game->ray[i].ry = (int)game->player->pos_y;
+		game->ray[i].dof = MM_SIZE;
+	}
+	return (distance_until_wall(game, i));
+}
+
+void	fill_rays_infos(t_game *game)
+{
+	int	i;
+	double ra;
+
+	i = -1;
+	ra = to_radiant(game->player->angle + 30);
+	while (++i < 60)
+	{
+		game->ray[i].ra = ra;
+		if (game->ray[i].ra < 0)
+			game->ray[i].ra += 2 * PI;
+		if (game->ray[i].ra > 2 * PI)
+			game->ray[i].ra -= 2 * PI;
+		game->ray[i].distance_h = check_inter_h(game, i);
+		game->ray[i].distance_v = check_inter_v(game, i);
+		if (game->ray[i].distance_h <= game->ray[i].distance_v)
+			game->ray[i].wall_height = game->ray[i].distance_h;
+		else
+			game->ray[i].wall_height = game->ray[i].distance_v;
+		if (game->ray[i].distance_h <= game->ray[i].distance_v)
+			game->ray[i].color = 0x800020;
+		else
+			game->ray[i].color = 0xFF0000;
+		ra -= ONE_DEGREE;
 	}
 }

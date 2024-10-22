@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/21 17:44:32 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/22 17:59:36 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,10 @@ typedef struct s_ray
 	double	ra;
 	double	xo;
 	double	yo;
+	int		distance_h;
+	int		distance_v;
+	int		wall_height;
+	int		color;
 }				t_ray;
 
 typedef struct s_player
@@ -98,13 +102,12 @@ typedef struct s_game
 	char		**map;
 	t_img		world;
 	t_player	*player;
-	// t_ray		ray[FOV];
+	t_ray		ray[FOV];
 	// t_map		info;
 }			t_game;
 
 // init
 void		init_player(t_player *player, char **map);
-void		init_ray(t_ray *ray);
 void		init_game(t_game *game, t_player *player, char **map);
 
 // events
@@ -114,12 +117,14 @@ void		move_player(t_game *game);
 
 // raycasting
 int			game_loop(t_game *game);
+void		draw_gameplan(t_game *game);
 void		draw_lines(t_game *game);
+void		fill_rays_infos(t_game *game);
 
 // utils
 double		to_radiant(double	number);
 void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
-int	found_distance(int x1, int y1, int x2, int y2);
+int			found_distance(int x1, int y1, int x2, int y2);
 
 // minimap
 void 		minimap(t_game *game);
