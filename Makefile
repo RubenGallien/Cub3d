@@ -6,7 +6,7 @@
 #    By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/02 14:25:51 by lvicino           #+#    #+#              #
-#    Updated: 2024/10/16 17:35:15 by lvicino          ###   ########.fr        #
+#    Updated: 2024/10/22 15:30:49 by lvicino          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,8 +47,10 @@ EXEC_DIR	=	src/exec
 
 EXEC		=	events.c \
 				init.c \
-				raycasting.c \
+				loop.c \
 				utils.c \
+				raycasting.c \
+				minimap.c
 
 EXEC		:=	$(EXEC:%=$(EXEC_DIR)/%)
 EXEC_OBJ	=	$(EXEC:$(EXEC_DIR)/%.c=$(BUILD_DIR)/%.o)

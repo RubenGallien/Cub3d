@@ -5,108 +5,162 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/30 18:12:05 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/10 18:12:01 by lvicino          ###   ########.fr       */
+/*   Created: 2024/10/21 14:27:49 by rgallien          #+#    #+#             */
+/*   Updated: 2024/10/22 15:35:14 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	draw_player(t_game *game, int start_x, int start_y, int color)
+void draw_walls(double dist_t, int start, t_game *game, int color)
 {
-	int	i;
-	int	j;
+		float line_h;
+		int	width;
+		int	x;
+		int	y;
 
-	i = 0;
-	for (int z = 0; z < 2; z++)
-	{
-		for (int u = 0; u < 15; u++)
-			my_mlx_pixel_put(&game->world, start_x + 5 + u, start_y + 4 + z, 0x00FF00);
-	}
-	while (i < SIZE_P_Y)
-	{
-		j = 0;
-		while (j < SIZE_P_X)
+		x = 0;
+		line_h = 32 * S_W / dist_t;
+		if (line_h > S_H)
+			line_h = S_H;
+		width = S_W / FOV;
+		while (x < width)
 		{
-			my_mlx_pixel_put(&game->world, start_x + j, start_y + i, color);
-			j++;
+			y = 0;
+			while (y < S_H)
+			{
+				if (y < (S_H - (int)line_h) / 2 || y > (S_H - (S_H - (int)line_h) / 2))
+					my_mlx_pixel_put(&game->world, x + start, y, 0x000000);
+				else
+					my_mlx_pixel_put(&game->world, x + start, y, color);
+				y++;
+			}
+			x++;
 		}
-		i++;
-	}
-
 }
 
-void	draw_wall(t_game *game, int start_x, int start_y, int color)
+void	draw_lines(t_game *game)
 {
-	int	i;
-	int	j;
-	int	save;
+	t_ray ray;
+	double dist_t;
+	int	start = 0;
 
-	i = 0;
-	save = color;
-	while (i < MM_TILE_Y - (game->player->pos_y % MM_TILE_Y))
+	dist_t = 0;
+	ray.ra = to_radiant(game->player->angle + 30.00);
+	ray.r = -1;
+	ray.rx = 0;
+	ray.ry = 0;
+	ray.xo = 0;
+	ray.yo = 0;
+	while (++ray.r < 60)
 	{
-		j = 0;
-		while (j < MM_TILE_X - (game->player->pos_x % MM_TILE_X))
+		if (ray.ra < 0)
+			ray.ra += 2 * PI;
+		if (ray.ra > 2 * PI)
+			ray.ra -= 2 * PI;
+		// horizontal line
+		ray.dof = 0;
+		ray.atan = -1 / tan(ray.ra);
+		if (ray.ra < PI)
 		{
-			if (i == 0 || j == 0)
-				color = 0x000000;
+			// haut
+			ray.ry = (((int)game->player->pos_y / 50) * 50) - 1;
+			ray.rx = (ray.ry - (int)game->player->pos_y) * ray.atan + (int)game->player->pos_x;
+			ray.yo = -50;
+			ray.xo = ray.yo * ray.atan;
+		}
+		if (ray.ra > PI)
+		{
+			// bas
+			ray.ry = (((int)game->player->pos_y / 50) * 50) + 50;
+			ray.rx = (ray.ry - (int)game->player->pos_y) * ray.atan + (int)game->player->pos_x;
+			ray.yo = 50;
+			ray.xo = ray.yo * ray.atan;
+		}
+		if (ray.ra == 0 || ray.ra == PI)
+		{
+			ray.rx = (int)game->player->pos_x;
+			ray.ry = (int)game->player->pos_y;
+			ray.dof = MM_SIZE;
+		}
+		while (ray.dof < MM_SIZE)
+		{
+			ray.mx = ray.rx / 50;
+			ray.my = ray.ry / 50;
+			if (ray.mx >= 0 && ray.my >= 0 && ray.mx < 10 && ray.my < 10 && game->map[ray.my][ray.mx] == '1')
+				ray.dof = MM_SIZE;
 			else
-				color = save;
-			my_mlx_pixel_put(&game->world, start_x + j, start_y + i, color);
-			j++;
+			{
+				ray.rx += ray.xo;
+				ray.ry += ray.yo;
+				ray.dof += 1;
+			}
 		}
-		i++;
-	}
-}
-
-void	draw_minimap(t_game *game, int start_x, int start_y)
-{
-	int	y;
-	int	x;
-
-	y = -1;
-	while (++y < MM_S_X)
-	{
-		x = -1;
-		while (++x < MM_S_Y)
+		int	distance;
+		distance = found_distance((int)game->player->pos_x, (int)game->player->pos_y, ray.rx, ray.ry);
+		// vertical lines
+		ray.dof = 0;
+		ray.ntan = -tan(ray.ra);
+		if (ray.ra > P2 && ray.ra < P3)
 		{
-			if (start_x + x < 0 || start_y + y < 0 || (start_y + y) / MM_TILE_Y < 0 || \
-			(start_x + x) / MM_TILE_X < 0 || (start_y + y) / MM_TILE_Y > game->y - 1 || (start_x + x) / MM_TILE_X > game->x - 1 || !game->map[(start_y + y) / MM_TILE_Y][(start_x + x) / MM_TILE_X])
-				my_mlx_pixel_put(&game->world, (S_W - MM_S_X) + x, y, 0x000000);
-			else if ((start_x + x) % MM_TILE_X == 0 || (start_y + y) % MM_TILE_Y == 0)
-				my_mlx_pixel_put(&game->world, (S_W - MM_S_X) + x, y, 0x000000);
-			else if (game->map[(start_y + y) / MM_TILE_Y][(start_x + x) / MM_TILE_X] == '1')
-				my_mlx_pixel_put(&game->world, (S_W - MM_S_X) + x, y, 0x0000FF);
-			else if (game->map[(start_y + y) / MM_TILE_Y][(start_x + x) / MM_TILE_X] == '0' \
-			|| game->map[(start_y + y) / MM_TILE_Y][(start_x + x) / MM_TILE_X] == 'N' || \
-			game->map[(start_y + y) / MM_TILE_Y][(start_x + x) / MM_TILE_X] == 'S' || \
-			game->map[(start_y + y) / MM_TILE_Y][(start_x + x) / MM_TILE_X] == 'W' || \
-			game->map[(start_y + y) / MM_TILE_Y][(start_x + x) / MM_TILE_X] == 'E')
-				my_mlx_pixel_put(&game->world, (S_W - MM_S_X) + x, y, 0x9e9494);
+			// left
+			ray.rx = (((int)game->player->pos_x / 50) * 50) - 1;
+			ray.ry = (ray.rx - (int)game->player->pos_x) * ray.ntan + (int)game->player->pos_y;
+			ray.xo = -50;
+			ray.yo = ray.xo * ray.ntan;
 		}
+		if (ray.ra < P2 || ray.ra > P3)
+		{
+			// right
+			ray.rx = (((int)game->player->pos_x / 50) * 50) + 50;
+			ray.ry = (ray.rx - (int)game->player->pos_x) * ray.ntan + (int)game->player->pos_y;
+			ray.xo = 50;
+			ray.yo = ray.xo * ray.ntan;
+		}
+		if (ray.ra == 0 || ray.ra == PI)
+		{
+			ray.rx = (int)game->player->pos_x;
+			ray.ry = (int)game->player->pos_y;
+			ray.dof = MM_SIZE;
+		}
+		while (ray.dof < MM_SIZE)
+		{
+			ray.mx = ray.rx / 50;
+			ray.my = ray.ry / 50;
+			if (ray.mx >= 0 && ray.my >= 0 && ray.mx < 10 && ray.my < 10 && game->map[ray.my][ray.mx] == '1')
+				ray.dof = MM_SIZE;
+			else
+			{
+				ray.rx += ray.xo;
+				ray.ry += ray.yo;
+				ray.dof += 1;
+			}
+		}
+		int	distance2;
+		int	color;
+		distance2 = found_distance((int)game->player->pos_x, (int)game->player->pos_y, ray.rx, ray.ry);
+		int	f_dist;
+		if (distance <= distance2)
+		{
+			f_dist = distance;
+			dist_t = distance;
+			color = 0x800020;
+		}
+		else
+		{
+			dist_t = distance2;
+			f_dist = distance2;
+			color = 0xFF0000;
+		}
+		int	u = -1;
+		int start_x = (S_W - MM_S_X) + (MM_S_X / 2) - MM_SIZE;
+		int start_y = (MM_S_Y / 2) - MM_SIZE;
+		double xx = cos(ray.ra);
+		double yy = sin(ray.ra);
+		while (++u < f_dist && u < 124)
+			my_mlx_pixel_put(&game->world, (start_x + 5 + (u * xx)), start_y + 5 - (u * yy), 0x00FF00);
+		draw_walls(dist_t, start, game, color);
+		start += S_W / FOV;
+		ray.ra -= ONE_DEGREE;
 	}
-}
-
-void minimap(t_game *game)
-{
-	int	start_x;
-	int	start_y;
-
-	start_x = (game->player->pos_x) - 120;
-	start_y = (game->player->pos_y) - 120;
-	draw_minimap(game, start_x, start_y);
-	draw_player(game, (S_W - MM_S_X) + (MM_S_X / 2) - MM_SIZE, (MM_S_Y / 2) - MM_SIZE, 0xFF0000);
-}
-
-int	game_loop(t_game *game)
-{
-	if (game->mlx_win && !game->tick)
-	{
-		move_player(game);
-		minimap(game);
-		mlx_put_image_to_window(game->mlx, game->mlx_win, game->world.img, 0, 0);
-	}
-	game->tick = (game->tick + 1) % (300000 / SPEED);
-	return (0);
 }

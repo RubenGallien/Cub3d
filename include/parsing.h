@@ -6,12 +6,14 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:57:14 by lvicino           #+#    #+#             */
-/*   Updated: 2024/10/22 15:25:10 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/10/22 15:44:09 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
+
+# include "cub3d.h"
 
 /*Map errors*/
 # define CUB_ER "Map description file needs to end with the '.cub' extension\n"
@@ -24,6 +26,7 @@
 # define MULTI_DEF_ER "Element defined multiple times\n"
 # define RGB_ER "Wrong R,G,B values\n"
 # define NDEF_ER "Missing element definition\n"
+
 
 /*Check map fonctions*/
 int		parsing(int ac, char **av, t_map *info);
