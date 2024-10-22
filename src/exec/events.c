@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:13:17 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/08 14:23:38 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/10 21:26:33 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,22 @@ int	on_keypress(int keysym, t_game *game)
 		mlx_destroy_window(game->mlx, game->mlx_win);
 		game->mlx_win = NULL;
 	}
-	else if (keysym == 119)
+	else if (keysym == XK_w)
 	{
 		game->player->up = 1;
 		game->player->down = 0;
 	}
-	else if (keysym == 115)
+	else if (keysym == XK_s)
 	{
 		game->player->down = 1;
 		game->player->up = 0;
 	}
-	else if (keysym == 100)
+	else if (keysym == XK_d)
 	{
 		game->player->right = 1;
 		game->player->left = 0;
 	}
-	else if (keysym == 97)
+	else if (keysym == XK_a)
 	{
 		game->player->left = 1;
 		game->player->right = 0;

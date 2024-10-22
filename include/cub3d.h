@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/08 17:29:35 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/10/21 12:17:57 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@
 # include <string.h>
 # include <fcntl.h>
 
-#define FOV	60
+#define FOV 60
 #define SPEED 100
-#define PI	3.14159265359
+#define PI 3.14159265359
 #define S_W 1920
 #define S_H 1080
 
@@ -43,28 +43,24 @@
 
 typedef struct s_map
 {
-	char	*no;
-	char	*so;
-	char	*ea;
-	char	*we;
-	int		f[3];
-	int		c[3];
 	char	*seed;
 	char	**map;
+	char	**texture;
+	int		colour[2];
 	int		x_max;
 	int		y_max;
 }			t_map;
 
 typedef struct s_img
 {
-	void				*img;
-	unsigned char		*pixels;
-	int					line_length;
-	int					bits_per_pixel;
-	int					endian;
-	int					height;
-	int					width;
-}						t_img;
+	void			*img;
+	unsigned char	*pixels;
+	int				line_length;
+	int				bits_per_pixel;
+	int				endian;
+	int				height;
+	int				width;
+}					t_img;
 
 typedef struct s_ray
 {
@@ -75,16 +71,16 @@ typedef struct s_player
 {
 	float	pdx;
 	float	pdy;
-	int pos_x;
-	int pos_y;
-	float angle;
-	char pos;
-	int left;
-	int	left_r;
-	int up;
-	int down;
-	int right;
-	int	right_r;
+	int		pos_x;
+	int		pos_y;
+	float	angle;
+	char	pos;
+	int		left;
+	int		left_r;
+	int		up;
+	int		down;
+	int		right;
+	int		right_r;
 }				t_player;
 
 typedef struct s_game
@@ -94,29 +90,30 @@ typedef struct s_game
 	void		*mlx;
 	void		*mlx_win;
 	char		**map;
+	int			tick;
 	t_img		world;
 	t_player	*player;
 	t_ray		*ray;
 	t_map		info;
-}			t_game;
+}				t_game;
 
 # include "parsing.h"
 
 // init
-void		init_player(t_player *player, char **map);
-void		init_ray(t_ray *ray);
-void		init_game(t_game *game, t_player *player, t_ray *ray, char **map);
+void	init_player(t_player *player, char **map);
+void	init_ray(t_ray *ray);
+void	init_game(t_game *game, t_player *player, t_ray *ray, char **map);
 
 // events
-int			on_keypress(int keysym, t_game *game);
-int			on_keyrelease(int keysym, t_game *game);
-void		move_player(t_game *game);
+int		on_keypress(int keysym, t_game *game);
+int		on_keyrelease(int keysym, t_game *game);
+void	move_player(t_game *game);
 // raycasting
-int			game_loop(t_game *game);
-void 		minimap(t_game *game);
+int		game_loop(t_game *game);
+void 	minimap(t_game *game);
 
 // utils
-double		to_radiant(unsigned long	number);
-void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
+double	to_radiant(unsigned long	number);
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 
 #endif

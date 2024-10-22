@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:37:51 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/08 17:29:46 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/10/09 14:19:12 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,10 @@ int	main(int argc, char **argv, char **envp)
 	map[8] = ft_strdup("1000000000000000001");
 	map[9] = ft_strdup("1111111111111111111");
 	map[10] = NULL;
-	(void)argc;
-	(void)argv;
 	(void)envp;
-	if (!parsing(argc, argv, &game))
+	if (!parsing(argc, argv, &(game.info)))
 		return (1);
+	game.tick = 0;
 	init_player(&player, map);
 	// init_ray(&ray);
 	init_game(&game, &player, &ray, map);
