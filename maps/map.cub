@@ -1,11 +1,11 @@
 
-NO ./hoho
+NO ./textures/north
 
-               SO            ./hihi
+               SO            ./textures/south
 
-        EA           ./world
+        EA           ./textures/east
 
-WE           ./hello
+WE           ./textures/west
 
                        F 0,255,0
 

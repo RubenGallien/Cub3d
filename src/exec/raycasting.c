@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 14:27:49 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/22 15:35:14 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/10/22 16:39:31 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void draw_walls(double dist_t, int start, t_game *game, int color)
 		int	y;
 
 		x = 0;
-		line_h = 32 * S_W / dist_t;
+		line_h = 16 * S_W / dist_t;
 		if (line_h > S_H)
 			line_h = S_H;
 		width = S_W / FOV;
@@ -46,13 +46,13 @@ void	draw_lines(t_game *game)
 	int	start = 0;
 
 	dist_t = 0;
-	ray.ra = to_radiant(game->player->angle + 30.00);
+	ray.ra = to_radiant(game->player->angle + FOV / 2);
 	ray.r = -1;
 	ray.rx = 0;
 	ray.ry = 0;
 	ray.xo = 0;
 	ray.yo = 0;
-	while (++ray.r < 60)
+	while (++ray.r < FOV)
 	{
 		if (ray.ra < 0)
 			ray.ra += 2 * PI;

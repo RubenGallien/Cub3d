@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 17:32:21 by lvicino           #+#    #+#             */
-/*   Updated: 2024/10/22 15:27:33 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/10/23 18:55:50 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,14 @@ int	ft_hextoi(char *hex)
 	return (nb);
 }
 
-void	ft_rgbtohex(unsigned char *rgb, char *hex)
+void	ft_rgbtohex(int *rgb, char *hex)
 {
 	static char	base[] = {"0123456789ABCDEF"};
 	int			i;
 	int			j;
 	int			k;
 
-	i = 6;
+	i = 5;
 	k = 3;
 	while (--k >= 0)
 	{
@@ -71,9 +71,9 @@ int	ft_rgbtoi(char **rgb, int	*colour)
 			return (ft_free_str(rgb, 3), ft_werror(RGB_ER), 0);
 	}
 	hex[6] = 0;
-	ft_rgbtohex((unsigned char *)tab, hex);
+	ft_rgbtohex(tab, hex);
 	*colour = ft_hextoi(hex);
-	return (1);
+	return (ft_free_str(rgb, 3), 1);
 }
 
 int	get_colour(char *s, int *colour)
@@ -83,6 +83,8 @@ int	get_colour(char *s, int *colour)
 	int			j;
 
 	rgb = ft_split(s, ',');
+	if (s)
+		free(s);
 	if (!rgb)
 		return (0);
 	i = 0;

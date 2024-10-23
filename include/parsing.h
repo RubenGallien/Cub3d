@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:57:14 by lvicino           #+#    #+#             */
-/*   Updated: 2024/10/22 15:44:09 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/10/23 18:17:29 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,18 @@
 # define RGB_ER "Wrong R,G,B values\n"
 # define NDEF_ER "Missing element definition\n"
 
+typedef struct s_map
+{
+	char	*seed;
+	char	**map;
+	char	**texture;
+	int		colour[2];
+	int		x_max;
+	int		y_max;
+}			t_map;
+
+/*Parsing*/
+int		parsing(int ac, char **av, t_map *info);
 
 /*Check map fonctions*/
 int		parsing(int ac, char **av, t_map *info);
@@ -37,6 +49,7 @@ int		check_map(t_map *info);
 
 /*Utils*/
 void	ft_werror(char *error);
+void	ft_free_info(t_map *info);
 void	ft_free_str(char **str, int str_ln);
 
 #endif

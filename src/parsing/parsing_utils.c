@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 00:10:14 by lvicino           #+#    #+#             */
-/*   Updated: 2024/10/16 17:02:19 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/10/23 18:15:56 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,21 @@ void	ft_free_str(char **str, int str_ln)
 	}
 	if (str)
 		free(str);
+}
+
+void	ft_free_info(t_map *info)
+{
+	int	i;
+
+	if (info->seed)
+		free(info->seed);
+	if (info->map)
+	{
+		i = 0;
+		while (info->map[i])
+			i++;
+		ft_free_str(info->map, i);
+	}
+	if (info->texture)
+		ft_free_str(info->texture, 4);
 }

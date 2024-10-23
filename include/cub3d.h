@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/22 15:54:05 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/10/22 16:37:14 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # include <fcntl.h>
 
 #define SPEED 100
-#define FOV	60
+#define FOV	90
 #define EPSILON 0.0001
 #define ONE_DEGREE 0.0174533
 #define PI	3.14159265359
@@ -45,15 +45,15 @@
 #define SIZE_P_X (MM_TILE_X / 5)
 #define SIZE_P_Y (MM_TILE_Y / 5)
 
-typedef struct s_map
-{
-	char	*seed;
-	char	**map;
-	char	**texture;
-	int		colour[2];
-	int		x_max;
-	int		y_max;
-}			t_map;
+// typedef struct s_map
+// {
+// 	char	*seed;
+// 	char	**map;
+// 	char	**texture;
+// 	int		colour[2];
+// 	int		x_max;
+// 	int		y_max;
+// }			t_map;
 
 # include "parsing.h"
 
@@ -137,6 +137,6 @@ int		found_distance(int x1, int y1, int x2, int y2);
 void 	minimap(t_game *game);
 
 /*Parsing*/
-int		parsing(int ac, char **av, t_map *info);
+// int		parsing(int ac, char **av, t_map *info);
 
 #endif

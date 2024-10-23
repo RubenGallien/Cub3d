@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 13:18:05 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/22 15:52:52 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/10/22 15:58:53 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	draw_player(t_game *game, int start_x, int start_y, int color)
 		}
 		i++;
 	}
-
 }
 
 void	draw_wall(t_game *game, int start_x, int start_y, int color)

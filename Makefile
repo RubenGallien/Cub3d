@@ -6,7 +6,7 @@
 #    By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/02 14:25:51 by lvicino           #+#    #+#              #
-#    Updated: 2024/10/22 15:30:49 by lvicino          ###   ########.fr        #
+#    Updated: 2024/10/22 16:14:05 by lvicino          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ MAIN_DEP	=	$(MAIN_OBJ:$(BUILD_DIR)/%.o=$(BUILD_DIR)/%.d)
 PARSING_DIR	=	src/parsing
 
 PARSING		=	parsing.c \
-				utils.c \
+				parsing_utils.c \
 				check_texture.c \
 				rgb.c \
 				map.c

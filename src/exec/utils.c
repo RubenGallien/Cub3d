@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 20:42:34 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/15 11:38:20 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/22 15:59:13 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <math.h>
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
