@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/22 17:59:36 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/23 19:22:38 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,14 +118,13 @@ void		move_player(t_game *game);
 // raycasting
 int			game_loop(t_game *game);
 void		draw_gameplan(t_game *game);
-void		draw_lines(t_game *game);
 void		fill_rays_infos(t_game *game);
 
 // utils
 double		to_radiant(double	number);
 void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
 int			found_distance(int x1, int y1, int x2, int y2);
-
+int			to_degrees(double	number);
 // minimap
 void 		minimap(t_game *game);
 

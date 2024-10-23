@@ -6,11 +6,29 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 13:18:05 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/22 17:25:13 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/23 19:25:13 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	draw_fov_line_mm(t_game *game)
+{
+		int start_x;
+		int start_y;
+		int	i;
+		int	l;
+
+		i = -1;
+		start_x = (S_W - MM_S_X) + (MM_S_X / 2) - MM_SIZE;
+		start_y = (MM_S_Y / 2) - MM_SIZE;
+		while (++i < FOV)
+		{
+				l = -1;
+				while (++l < game->ray[i].wall_height && l < 124)
+					my_mlx_pixel_put(&game->world, start_x + 5 + (l * cos(game->ray[i].ra)), start_y + 5 - (l * sin(game->ray[i].ra)), 0xd9d509);
+		}
+}
 
 void	draw_player(t_game *game, int start_x, int start_y, int color)
 {
@@ -77,5 +95,5 @@ void minimap(t_game *game)
 	start_y = (game->player->pos_y) - 125;
 	draw_minimap(game, start_x, start_y);
 	draw_player(game, (S_W - MM_S_X) + (MM_S_X / 2), (MM_S_Y / 2), 0xFF0000);
-	// draw_lines(game);
+	draw_fov_line_mm(game);
 }
