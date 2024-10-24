@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 12:27:54 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/27 13:47:40 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/24 12:53:34 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <unistd.h>
 # include <stdarg.h>
+
 int		ft_printf(const char *fmt, ...);
 void	ft_put_unbr(unsigned int n, int *ln);
 void	ft_put_ulhex(unsigned long nb, int *ln);

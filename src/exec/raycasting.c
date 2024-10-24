@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 14:27:49 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/23 19:58:55 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/24 17:04:49 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,7 @@ void	draw_walls(double dist_t, int start, t_game *game, int color)
 			y = 0;
 			while (y < S_H)
 			{
-				if ((!x || !y || x == width || y == (S_H - (int)line_h) / 2 || y == (S_H - (S_H - (int)line_h) / 2)) && \
-				((y > (S_H - (int)line_h) / 2 && (y < (S_H - (S_H - (int)line_h) / 2)))))
-					my_mlx_pixel_put(&game->world, x + start, y, 0x000000);
-				else if (y < (S_H - (int)line_h) / 2)
+				if (y < (S_H - (int)line_h) / 2)
 					my_mlx_pixel_put(&game->world, x + start, y, 0x0000FF);
 				else if (y > (S_H - (S_H - (int)line_h) / 2))
 					my_mlx_pixel_put(&game->world, x + start, y, 0x00FF00);
@@ -44,6 +41,7 @@ void	draw_walls(double dist_t, int start, t_game *game, int color)
 			x++;
 		}
 }
+
 void	draw_gameplan(t_game *game)
 {
 	int	start;
@@ -159,11 +157,16 @@ void	fill_rays_infos(t_game *game)
 			game->ray[i].ra -= 2 * PI;
 		game->ray[i].distance_h = check_inter_h(game, i);
 		game->ray[i].distance_v = check_inter_v(game, i);
+		if (i == 59)
+		{
+			printf("h = %d\n", game->ray[i].distance_h);
+			printf("v = %d\n", game->ray[i].distance_v);
+		}
 		if (game->ray[i].distance_h <= game->ray[i].distance_v)
 			game->ray[i].wall_height = game->ray[i].distance_h;
 		if (game->ray[i].distance_v < game->ray[i].distance_h)
 			game->ray[i].wall_height = game->ray[i].distance_v;
-		if (game->ray[i].distance_v <= game->ray[i].distance_h)
+		if (game->ray[i].distance_v + 1 < game->ray[i].distance_h)
 			game->ray[i].color = 0x940303;
 		else
 			game->ray[i].color = 0xFF0000;

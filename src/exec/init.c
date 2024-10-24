@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:14:12 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/23 19:22:36 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/24 14:05:14 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	init_game(t_game *game, t_player *player, char **map)
 	game->mlx = mlx_init();
 	game->mlx_win = mlx_new_window(game->mlx, S_W, S_H, "Welcome to Cub3D");
 	game->player = player;
-	ft_bzero(game->ray, sizeof(t_ray) * FOV);
 	game->world.img = mlx_new_image(game->mlx, S_W, S_H);
 	game->world.pixels = (unsigned char *)mlx_get_data_addr\
 	(game->world.img, &game->world.bits_per_pixel, \

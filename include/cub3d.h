@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/23 19:22:38 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/24 16:32:15 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,24 +27,23 @@
 # include <math.h>
 # include <string.h>
 
-#define EPSILON 0.0001
-#define ONE_DEGREE 0.0174533
-#define FOV	60
-#define SPEED 100
-#define PI	3.14159265359
-#define P2	(PI / 2)
-#define P3	(3 * PI / 2)
-#define S_W 1920
-#define S_H 1080
+# define EPSILON 0.0001
+# define ONE_DEGREE 0.0174533
+# define FOV	60
+# define SPEED 100
+# define PI	3.14159265359
+# define P2	(PI / 2)
+# define P3	(3 * PI / 2)
+# define S_W 1920
+# define S_H 1080
+# define MM_S_X 250
+# define MM_S_Y 250
+# define MM_SIZE 5
+# define MM_TILE_X (MM_S_X / MM_SIZE)
+# define MM_TILE_Y (MM_S_Y / MM_SIZE)
 
-#define MM_S_X 250
-#define MM_S_Y 250
-#define MM_SIZE 5
-#define MM_TILE_X (MM_S_X / MM_SIZE)
-#define MM_TILE_Y (MM_S_Y / MM_SIZE)
-
-#define SIZE_P_X (MM_TILE_X / 5)
-#define SIZE_P_Y (MM_TILE_Y / 5)
+# define SIZE_P_X (MM_TILE_X / 5)
+# define SIZE_P_Y (MM_TILE_Y / 5)
 
 typedef struct s_img
 {
@@ -59,11 +58,11 @@ typedef struct s_img
 
 typedef struct s_ray
 {
-	int	r;
-	int	mx;
-	int	my;
-	int	mp;
-	int	dof;
+	int		r;
+	int		mx;
+	int		my;
+	int		mp;
+	int		dof;
 	double	atan;
 	double	ntan;
 	double	rx;
@@ -81,16 +80,16 @@ typedef struct s_player
 {
 	double	pdx;
 	double	pdy;
-	double pos_x;
-	double pos_y;
-	double angle;
-	char pos;
-	int left;
-	int	left_r;
-	int up;
-	int down;
-	int right;
-	int	right_r;
+	double	pos_x;
+	double	pos_y;
+	double	angle;
+	char	pos;
+	int		left;
+	int		left_r;
+	int		up;
+	int		down;
+	int		right;
+	int		right_r;
 }				t_player;
 
 typedef struct s_game
@@ -103,7 +102,6 @@ typedef struct s_game
 	t_img		world;
 	t_player	*player;
 	t_ray		ray[FOV];
-	// t_map		info;
 }			t_game;
 
 // init
@@ -114,6 +112,7 @@ void		init_game(t_game *game, t_player *player, char **map);
 int			on_keypress(int keysym, t_game *game);
 int			on_keyrelease(int keysym, t_game *game);
 void		move_player(t_game *game);
+int			ft_exit(t_game *game);
 
 // raycasting
 int			game_loop(t_game *game);
@@ -121,11 +120,12 @@ void		draw_gameplan(t_game *game);
 void		fill_rays_infos(t_game *game);
 
 // utils
-double		to_radiant(double	number);
+double		to_radiant(double number);
 void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
-int			found_distance(int x1, int y1, int x2, int y2);
-int			to_degrees(double	number);
+double			found_distance(int x1, int y1, int x2, int y2);
+int			to_degrees(double number);
+
 // minimap
-void 		minimap(t_game *game);
+void		minimap(t_game *game);
 
 #endif
