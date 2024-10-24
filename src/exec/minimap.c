@@ -6,11 +6,29 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 13:18:05 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/22 15:58:53 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/10/24 12:21:57 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	draw_fov_line_mm(t_game *game)
+{
+		int start_x;
+		int start_y;
+		int	i;
+		int	l;
+
+		i = -1;
+		start_x = (S_W - MM_S_X) + (MM_S_X / 2) - MM_SIZE;
+		start_y = (MM_S_Y / 2) - MM_SIZE;
+		while (++i < FOV)
+		{
+				l = -1;
+				while (++l < game->ray[i].wall_height && l < 124)
+					my_mlx_pixel_put(&game->world, start_x + 5 + (l * cos(game->ray[i].ra)), start_y + 5 - (l * sin(game->ray[i].ra)), 0xd9d509);
+		}
+}
 
 void	draw_player(t_game *game, int start_x, int start_y, int color)
 {
@@ -32,63 +50,36 @@ void	draw_player(t_game *game, int start_x, int start_y, int color)
 	}
 }
 
-void	draw_wall(t_game *game, int start_x, int start_y, int color)
-{
-	int	i;
-	int	j;
-	int	save;
-
-	i = 0;
-	save = color;
-	while (i < MM_TILE_Y - ((int)game->player->pos_y % MM_TILE_Y))
-	{
-		j = 0;
-		while (j < MM_TILE_X - ((int)game->player->pos_x % MM_TILE_X))
-		{
-			if (i == 0 || j == 0)
-				color = 0x000000;
-			else
-				color = save;
-			my_mlx_pixel_put(&game->world, start_x + j, start_y + i, color);
-			j++;
-		}
-		i++;
-	}
-}
-
 void	draw_minimap(t_game *game, int start_x, int start_y)
 {
 	int	y;
 	int	x;
-	int	radius = 125; // Rayon du cercle
+	int	radius = 125;
 
-	// Coordonnées du centre du cercle
 	int	center_x = MM_S_X / 2;
 	int	center_y = MM_S_Y / 2;
 
 	y = -1;
-	while (++y < MM_S_Y) // Parcours des pixels en hauteur
+	while (++y < MM_S_Y)
 	{
 		x = -1;
-		while (++x < MM_S_X) // Parcours des pixels en largeur
+		while (++x < MM_S_X)
 		{
-			// Calcul de la distance au centre du cercle
 			if ((x - center_x) * (x - center_x) + (y - center_y) * (y - center_y) <= radius * radius)
 			{
-				// Vérification des limites de la map et dessin des pixels selon la logique des tuiles
 				if (start_x + x < 0 || start_y + y < 0 || (start_y + y) / MM_TILE_Y < 0 || \
 				(start_x + x) / MM_TILE_X < 0 || (start_y + y) / MM_TILE_Y > game->y - 1 || (start_x + x) / MM_TILE_X > game->x - 1 || !game->map[(start_y + y) / MM_TILE_Y][(start_x + x) / MM_TILE_X])
-					my_mlx_pixel_put(&game->world, (S_W - MM_S_X) + x, y, 0x000000); // Hors limite ou mur
+					my_mlx_pixel_put(&game->world, (S_W - MM_S_X) + x, y, 0x000000);
 				else if ((start_x + x) % MM_TILE_X == 0 || (start_y + y) % MM_TILE_Y == 0)
-					my_mlx_pixel_put(&game->world, (S_W - MM_S_X) + x, y, 0x000000); // Ligne de la grille
+					my_mlx_pixel_put(&game->world, (S_W - MM_S_X) + x, y, 0x000000);
 				else if (game->map[(start_y + y) / MM_TILE_Y][(start_x + x) / MM_TILE_X] == '1')
-					my_mlx_pixel_put(&game->world, (S_W - MM_S_X) + x, y, 0x0000FF); // Mur
+					my_mlx_pixel_put(&game->world, (S_W - MM_S_X) + x, y, 0x0000FF);
 				else if (game->map[(start_y + y) / MM_TILE_Y][(start_x + x) / MM_TILE_X] == '0' \
 				|| game->map[(start_y + y) / MM_TILE_Y][(start_x + x) / MM_TILE_X] == 'N' || \
 				game->map[(start_y + y) / MM_TILE_Y][(start_x + x) / MM_TILE_X] == 'S' || \
 				game->map[(start_y + y) / MM_TILE_Y][(start_x + x) / MM_TILE_X] == 'W' || \
 				game->map[(start_y + y) / MM_TILE_Y][(start_x + x) / MM_TILE_X] == 'E')
-					my_mlx_pixel_put(&game->world, (S_W - MM_S_X) + x, y, 0x9e9494); // Sol ou direction
+					my_mlx_pixel_put(&game->world, (S_W - MM_S_X) + x, y, 0x9e9494);
 			}
 		}
 	}
@@ -102,7 +93,6 @@ void minimap(t_game *game)
 	start_x = (game->player->pos_x) - 125;
 	start_y = (game->player->pos_y) - 125;
 	draw_minimap(game, start_x, start_y);
-	draw_lines(game);
-	// draw_player(game, (S_W - MM_S_X) + ((MM_S_X / 2) - 5), ((MM_S_Y / 2) - 5), 0xFF0000);
 	draw_player(game, (S_W - MM_S_X) + (MM_S_X / 2), (MM_S_Y / 2), 0xFF0000);
+	draw_fov_line_mm(game);
 }

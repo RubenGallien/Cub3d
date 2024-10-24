@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/22 16:37:14 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/10/24 12:24:22 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,6 @@
 #define SIZE_P_X (MM_TILE_X / 5)
 #define SIZE_P_Y (MM_TILE_Y / 5)
 
-// typedef struct s_map
-// {
-// 	char	*seed;
-// 	char	**map;
-// 	char	**texture;
-// 	int		colour[2];
-// 	int		x_max;
-// 	int		y_max;
-// }			t_map;
-
 # include "parsing.h"
 
 typedef struct s_img
@@ -82,6 +72,10 @@ typedef struct s_ray
 	double	ra;
 	double	xo;
 	double	yo;
+	int		distance_h;
+	int		distance_v;
+	int		wall_height;
+	int		color;
 }				t_ray;
 
 typedef struct s_player
@@ -110,14 +104,13 @@ typedef struct s_game
 	int			tick;
 	t_img		world;
 	t_player	*player;
+	t_ray		ray[FOV];
 	t_map		info;
-	// t_ray		ray[FOV];
 }			t_game;
 
 // init
-void	init_player(t_player *player, char **map);
-void	init_ray(t_ray *ray);
-void	init_game(t_game *game, t_player *player, char **map);
+void		init_player(t_player *player, char **map);
+void		init_game(t_game *game, t_player *player, char **map);
 
 // events
 int		on_keypress(int keysym, t_game *game);
@@ -125,14 +118,15 @@ int		on_keyrelease(int keysym, t_game *game);
 void	move_player(t_game *game);
 
 // raycasting
-int		game_loop(t_game *game);
-void	draw_lines(t_game *game);
+int			game_loop(t_game *game);
+void		draw_gameplan(t_game *game);
+void		fill_rays_infos(t_game *game);
 
 // utils
-double	to_radiant(double	number);
-void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
-int		found_distance(int x1, int y1, int x2, int y2);
-
+double		to_radiant(double	number);
+void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
+int			found_distance(int x1, int y1, int x2, int y2);
+int			to_degrees(double	number);
 // minimap
 void 	minimap(t_game *game);
 
