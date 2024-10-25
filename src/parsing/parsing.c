@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:31:25 by lvicino           #+#    #+#             */
-/*   Updated: 2024/10/23 18:44:02 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/10/25 13:56:37 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,14 @@
 int	get_seed(t_map *info, char *str)
 {
 	char	*tmp;
+	int		ln;
 
-	info->y_max++;
+	ln = ft_strlen(str);
+	if (ln > info->ln_x && ln && str[ln - 1] == '\n')
+		info->ln_x = ln - 1;
+	else if (ln > info->ln_x)
+		info->ln_x = ln;
+	info->ln_y++;
 	tmp = info->seed;
 	if (!info->seed)
 		info->seed = ft_strdup(str);
@@ -69,6 +75,8 @@ void	init_info(t_map *info)
 	info->colour[1] = -1;
 	info->seed = NULL;
 	info->map = NULL;
+	info->ln_y = 0;
+	info->ln_x = 0;
 }
 
 int	check_description_file(char *map_file, t_map *info)
