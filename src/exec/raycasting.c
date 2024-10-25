@@ -6,12 +6,11 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 14:27:49 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/24 17:04:49 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/25 17:03:28 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
 
 void	draw_walls(double dist_t, int start, t_game *game, int color)
 {
@@ -46,7 +45,7 @@ void	draw_gameplan(t_game *game)
 {
 	int	start;
 	int	i;
-
+	double ca_tmp;
 	i = -1;
 	start = 0;
 	while (++i < FOV)
@@ -56,8 +55,9 @@ void	draw_gameplan(t_game *game)
 			ca += 2 * PI;
 		if (ca > 2 * PI)
 			ca -= 2 * PI;
-		game->ray[i].wall_height *= cos(ca);
-		draw_walls(game->ray[i].wall_height, start, game, game->ray[i].color);
+		ca_tmp = game->ray[i].wall_height;
+		ca_tmp *= cos(ca);
+		draw_walls(ca_tmp, start, game, game->ray[i].color);
 		start += S_W / (FOV);
 	}
 }
@@ -83,62 +83,63 @@ int	distance_until_wall(t_game *game, int i)
 	game->ray[i].rx, game->ray[i].ry));
 }
 
-int	check_inter_h(t_game *game, int i)
+void	check_inter_h(t_game *game, int i)
 {
-	game->ray[i].dof = 0;
-	game->ray[i].atan = -1 / tan(game->ray[i].ra);
-	if (game->ray[i].ra < PI)
+	int	b;
+	double	save_x;
+	double	save_y;
+
+	b = 0;
+	save_x = game->player->pos_x;
+	save_y = game->player->pos_y;
+	while (++b < 2)
 	{
-		game->ray[i].ry = (((int)game->player->pos_y  / 50) * 50) - 1;
-		game->ray[i].rx = (game->ray[i].ry - (int)game->player->pos_y) * \
-		game->ray[i].atan + (int)game->player->pos_x;
-		game->ray[i].yo = -50;
-		game->ray[i].xo = game->ray[i].yo * game->ray[i].atan;
+		incr_pos(game, b, save_x, save_y);
+		game->ray[i].dof = 0;
+		game->ray[i].atan = -1 / tan(game->ray[i].ra);
+		extra_h(game, i);
+		// if (i == 1)
+		// {
+		// 	printf("atan  = %f\n", game->ray[i].atan);
+		// 	printf("rx = %f\n", game->ray[i].ry);
+		// 	printf("ry = %f\n", game->ray[i].ry);
+		// 	printf("xo = %f\n", game->ray[i].xo);
+		// 	printf("yo = %f\n", game->ray[i].yo);
+		// 	printf("ra = %d\n", to_degrees(game->ray[i].ra));
+		// }
+		straight_dist(game, 'h', i);
+		game->ray[i].distance_h = distance_until_wall(game, i);
+		if (game->ray[i].distance_h < game->ray[i].tmp)
+			game->ray[i].tmp = game->ray[i].distance_h;
 	}
-	if (game->ray[i].ra > PI)
-	{
-		game->ray[i].ry = (((int)game->player->pos_y  / 50) * 50) + 50;
-		game->ray[i].rx = (game->ray[i].ry - (int)game->player->pos_y) * \
-		game->ray[i].atan + (int)game->player->pos_x;
-		game->ray[i].yo = 50;
-		game->ray[i].xo = game->ray[i].yo * game->ray[i].atan;
-	}
-	if (to_degrees(game->ray[i].ra) == 359 || to_degrees(game->ray[i].ra) == 179)
-	{
-		game->ray[i].rx = game->player->pos_x;
-		game->ray[i].ry = game->player->pos_y;
-		game->ray[i].dof = 10;
-	}
-	return (distance_until_wall(game, i));
+	game->player->pos_x = save_x;
+	game->player->pos_y = save_y;
+	game->ray[i].distance_h = game->ray[i].tmp;
 }
 
-int	check_inter_v(t_game *game, int i)
+void	check_inter_v(t_game *game, int i)
 {
-	game->ray[i].dof = 0;
-	game->ray[i].ntan = -tan(game->ray[i].ra);
-	if (game->ray[i].ra > P2 && game->ray[i].ra < P3)
+	int		b;
+	double	save_x;
+	double	save_y;
+
+	b = 0;
+	save_x = game->player->pos_x;
+	save_y = game->player->pos_y;
+	while (++b < 2)
 	{
-		game->ray[i].rx = (((int)game->player->pos_x  / 50) * 50) - 1;
-		game->ray[i].ry = (game->ray[i].rx - (int)game->player->pos_x) * \
-		game->ray[i].ntan + (int)game->player->pos_y;
-		game->ray[i].xo = -50;
-		game->ray[i].yo = game->ray[i].xo * game->ray[i].ntan;
+		incr_pos(game, b, save_x, save_y);
+		game->ray[i].dof = 0;
+		game->ray[i].ntan = -tan(game->ray[i].ra);
+		extra_v(game, i);
+		straight_dist(game, 'v', i);
+		game->ray[i].distance_v = distance_until_wall(game, i);
+		if (game->ray[i].distance_v < game->ray[i].tmp)
+			game->ray[i].tmp = game->ray[i].distance_v;
 	}
-	if (game->ray[i].ra < P2 || game->ray[i].ra > P3)
-	{
-		game->ray[i].rx = (((int)game->player->pos_x  / 50) * 50) + 50;
-		game->ray[i].ry = (game->ray[i].rx - (int)game->player->pos_x) * \
-		game->ray[i].ntan + (int)game->player->pos_y;
-		game->ray[i].xo = 50;
-		game->ray[i].yo = game->ray[i].xo * game->ray[i].ntan;
-	}
-	if (to_degrees(game->ray[i].ra) == 89 || to_degrees(game->ray[i].ra) == 269)
-	{
-		game->ray[i].rx = game->player->pos_x;
-		game->ray[i].ry = game->player->pos_y;
-		game->ray[i].dof = 10;
-	}
-	return (distance_until_wall(game, i));
+	game->player->pos_x = save_x;
+	game->player->pos_y = save_y;
+	game->ray[i].distance_v = game->ray[i].tmp;
 }
 
 void	fill_rays_infos(t_game *game)
@@ -150,26 +151,27 @@ void	fill_rays_infos(t_game *game)
 	ra = to_radiant(game->player->angle + FOV / 2);
 	while (++i < FOV)
 	{
+		game->ray[i].tmp = 10 * 50;
 		game->ray[i].ra = ra;
 		if (game->ray[i].ra < 0)
 			game->ray[i].ra += 2 * PI;
 		if (game->ray[i].ra > 2 * PI)
 			game->ray[i].ra -= 2 * PI;
-		game->ray[i].distance_h = check_inter_h(game, i);
-		game->ray[i].distance_v = check_inter_v(game, i);
-		if (i == 59)
-		{
-			printf("h = %d\n", game->ray[i].distance_h);
-			printf("v = %d\n", game->ray[i].distance_v);
-		}
+		check_inter_h(game, i);
+		check_inter_v(game, i);
+		// if (i == 58)
+		// {
+		// 	printf("distance_h = %d\n", game->ray[i].distance_h);
+		// 	printf("distance_v = %d\n", game->ray[i].distance_v);
+		// }
 		if (game->ray[i].distance_h <= game->ray[i].distance_v)
 			game->ray[i].wall_height = game->ray[i].distance_h;
 		if (game->ray[i].distance_v < game->ray[i].distance_h)
 			game->ray[i].wall_height = game->ray[i].distance_v;
-		if (game->ray[i].distance_v + 1 < game->ray[i].distance_h)
-			game->ray[i].color = 0x940303;
-		else
+		if (game->ray[i].distance_h <= game->ray[i].distance_v)
 			game->ray[i].color = 0xFF0000;
+		else
+			game->ray[i].color = 0x940303;
 		ra -= ONE_DEGREE;
 	}
 }

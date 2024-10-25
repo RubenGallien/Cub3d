@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/24 16:32:15 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/25 16:01:18 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ typedef struct s_ray
 	int		distance_v;
 	int		wall_height;
 	int		color;
+	int		tmp;
+	int	flag;
 }				t_ray;
 
 typedef struct s_player
@@ -118,7 +120,10 @@ int			ft_exit(t_game *game);
 int			game_loop(t_game *game);
 void		draw_gameplan(t_game *game);
 void		fill_rays_infos(t_game *game);
-
+void		straight_dist(t_game *game, char sense, int i);
+void		extra_h(t_game *game, int i);
+void		extra_v(t_game *game, int i);
+void		incr_pos(t_game *game, int b, double save_x, double save_y);
 // utils
 double		to_radiant(double number);
 void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
