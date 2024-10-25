@@ -1,0 +1,54 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_utils.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/12 00:10:14 by lvicino           #+#    #+#             */
+/*   Updated: 2024/10/25 14:03:23 by lvicino          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "cub3d.h"
+
+void	ft_werror(char *error)
+{
+	ft_putstr_fd("Error\n", 2);
+	ft_putstr_fd(error, 2);
+}
+
+void	ft_free_str(char **str, int str_ln)
+{
+	while (--str_ln >= 0 && str)
+	{
+		if (str[str_ln])
+			free(str[str_ln]);
+	}
+	if (str)
+		free(str);
+}
+
+void	ft_free_info(t_map *info)
+{
+	int	i;
+
+	if (info->seed)
+	{
+		free(info->seed);
+		info->seed = NULL;
+	}
+	if (info->map)
+	{
+		i = 0;
+		while (info->map[i])
+			i++;
+		ft_free_str(info->map, i);
+		info->map = NULL;
+	}
+	if (info->texture)
+	{
+		ft_free_str(info->texture, 4);
+		info->texture = NULL;
+	}
+}

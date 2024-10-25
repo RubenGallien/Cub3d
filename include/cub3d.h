@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/25 16:01:18 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/25 17:14:06 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,16 @@
 
 # include "libft.h"
 
-# include "parsing.h"
-
 # include <mlx.h>
 # include <X11/keysym.h>
 # include <X11/X.h>
-# include <stdio.h>
 
+# include <stdio.h>
 # include <time.h>
 # include <sys/time.h>
 # include <math.h>
 # include <string.h>
+# include <fcntl.h>
 
 # define EPSILON 0.0001
 # define ONE_DEGREE 0.0174533
@@ -45,16 +44,18 @@
 # define SIZE_P_X (MM_TILE_X / 5)
 # define SIZE_P_Y (MM_TILE_Y / 5)
 
+# include "parsing.h"
+
 typedef struct s_img
 {
-	void				*img;
-	unsigned char		*pixels;
-	int					line_length;
-	int					bits_per_pixel;
-	int					endian;
-	int					height;
-	int					width;
-}						t_img;
+	void			*img;
+	unsigned char	*pixels;
+	int				line_length;
+	int				bits_per_pixel;
+	int				endian;
+	int				height;
+	int				width;
+}					t_img;
 
 typedef struct s_ray
 {
@@ -101,9 +102,11 @@ typedef struct s_game
 	void		*mlx;
 	void		*mlx_win;
 	char		**map;
+	int			tick;
 	t_img		world;
 	t_player	*player;
 	t_ray		ray[FOV];
+	t_map		info;
 }			t_game;
 
 // init
@@ -131,6 +134,9 @@ double			found_distance(int x1, int y1, int x2, int y2);
 int			to_degrees(double number);
 
 // minimap
-void		minimap(t_game *game);
+void 	minimap(t_game *game);
+
+/*Parsing*/
+// int		parsing(int ac, char **av, t_map *info);
 
 #endif

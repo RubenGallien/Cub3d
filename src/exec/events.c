@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:13:17 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/24 14:03:40 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/25 17:08:53 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,22 +55,22 @@ int	on_keypress(int keysym, t_game *game)
 		ft_exit(game);
 		game->mlx_win = NULL;
 	}
-	else if (keysym == 119)
+	else if (keysym == XK_w)
 	{
 		game->player->up = 1;
 		game->player->down = 0;
 	}
-	else if (keysym == 115)
+	else if (keysym == XK_s)
 	{
 		game->player->down = 1;
 		game->player->up = 0;
 	}
-	else if (keysym == 100)
+	else if (keysym == XK_d)
 	{
 		game->player->right = 1;
 		game->player->left = 0;
 	}
-	else if (keysym == 97)
+	else if (keysym == XK_a)
 	{
 		game->player->left = 1;
 		game->player->right = 0;

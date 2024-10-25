@@ -14,24 +14,14 @@
 
 int	game_loop(t_game *game)
 {
-	double	x;
-	int		i;
-
-	i = 0;
-	x = 0.00;
-	if (game->mlx_win)
+	if (!game->tick && game->mlx_win)
 	{
 		move_player(game);
 		fill_rays_infos(game);
 		draw_gameplan(game);
 		minimap(game);
-		mlx_put_image_to_window(game->mlx, game->mlx_win, \
-		game->world.img, 0, 0);
-		while (i < 8000000)
-		{
-			x += sqrt(i);
-			i++;
-		}
+		mlx_put_image_to_window(game->mlx, game->mlx_win, game->world.img, 0, 0);
 	}
-	return (x);
+	game->tick = (game->tick + 1) % (300000 / SPEED);
+	return (0);
 }

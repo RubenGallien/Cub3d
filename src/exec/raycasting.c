@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 14:27:49 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/25 17:03:28 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/25 17:12:08 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	draw_walls(double dist_t, int start, t_game *game, int color)
 		int	y;
 
 		x = 0;
-		line_h = 32 * S_W / dist_t;
+		line_h = 16 * S_W / dist_t;
 		if (line_h > S_H)
 			line_h = S_H;
 		width = S_W / (FOV);
