@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:41:58 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/25 16:58:46 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/25 17:53:06 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	incr_pos(t_game *game, int b, double save_x, double save_y)
 	if (b == 0)
 	{
 		game->player->pos_x = \
-		save_x + cos(to_radiant(game->player->angle + 90)) * 2;
+		save_x + cos(to_radiant(game->player->angle + 90)) * 3;
 		game->player->pos_y = \
-		save_y - sin(to_radiant(game->player->angle + 90)) * 2;
+		save_y - sin(to_radiant(game->player->angle + 90)) * 3;
 	}
 	else if (b == 1)
 	{
@@ -29,9 +29,9 @@ void	incr_pos(t_game *game, int b, double save_x, double save_y)
 	else if (b == 2)
 	{
 		game->player->pos_x = \
-		save_x - cos(to_radiant(game->player->angle + 90)) * 2;
+		save_x - cos(to_radiant(game->player->angle + 90)) * 3;
 		game->player->pos_y = \
-		save_y + sin(to_radiant(game->player->angle + 90)) * 2;
+		save_y + sin(to_radiant(game->player->angle + 90)) * 3;
 	}
 }
 
@@ -41,10 +41,9 @@ void	straight_dist(t_game *game, char sense, int i)
 	{
 		if (to_degrees(game->ray[i].ra) == 359 || to_degrees(game->ray[i].ra) == 179)
 		{
-			printf("hello\n");
 			game->ray[i].rx = game->player->pos_x;
 			game->ray[i].ry = game->player->pos_y;
-			game->ray[i].dof = 10;
+			game->ray[i].dof = game->info.ln_x;
 		}
 	}
 	if (sense == 'v')
@@ -53,7 +52,7 @@ void	straight_dist(t_game *game, char sense, int i)
 		{
 			game->ray[i].rx = game->player->pos_x;
 			game->ray[i].ry = game->player->pos_y;
-			game->ray[i].dof = 10;
+			game->ray[i].dof = game->info.ln_y;
 		}
 	}
 }
@@ -96,4 +95,5 @@ void	extra_v(t_game *game, int i)
 		game->ray[i].xo = 50;
 		game->ray[i].yo = game->ray[i].xo * game->ray[i].ntan;
 	}
+	straight_dist(game, 'v', i);
 }
