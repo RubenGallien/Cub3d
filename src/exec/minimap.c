@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 13:18:05 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/25 17:11:28 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/25 20:54:54 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	draw_fov_line_mm(t_game *game)
 	i = -1;
 	start_x = (S_W - MM_S_X) + (MM_S_X / 2) - MM_SIZE;
 	start_y = (MM_S_Y / 2) - MM_SIZE;
-	while (++i < FOV)
+	while (++i < FOV * 2)
 	{
 		l = -1;
 		while (++l < game->ray[i].wall_height && l < 124)

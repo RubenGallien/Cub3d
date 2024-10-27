@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/25 17:19:44 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/28 00:14:24 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define EPSILON 0.0001
 # define ONE_DEGREE 0.0174533
 # define FOV	60
-# define SPEED 100
+# define SPEED 200
 # define PI	3.14159265359
 # define P2	(PI / 2)
 # define P3	(3 * PI / 2)
@@ -40,6 +40,13 @@
 # define MM_SIZE 5
 # define MM_TILE_X (MM_S_X / MM_SIZE)
 # define MM_TILE_Y (MM_S_Y / MM_SIZE)
+
+
+// assets
+#define WALL_E "textures/wall/coal_ore.xpm"
+#define WALL_W "textures/wall/deepslate_diamond_ore.xpm"
+#define WALL_N "textures/wall/deepslate_gold_ore.xpm"
+#define WALL_S "textures/wall/deepslate_iron_ore.xpm"
 
 # define SIZE_P_X (MM_TILE_X / 5)
 # define SIZE_P_Y (MM_TILE_Y / 5)
@@ -57,6 +64,11 @@ typedef struct s_img
 	int				width;
 }					t_img;
 
+typedef struct s_asset
+{
+	t_img	wall[4];
+}			t_asset;
+
 typedef struct s_ray
 {
 	int		r;
@@ -71,11 +83,13 @@ typedef struct s_ray
 	double	ra;
 	double	xo;
 	double	yo;
-	int		distance_h;
-	int		distance_v;
+	double long		distance_h;
+	double long		distance_v;
 	int		wall_height;
 	int		color;
-	int		tmp;
+	unsigned long		tmp;
+	int	offset;
+	int	f_wall;
 	int	flag;
 }				t_ray;
 
@@ -103,16 +117,17 @@ typedef struct s_game
 	void		*mlx_win;
 	char		**map;
 	int			tick;
+	t_asset		textures;
 	t_img		world;
 	t_player	*player;
-	t_ray		ray[FOV];
+	t_ray		ray[FOV * 2];
 	t_map		info;
 }			t_game;
 
 // init
 void		init_player(t_player *player, char **map);
 void		init_game(t_game *game, t_player *player, char **map);
-
+void		init_textures(t_game *game);
 // events
 int			on_keypress(int keysym, t_game *game);
 int			on_keyrelease(int keysym, t_game *game);
@@ -127,10 +142,11 @@ void		straight_dist(t_game *game, char sense, int i);
 void		extra_h(t_game *game, int i);
 void		extra_v(t_game *game, int i);
 void		incr_pos(t_game *game, int b, double save_x, double save_y);
+void	choose_textures(t_game *game, int i);
 // utils
 double		to_radiant(double number);
 void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
-double			found_distance(int x1, int y1, int x2, int y2);
+double			found_distance(double x1, double y1, double x2, double y2);
 int			to_degrees(double number);
 
 // minimap

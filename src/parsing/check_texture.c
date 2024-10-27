@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_texture.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 15:16:08 by lvicino           #+#    #+#             */
-/*   Updated: 2024/10/23 18:59:10 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/10/25 20:04:14 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	check_texture(t_map *info)
 	i = -1;
 	while (++i < 2)
 	{
-		if (info->colour < 0)
+		if (*info->colour < 0)
 			return (ft_werror(NDEF_ER), 0);
 	}
 	return (1);

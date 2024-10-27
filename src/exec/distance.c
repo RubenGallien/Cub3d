@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:41:58 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/25 17:53:06 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/27 21:39:59 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	incr_pos(t_game *game, int b, double save_x, double save_y)
 	if (b == 0)
 	{
 		game->player->pos_x = \
-		save_x + cos(to_radiant(game->player->angle + 90)) * 3;
+		save_x + cos(to_radiant(game->player->angle + 90)) * 1;
 		game->player->pos_y = \
-		save_y - sin(to_radiant(game->player->angle + 90)) * 3;
+		save_y - sin(to_radiant(game->player->angle + 90)) * 1;
 	}
 	else if (b == 1)
 	{
@@ -29,9 +29,9 @@ void	incr_pos(t_game *game, int b, double save_x, double save_y)
 	else if (b == 2)
 	{
 		game->player->pos_x = \
-		save_x - cos(to_radiant(game->player->angle + 90)) * 3;
+		save_x - cos(to_radiant(game->player->angle + 90)) * 1;
 		game->player->pos_y = \
-		save_y + sin(to_radiant(game->player->angle + 90)) * 3;
+		save_y + sin(to_radiant(game->player->angle + 90)) * 1;
 	}
 }
 
@@ -43,7 +43,7 @@ void	straight_dist(t_game *game, char sense, int i)
 		{
 			game->ray[i].rx = game->player->pos_x;
 			game->ray[i].ry = game->player->pos_y;
-			game->ray[i].dof = game->info.ln_x;
+			game->ray[i].dof = game->info.ln_max;
 		}
 	}
 	if (sense == 'v')
@@ -52,7 +52,7 @@ void	straight_dist(t_game *game, char sense, int i)
 		{
 			game->ray[i].rx = game->player->pos_x;
 			game->ray[i].ry = game->player->pos_y;
-			game->ray[i].dof = game->info.ln_y;
+			game->ray[i].dof = game->info.ln_max;
 		}
 	}
 }
@@ -61,7 +61,7 @@ void	extra_h(t_game *game, int i)
 {
 	if (game->ray[i].ra < PI)
 	{
-		game->ray[i].ry = (((int)game->player->pos_y  / 50) * 50) - 1;
+		game->ray[i].ry = (((int)game->player->pos_y  / 50) * 50) - 0.0001;
 		game->ray[i].rx = (game->ray[i].ry - (int)game->player->pos_y) * \
 		game->ray[i].atan + (int)game->player->pos_x;
 		game->ray[i].yo = -50;
@@ -75,13 +75,12 @@ void	extra_h(t_game *game, int i)
 		game->ray[i].yo = 50;
 		game->ray[i].xo = game->ray[i].yo * game->ray[i].atan;
 	}
-	straight_dist(game, 'h', i);
 }
 void	extra_v(t_game *game, int i)
 {
 	if (game->ray[i].ra > P2 && game->ray[i].ra < P3)
 	{
-		game->ray[i].rx = (((int)game->player->pos_x  / 50) * 50) - 1;
+		game->ray[i].rx = (((int)game->player->pos_x  / 50) * 50) - 0.0001;
 		game->ray[i].ry = (game->ray[i].rx - (int)game->player->pos_x) * \
 		game->ray[i].ntan + (int)game->player->pos_y;
 		game->ray[i].xo = -50;
@@ -95,5 +94,4 @@ void	extra_v(t_game *game, int i)
 		game->ray[i].xo = 50;
 		game->ray[i].yo = game->ray[i].xo * game->ray[i].ntan;
 	}
-	straight_dist(game, 'v', i);
 }
