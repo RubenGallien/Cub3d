@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/28 00:14:24 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/28 18:03:10 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 
 # define EPSILON 0.0001
 # define ONE_DEGREE 0.0174533
-# define FOV	60
-# define SPEED 200
+# define FOV 60
+# define SPEED 100
 # define PI	3.14159265359
 # define P2	(PI / 2)
 # define P3	(3 * PI / 2)
@@ -40,7 +40,7 @@
 # define MM_SIZE 5
 # define MM_TILE_X (MM_S_X / MM_SIZE)
 # define MM_TILE_Y (MM_S_Y / MM_SIZE)
-
+# define RES 32
 
 // assets
 #define WALL_E "textures/wall/coal_ore.xpm"
@@ -79,6 +79,7 @@ typedef struct s_ray
 	double	atan;
 	double	ntan;
 	double	rx;
+	double	rx_tmp;
 	double	ry;
 	double	ra;
 	double	xo;
@@ -120,7 +121,8 @@ typedef struct s_game
 	t_asset		textures;
 	t_img		world;
 	t_player	*player;
-	t_ray		ray[FOV * 2];
+	t_ray		ray[FOV * RES];
+	// t_ray		*ray;
 	t_map		info;
 }			t_game;
 
@@ -142,7 +144,9 @@ void		straight_dist(t_game *game, char sense, int i);
 void		extra_h(t_game *game, int i);
 void		extra_v(t_game *game, int i);
 void		incr_pos(t_game *game, int b, double save_x, double save_y);
-void	choose_textures(t_game *game, int i);
+void		choose_textures(t_game *game, int i);
+int			choose_color(t_ray ray, t_img wall, int y, float line_h);
+
 // utils
 double		to_radiant(double number);
 void		my_mlx_pixel_put(t_img *img, int x, int y, int color);

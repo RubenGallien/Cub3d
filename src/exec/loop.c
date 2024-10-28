@@ -22,6 +22,6 @@ int	game_loop(t_game *game)
 		minimap(game);
 		mlx_put_image_to_window(game->mlx, game->mlx_win, game->world.img, 0, 0);
 	}
-	game->tick = (game->tick + 1) % (300000 / SPEED);
+	game->tick = (game->tick + 1) % ((150000 / 2) / SPEED);
 	return (0);
 }

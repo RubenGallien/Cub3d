@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:14:12 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/24 14:05:14 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/28 16:59:55 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ void	init_game(t_game *game, t_player *player, char **map)
 	int	i;
 	int	j;
 
+	// game->ray = malloc(sizeof(t_ray) * (FOV * RES));
+	// if (!game->ray)
+	// 	printf("???????????\n");
 	game->map = map;
 	i = 0;
 	while (game->map && game->map[i])

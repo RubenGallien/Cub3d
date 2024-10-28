@@ -12,23 +12,53 @@
 
 #include "cub3d.h"
 
+int choose_color(t_ray ray, t_img wall, int y, float line_h)
+{
+	unsigned int	color;
+	int				i;
+	int				j;
+
+	if (ray.wall_height > line_h)
+			j = (S_H - (int)line_h) / 2 + (y / 50);
+	else
+		j = y / (line_h / 50);
+	i = ray.offset;
+	color = ((int *)wall.pixels)[j * wall.width + i];
+	return (color);
+}
+
 void	choose_textures(t_game *game, int i)
 {
 	if (game->ray[i].distance_h < game->ray[i].distance_v)
 	{
+		game->ray[i].rx = game->ray[i].rx_tmp;
 		if (game->ray[i].ry > game->player->pos_y)
+		{
+			game->ray[i].offset = 49 - (int)game->ray[i].rx % 50;
 			game->ray[i].f_wall = 3;
+		}
 		else
+		{
 			game->ray[i].f_wall = 2;
-		game->ray[i].offset = (int)game->ray[i].rx % 50;
+			game->ray[i].offset = (int)game->ray[i].rx % 50;
+		}
+		if (i == 0)
+			printf("%d\n", game->ray[i].offset);
 	}
 	else
 	{
 		if (game->ray[i].rx > game->player->pos_x)
+		{
+			game->ray[i].offset = (int)game->ray[i].ry % 50;
 			game->ray[i].f_wall = 1;
+		}
 		else
+		{
+			game->ray[i].offset = 49 - (int)game->ray[i].ry % 50;
 			game->ray[i].f_wall = 0;
-		game->ray[i].offset = (int)game->ray[i].ry % 50;
+		}
+		if (i == 0)
+			printf("%d\n", game->ray[i].offset);
 	}
 }
 
