@@ -6,12 +6,11 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 14:27:49 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/24 14:22:12 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/10/28 13:37:13 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
 
 void	draw_walls(double dist_t, int start, t_game *game, int color)
 {
@@ -44,6 +43,7 @@ void	draw_walls(double dist_t, int start, t_game *game, int color)
 			x++;
 		}
 }
+
 void	draw_gameplan(t_game *game)
 {
 	int	start;
@@ -66,14 +66,14 @@ void	draw_gameplan(t_game *game)
 
 int	distance_until_wall(t_game *game, int i)
 {
-	while (game->ray[i].dof < 10)
+	while (game->ray[i].dof < game->info.ln_max)
 	{
 		game->ray[i].mx = game->ray[i].rx / 50;
 		game->ray[i].my = game->ray[i].ry / 50;
 		if (game->ray[i].mx >= 0 && game->ray[i].my >= 0 \
-		&& game->ray[i].mx < 10 && game->ray[i].my < 10 && \
+		&& game->ray[i].mx < game->info.ln_x && game->ray[i].my < game->info.ln_y && \
 		game->map[game->ray[i].my][game->ray[i].mx] == '1')
-			game->ray[i].dof = 10;
+			game->ray[i].dof = game->info.ln_max;
 		else
 		{
 			game->ray[i].rx += game->ray[i].xo;
@@ -109,7 +109,7 @@ int	check_inter_h(t_game *game, int i)
 	{
 		game->ray[i].rx = game->player->pos_x;
 		game->ray[i].ry = game->player->pos_y;
-		game->ray[i].dof = 10;
+		game->ray[i].dof = game->info.ln_y;
 	}
 	return (distance_until_wall(game, i));
 }
@@ -138,7 +138,7 @@ int	check_inter_v(t_game *game, int i)
 	{
 		game->ray[i].rx = game->player->pos_x;
 		game->ray[i].ry = game->player->pos_y;
-		game->ray[i].dof = 10;
+		game->ray[i].dof = game->info.ln_x;
 	}
 	return (distance_until_wall(game, i));
 }

@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/25 13:06:10 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/10/29 11:32:57 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # include <fcntl.h>
 
 #define SPEED 100
-#define FOV	90
+#define FOV 60
 #define EPSILON 0.0001
 #define ONE_DEGREE 0.0174533
 #define PI	3.14159265359

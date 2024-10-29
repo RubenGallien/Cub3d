@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:31:25 by lvicino           #+#    #+#             */
-/*   Updated: 2024/10/25 13:56:37 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/10/29 12:27:36 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	get_info(t_map *info, int fd)
 		if (!info->seed && str && ft_isalpha(str[i]))
 		{
 			if (!get_texture_def(info, str))
-				return (0);
+				return (free(str), 0);
 		}
 		else if (str && str[i])
 		{
@@ -107,5 +107,9 @@ int	parsing(int ac, char **av, t_map *info)
 		ft_putstr_fd("Too many arguments\n", 2);
 	else if (check_description_file(av[1], info))
 		return (1);
+	if (info->ln_x > info->ln_y)
+		info->ln_max = info->ln_x;
+	else
+		info->ln_max = info->ln_y;
 	return (0);
 }

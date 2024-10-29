@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 17:32:21 by lvicino           #+#    #+#             */
-/*   Updated: 2024/10/23 18:55:50 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/10/29 13:46:01 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,15 +76,23 @@ int	ft_rgbtoi(char **rgb, int	*colour)
 	return (ft_free_str(rgb, 3), 1);
 }
 
+char	**get_rgb(char *s)
+{
+	char	**rgb;
+
+	rgb = ft_split(s, ',');
+	if (s)
+		free(s);
+	return (rgb);
+}
+
 int	get_colour(char *s, int *colour)
 {
 	char		**rgb;
 	int			i;
 	int			j;
 
-	rgb = ft_split(s, ',');
-	if (s)
-		free(s);
+	rgb = get_rgb(s);
 	if (!rgb)
 		return (0);
 	i = 0;

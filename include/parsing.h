@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:57:14 by lvicino           #+#    #+#             */
-/*   Updated: 2024/10/25 13:55:30 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/10/25 17:58:34 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_map
 	int		colour[2];
 	int		ln_x;
 	int		ln_y;
+	int		ln_max;
 }			t_map;
 
 /*Parsing*/
