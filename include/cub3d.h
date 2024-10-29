@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/28 18:03:10 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/29 18:25:02 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <string.h>
 # include <fcntl.h>
 
+# define WALL_SIZE 50
 # define EPSILON 0.0001
 # define ONE_DEGREE 0.0174533
 # define FOV 60
