@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-int choose_color(t_ray ray, t_img wall, int y, float line_h)
+int choose_color(t_ray ray, t_img wall, int y, float line_h, int x)
 {
 	unsigned int	color;
 	int				i;
@@ -20,6 +20,7 @@ int choose_color(t_ray ray, t_img wall, int y, float line_h)
 	float			offset;
 
 	j = 0;
+	(void)x;
 	offset = ((ray.wall_height - S_H ) / 50);
 	if (offset * 2 > 49)
 		offset = 24;

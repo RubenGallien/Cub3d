@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:41:58 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/29 12:44:09 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/29 22:45:47 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,6 @@ void	extra_h(t_game *game, int i)
 		game->ray[i].atan + (int)game->player->pos_x;
 		game->ray[i].yo = -50;
 		game->ray[i].xo = game->ray[i].yo * game->ray[i].atan;
-	// 	if (i == 0)
-	// 	{
-	// 		printf("rx = %f\n", game->ray[i].rx);
-	// 		printf("ry = %f\n", game->ray[i].ry);
-	// 		printf("xo = %f\n", game->ray[i].xo);
-	// 		printf("yo = %f\n", game->ray[i].yo);
-	// 	}
 	}
 	if (game->ray[i].ra > PI)
 	{

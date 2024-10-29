@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/29 18:25:02 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/29 23:26:46 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ typedef struct s_ray
 	double	yo;
 	double long		distance_h;
 	double long		distance_v;
-	int		wall_height;
+	double			wall_height;
 	int		color;
 	unsigned long		tmp;
 	int	offset;
@@ -146,7 +146,7 @@ void		extra_h(t_game *game, int i);
 void		extra_v(t_game *game, int i);
 void		incr_pos(t_game *game, int b, double save_x, double save_y);
 void		choose_textures(t_game *game, int i);
-int			choose_color(t_ray ray, t_img wall, int y, float line_h);
+int			choose_color(t_ray ray, t_img wall, int y, float line_h, int x);
 
 // utils
 double		to_radiant(double number);

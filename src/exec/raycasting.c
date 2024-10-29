@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 14:27:49 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/29 18:07:16 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/29 23:26:51 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	draw_walls(double dist_t, int start, t_game *game, t_ray ray)
 				else
 					my_mlx_pixel_put(&game->world, x + start, y, \
 					choose_color(ray, game->textures.wall[ray.f_wall], \
-					y - ((S_H - (int)line_h) / 2), line_h));
+					y - ((S_H - (int)line_h) / 2), line_h, x));
 				y++;
 			}
 			x++;
@@ -144,8 +144,8 @@ void	fill_rays_infos(t_game *game)
 	ra = to_radiant(game->player->angle + (FOV / 2));
 	while (++i < FOV * RES)
 	{
-		game->ray[i].distance_h = 100000;
-		game->ray[i].distance_v = 100000;
+		game->ray[i].distance_h = 100000000;
+		game->ray[i].distance_v = 100000000;
 		game->ray[i].tmp = game->info.ln_max * 50;
 		game->ray[i].ra = ra;
 		if (game->ray[i].ra < 0)
@@ -154,7 +154,7 @@ void	fill_rays_infos(t_game *game)
 			game->ray[i].ra -= 2 * PI;
 		check_inter_h(game, i);
 		check_inter_v(game, i);
-		// if (i == 3 || i == 1 || i == 2)
+		// if (i == (FOV * RES) / 2)
 		// {
 		// 	printf("ra[%d] in degree = %d\n", i, to_degrees(game->ray[i].ra));
 		// 	printf("(%d)distance h = %Lf\n", i ,game->ray[i].distance_h);
