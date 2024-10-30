@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+         #
+#    By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/02 14:25:51 by lvicino           #+#    #+#              #
-#    Updated: 2024/10/22 16:14:05 by lvicino          ###   ########.fr        #
+#    Updated: 2024/10/28 00:13:29 by rgallien         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,10 @@ EXEC		=	events.c \
 				loop.c \
 				utils.c \
 				raycasting.c \
-				minimap.c
+				minimap.c \
+				exit.c \
+				distance.c \
+				textures.c
 
 EXEC		:=	$(EXEC:%=$(EXEC_DIR)/%)
 EXEC_OBJ	=	$(EXEC:$(EXEC_DIR)/%.c=$(BUILD_DIR)/%.o)

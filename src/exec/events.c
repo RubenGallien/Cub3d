@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:13:17 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/24 12:21:04 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/10/28 17:46:39 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,9 @@ void	move_player(t_game *game)
 
 int	on_keypress(int keysym, t_game *game)
 {
-	// printf("%d\n", keysym);
 	if (keysym == XK_Escape)
 	{
-		mlx_destroy_window(game->mlx, game->mlx_win);
+		ft_exit(game);
 		game->mlx_win = NULL;
 	}
 	else if (keysym == XK_w)

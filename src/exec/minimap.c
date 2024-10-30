@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 13:18:05 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/24 12:21:57 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/10/28 15:36:05 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,35 @@
 
 void	draw_fov_line_mm(t_game *game)
 {
-		int start_x;
-		int start_y;
-		int	i;
-		int	l;
+	int	start_x;
+	int	start_y;
+	int	i;
+	int	l;
 
-		i = -1;
-		start_x = (S_W - MM_S_X) + (MM_S_X / 2) - MM_SIZE;
-		start_y = (MM_S_Y / 2) - MM_SIZE;
-		while (++i < FOV)
-		{
-				l = -1;
-				while (++l < game->ray[i].wall_height && l < 124)
-					my_mlx_pixel_put(&game->world, start_x + 5 + (l * cos(game->ray[i].ra)), start_y + 5 - (l * sin(game->ray[i].ra)), 0xd9d509);
-		}
+	i = -1;
+	start_x = (S_W - MM_S_X) + (MM_S_X / 2) - MM_SIZE;
+	start_y = (MM_S_Y / 2) - MM_SIZE;
+	while (++i < FOV * RES)
+	{
+		l = -1;
+		while (++l < game->ray[i].wall_height && l < 124)
+			my_mlx_pixel_put(&game->world, start_x + 5 + \
+			(l * cos(game->ray[i].ra)), \
+			start_y + 5 - (l * sin(game->ray[i].ra)), 0xd9d509);
+	}
 }
 
 void	draw_player(t_game *game, int start_x, int start_y, int color)
 {
 	int	i;
 	int	j;
+	int	u;
 
+	u = -1;
 	i = 0;
-	for (int u = 0; u < 15; u++)
-		my_mlx_pixel_put(&game->world, start_x + (u * game->player->pdx), start_y - (u * game->player->pdy), 0xFF00FF);
+	while (++u < 15)
+		my_mlx_pixel_put(&game->world, start_x + (u * game->player->pdx), \
+		start_y - (u * game->player->pdy), 0xFF00FF);
 	while (i < 1)
 	{
 		j = 0;
@@ -85,7 +90,7 @@ void	draw_minimap(t_game *game, int start_x, int start_y)
 	}
 }
 
-void minimap(t_game *game)
+void	minimap(t_game *game)
 {
 	int	start_x;
 	int	start_y;

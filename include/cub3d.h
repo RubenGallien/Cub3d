@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/29 11:32:57 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/10/30 17:47:11 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,24 +26,31 @@
 # include <string.h>
 # include <fcntl.h>
 
-#define SPEED 100
-#define FOV 60
-#define EPSILON 0.0001
-#define ONE_DEGREE 0.0174533
-#define PI	3.14159265359
-#define P2	(PI / 2)
-#define P3	(3 * PI / 2)
-#define S_W 1920
-#define S_H 1080
+# define WALL_SIZE 50
+# define EPSILON 0.0001
+# define ONE_DEGREE 0.0174533
+# define FOV 60
+# define SPEED 100
+# define PI	3.14159265359
+# define P2	(PI / 2)
+# define P3	(3 * PI / 2)
+# define S_W 1920
+# define S_H 1080
+# define MM_S_X 250
+# define MM_S_Y 250
+# define MM_SIZE 5
+# define MM_TILE_X (MM_S_X / MM_SIZE)
+# define MM_TILE_Y (MM_S_Y / MM_SIZE)
+# define RES 32
 
-#define MM_S_X 250
-#define MM_S_Y 250
-#define MM_SIZE 5
-#define MM_TILE_X (MM_S_X / MM_SIZE)
-#define MM_TILE_Y (MM_S_Y / MM_SIZE)
+// assets
+#define WALL_E "textures/wall/coal_ore.xpm"
+#define WALL_W "textures/wall/deepslate_diamond_ore.xpm"
+#define WALL_N "textures/wall/deepslate_gold_ore.xpm"
+#define WALL_S "textures/wall/deepslate_iron_ore.xpm"
 
-#define SIZE_P_X (MM_TILE_X / 5)
-#define SIZE_P_Y (MM_TILE_Y / 5)
+# define SIZE_P_X (MM_TILE_X / 5)
+# define SIZE_P_Y (MM_TILE_Y / 5)
 
 # include "parsing.h"
 
@@ -58,40 +65,50 @@ typedef struct s_img
 	int				width;
 }					t_img;
 
+typedef struct s_asset
+{
+	t_img	wall[4];
+}			t_asset;
+
 typedef struct s_ray
 {
-	int	r;
-	int	mx;
-	int	my;
-	int	mp;
-	int	dof;
+	int		r;
+	int		mx;
+	int		my;
+	int		mp;
+	int		dof;
 	double	atan;
 	double	ntan;
 	double	rx;
+	double	rx_tmp;
 	double	ry;
 	double	ra;
 	double	xo;
 	double	yo;
-	int		distance_h;
-	int		distance_v;
-	int		wall_height;
+	double long		distance_h;
+	double long		distance_v;
+	double			wall_height;
 	int		color;
+	unsigned long		tmp;
+	int	offset;
+	int	f_wall;
+	int	flag;
 }				t_ray;
 
 typedef struct s_player
 {
 	double	pdx;
 	double	pdy;
-	double pos_x;
-	double pos_y;
-	double angle;
-	char pos;
-	int left;
-	int	left_r;
-	int up;
-	int down;
-	int right;
-	int	right_r;
+	double	pos_x;
+	double	pos_y;
+	double	angle;
+	char	pos;
+	int		left;
+	int		left_r;
+	int		up;
+	int		down;
+	int		right;
+	int		right_r;
 }				t_player;
 
 typedef struct s_game
@@ -102,35 +119,42 @@ typedef struct s_game
 	void		*mlx_win;
 	char		**map;
 	int			tick;
+	t_asset		textures;
 	t_img		world;
 	t_player	*player;
-	t_ray		ray[FOV];
+	t_ray		ray[FOV * RES];
+	// t_ray		*ray;
 	t_map		info;
 }			t_game;
 
 // init
 void		init_player(t_player *player, char **map);
 void		init_game(t_game *game, t_player *player, char **map);
-
+void		init_textures(t_game *game);
 // events
-int		on_keypress(int keysym, t_game *game);
-int		on_keyrelease(int keysym, t_game *game);
-void	move_player(t_game *game);
+int			on_keypress(int keysym, t_game *game);
+int			on_keyrelease(int keysym, t_game *game);
+void		move_player(t_game *game);
+int			ft_exit(t_game *game);
 
 // raycasting
 int			game_loop(t_game *game);
 void		draw_gameplan(t_game *game);
 void		fill_rays_infos(t_game *game);
+void		straight_dist(t_game *game, char sense, int i);
+void		extra_h(t_game *game, int i);
+void		extra_v(t_game *game, int i);
+void		incr_pos(t_game *game, int b, double save_x, double save_y);
+void		choose_textures(t_game *game, int i);
+int			choose_color(t_ray ray, t_img wall, int y, float line_h, int x);
 
 // utils
-double		to_radiant(double	number);
+double		to_radiant(double number);
 void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
-int			found_distance(int x1, int y1, int x2, int y2);
-int			to_degrees(double	number);
+double			found_distance(double x1, double y1, double x2, double y2);
+int			to_degrees(double number);
+
 // minimap
 void 	minimap(t_game *game);
-
-/*Parsing*/
-// int		parsing(int ac, char **av, t_map *info);
 
 #endif

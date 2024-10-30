@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 15:16:08 by lvicino           #+#    #+#             */
-/*   Updated: 2024/10/29 12:02:39 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/10/30 17:49:51 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	check_texture(t_map *info)
 	i = -1;
 	while (++i < 2)
 	{
-		if (info->colour < 0)
+		if (*info->colour < 0)
 			return (ft_werror(NDEF_ER), 0);
 	}
 	return (1);

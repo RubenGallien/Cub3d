@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 20:42:34 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/24 12:22:40 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/10/27 16:33:52 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 #define M_PI 3.14159265358979323846
 #endif
 
-int	found_distance(int x1, int y1, int x2, int y2)
+double	found_distance(double x1, double y1, double x2, double y2)
 {
 	if (x1 == x2 && y1 == y2)
-		return (10 * 50);
-	return (sqrt(((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1))));
+		return (39 * 50);
+	return(sqrt(((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1))));
 }
 
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color)

@@ -1,27 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   loop.c                                       :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/30 18:12:05 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/14 13:23:53 by rgallien         ###   ########.fr       */
+/*   Created: 2024/10/24 13:58:50 by rgallien          #+#    #+#             */
+/*   Updated: 2024/10/29 12:33:29 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	game_loop(t_game *game)
+int	ft_free_img(t_game *game)
 {
-	if (!game->tick && game->mlx_win)
-	{
-		move_player(game);
-		fill_rays_infos(game);
-		draw_gameplan(game);
-		minimap(game);
-		mlx_put_image_to_window(game->mlx, game->mlx_win, game->world.img, 0, 0);
-	}
-	game->tick = (game->tick + 1) % ((150000 / 2) / SPEED);
+	int	i;
+
+	i = -1;
+	while (++i < 4)
+		mlx_destroy_image(game->mlx, game->textures.wall[i].img);
 	return (0);
+}
+
+int	ft_exit(t_game *game)
+{
+	ft_free_img(game);
+	ft_free_info(&(game->info));
+	mlx_destroy_image(game->mlx, game->world.img);
+	mlx_destroy_window(game->mlx, game->mlx_win);
+	mlx_destroy_display(game->mlx);
+	free(game->mlx);
+	return (exit(0), 0);
 }
