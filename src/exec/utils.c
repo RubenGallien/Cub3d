@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 20:42:34 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/27 16:33:52 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/31 13:06:43 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 
 double	found_distance(double x1, double y1, double x2, double y2)
 {
-	if (x1 == x2 && y1 == y2)
-		return (39 * 50);
+	// if (x1 == x2 && y1 == y2)
+	// 	return (39 * 50);
 	return(sqrt(((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1))));
 }
 

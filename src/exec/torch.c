@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 14:51:15 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/30 19:27:47 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/31 15:00:59 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 
 
-void	apply_darker(t_game *game)
+void	apply_darker(t_game *game, int percentage)
 {
 	int		i;
 	int		j;
@@ -31,9 +31,9 @@ void	apply_darker(t_game *game)
 			rgb.r = ((((int *)game->world.pixels)[j * game->world.width + i] >> 16) & 0xFF) / 255.0;
 			rgb.g = ((((int *)game->world.pixels)[j * game->world.width + i] >> 8) & 0xFF) / 255.0;
 			rgb.b = ((((int *)game->world.pixels)[j * game->world.width + i]) & 0xFF) / 255.0;
-			rgb.r /= 5;
-			rgb.g /= 5;
-			rgb.b /= 5;
+			rgb.r /= percentage;
+			rgb.g /= percentage;
+			rgb.b /= percentage;
 			color = (((int)(rgb.r * 255) & 0xFF) << 16) + (((int)(rgb.g * 255) & 0xFF) << 8) + ((int)(rgb.b * 255) & 0xFF);
 			dst = game->world.pixels + (j * game->world.line_length + i \
 			* (game->world.bits_per_pixel / 8));
@@ -48,21 +48,24 @@ void	draw_torch(t_game *game, int x, int y)
 {
 	int				i;
 	int				j;
+	int				change_x;
 	unsigned char	*dst;
 	unsigned int	color;
 
 	i = 0;
-	while (i < game->textures.torch[game->torch].width * 8)
+	while (i < game->textures.torch[game->torch].width * 12)
 	{
 		j = -1;
-		while (++j < game->textures.torch[game->torch].height * 8)
+		change_x = 0;
+		while (++j < game->textures.torch[game->torch].height * 12)
 		{
-			color = ((int *)game->textures.torch[game->torch].pixels)[(j / 8) * game->textures.torch[game->torch].width + (i / 8)];
+			color = ((int *)game->textures.torch[game->torch].pixels)[(j / 12) * game->textures.torch[game->torch].width + (i / 12)];
 			if (color == 0xFF000000)
 				continue ;
-			dst = game->world.pixels + ((y + j) * game->world.line_length + (x + i) \
+			dst = game->world.pixels + ((y + j) * game->world.line_length + ((x - change_x) + i) \
 			* (game->world.bits_per_pixel / 8));
 			*(unsigned int *)dst = color;
+			change_x++;
 		}
 		i++;
 	}

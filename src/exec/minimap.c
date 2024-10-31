@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 13:18:05 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/30 00:06:15 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/31 13:40:15 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ void	draw_fov_line_mm(t_game *game)
 	int	l;
 
 	i = -1;
-	start_x = (S_W - MM_S_X) + (MM_S_X / 2) - MM_SIZE;
-	start_y = (MM_S_Y / 2) - MM_SIZE;
+	start_x = ((S_W - MM_S_X) + (MM_S_X / 2) - MM_SIZE) - 10;
+	start_y = ((MM_S_Y / 2) - MM_SIZE) + 10;
 	while (++i < FOV * RES)
 	{
 		l = -1;
-		while (++l < game->ray[i].wall_height && l < 124)
+		while (++l < game->ray[i].wall_height && l < 159)
 			my_mlx_pixel_put(&game->world, start_x + 5 + \
 			(l * cos(game->ray[i].ra)), \
 			start_y + 5 - (l * sin(game->ray[i].ra)), 0xd9d509);
@@ -59,7 +59,7 @@ void	draw_minimap(t_game *game, int start_x, int start_y)
 {
 	int	y;
 	int	x;
-	int	radius = 125;
+	int	radius = 160;
 
 	int	center_x = MM_S_X / 2;
 	int	center_y = MM_S_Y / 2;
@@ -74,19 +74,19 @@ void	draw_minimap(t_game *game, int start_x, int start_y)
 			{
 				if (start_x + x < 0 || start_y + y < 0 || (start_y + y) / MM_TILE_Y < 0 || \
 				(start_x + x) / MM_TILE_X < 0 || (start_y + y) / MM_TILE_Y > game->y - 1 || (start_x + x) / MM_TILE_X > game->x - 1 || !game->map[(start_y + y) / MM_TILE_Y][(start_x + x) / MM_TILE_X])
-					my_mlx_pixel_put(&game->world, (S_W - MM_S_X) + x, y, 0x000000);
-				else if ((start_x + x) % MM_TILE_X == 0 || (start_y + y) % MM_TILE_Y == 0)
-					my_mlx_pixel_put(&game->world, (S_W - MM_S_X) + x, y, 0x000000);
+					my_mlx_pixel_put(&game->world, (S_W - MM_S_X - 10) + x, y + 10, 0x000000);
+				else if (((start_x + x) % MM_TILE_X == 0 || (start_y + y) % MM_TILE_Y == 0) && game->map[(start_y + y) / MM_TILE_Y][(start_x + x) / MM_TILE_X] && game->map[(start_y + y) / MM_TILE_Y][(start_x + x) / MM_TILE_X] != ' ')
+					my_mlx_pixel_put(&game->world, (S_W - MM_S_X - 10) + x, y + 10, 0x000000);
 				else if (game->map[(start_y + y) / MM_TILE_Y][(start_x + x) / MM_TILE_X] == '1')
-					my_mlx_pixel_put(&game->world, (S_W - MM_S_X) + x, y, 0x0000FF);
+					my_mlx_pixel_put(&game->world, (S_W - MM_S_X - 10) + x, y + 10, 0x0000FF);
 				else if (game->map[(start_y + y) / MM_TILE_Y][(start_x + x) / MM_TILE_X] == '0' \
 				|| game->map[(start_y + y) / MM_TILE_Y][(start_x + x) / MM_TILE_X] == 'N' || \
 				game->map[(start_y + y) / MM_TILE_Y][(start_x + x) / MM_TILE_X] == 'S' || \
 				game->map[(start_y + y) / MM_TILE_Y][(start_x + x) / MM_TILE_X] == 'W' || \
 				game->map[(start_y + y) / MM_TILE_Y][(start_x + x) / MM_TILE_X] == 'E')
-					my_mlx_pixel_put(&game->world, (S_W - MM_S_X) + x, y, 0x9e9494);
+					my_mlx_pixel_put(&game->world, (S_W - MM_S_X - 10) + x, y + 10, 0x9e9494);
 				else
-					my_mlx_pixel_put(&game->world, (S_W - MM_S_X) + x, y, 0x000000);
+					my_mlx_pixel_put(&game->world, (S_W - MM_S_X - 10) + x, y + 10, 0x000000);
 			}
 		}
 	}
@@ -97,9 +97,9 @@ void	minimap(t_game *game)
 	int	start_x;
 	int	start_y;
 
-	start_x = (game->player->pos_x) - 125;
-	start_y = (game->player->pos_y) - 125;
+	start_x = (game->player->pos_x) - 160;
+	start_y = (game->player->pos_y) - 160;
 	draw_minimap(game, start_x, start_y);
-	draw_player(game, (S_W - MM_S_X) + (MM_S_X / 2), (MM_S_Y / 2), 0xFF0000);
 	draw_fov_line_mm(game);
+	draw_player(game, ((S_W - MM_S_X) + (MM_S_X / 2)) - 10, (MM_S_Y / 2) + 10, 0xFF0000);
 }

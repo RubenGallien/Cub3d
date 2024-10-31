@@ -6,7 +6,7 @@
 #    By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/02 14:25:51 by lvicino           #+#    #+#              #
-#    Updated: 2024/10/31 00:54:39 by rgallien         ###   ########.fr        #
+#    Updated: 2024/10/31 11:50:35 by rgallien         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,7 @@ EXEC_DEP	=	$(EXEC_OBJ:$(BUILD_DIR)/%.o=$(BUILD_DIR)/%.d)
 
 
 CC			=	cc
-CFLAGS		=	-Wall -Wextra  -MMD -MP -g3
+CFLAGS		=	-Wall -Werror -Wextra  -MMD -MP -g3
 INCLUDE		=	-I include \
 				-I libft/include \
 				-I libft/ft_printf/include \
