@@ -14,14 +14,23 @@
 
 int	game_loop(t_game *game)
 {
-	if (!game->tick && game->mlx_win)
+	int	y_torch_start;
+	int	x_torch_start;
+
+	x_torch_start = S_W / 4;
+	y_torch_start = S_H - (64 * 8);
+	if (game->mlx_win)
 	{
 		move_player(game);
 		fill_rays_infos(game);
 		draw_gameplan(game);
+		if (game->torch)
+			apply_darker(game);
 		minimap(game);
+		draw_torch(game, x_torch_start, y_torch_start);
+		printf("PDX: %f, PDY: %f, Angle: %f\n", game->player->pdx, game->player->pdy, game->player->angle);
 		mlx_put_image_to_window(game->mlx, game->mlx_win, game->world.img, 0, 0);
 	}
-	game->tick = (game->tick + 1) % ((150000 / 2) / SPEED);
+	// game->tick = (game->tick + 1) % ((150000 / 2) / SPEED);
 	return (0);
 }

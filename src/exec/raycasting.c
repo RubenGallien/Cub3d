@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 14:27:49 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/29 23:26:51 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/30 23:53:51 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,12 +154,6 @@ void	fill_rays_infos(t_game *game)
 			game->ray[i].ra -= 2 * PI;
 		check_inter_h(game, i);
 		check_inter_v(game, i);
-		// if (i == (FOV * RES) / 2)
-		// {
-		// 	printf("ra[%d] in degree = %d\n", i, to_degrees(game->ray[i].ra));
-		// 	printf("(%d)distance h = %Lf\n", i ,game->ray[i].distance_h);
-		// 	printf("(%d)distance v = %Lf\n", i, game->ray[i].distance_v);
-		// }
 		if (game->ray[i].distance_h <= game->ray[i].distance_v)
 			game->ray[i].wall_height = game->ray[i].distance_h;
 		if (game->ray[i].distance_v < game->ray[i].distance_h)

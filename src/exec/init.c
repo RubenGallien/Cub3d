@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:14:12 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/28 16:59:55 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/30 18:59:07 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	init_game(t_game *game, t_player *player, char **map)
 		i++;
 	}
 	game->y = i;
+	game->torch = 1;
 	game->mlx = mlx_init();
 	game->mlx_win = mlx_new_window(game->mlx, S_W, S_H, "Welcome to Cub3D");
 	game->player = player;
@@ -52,6 +53,8 @@ void	init_game(t_game *game, t_player *player, char **map)
 	game->world.pixels = (unsigned char *)mlx_get_data_addr\
 	(game->world.img, &game->world.bits_per_pixel, \
 	&game->world.line_length, &game->world.endian);
+	game->world.height = S_H;
+	game->world.width = S_W;
 }
 
 void	init_player(t_player *player, char **map)

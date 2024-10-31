@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 13:18:05 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/28 15:36:05 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/30 00:06:15 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ void	draw_minimap(t_game *game, int start_x, int start_y)
 				game->map[(start_y + y) / MM_TILE_Y][(start_x + x) / MM_TILE_X] == 'W' || \
 				game->map[(start_y + y) / MM_TILE_Y][(start_x + x) / MM_TILE_X] == 'E')
 					my_mlx_pixel_put(&game->world, (S_W - MM_S_X) + x, y, 0x9e9494);
+				else
+					my_mlx_pixel_put(&game->world, (S_W - MM_S_X) + x, y, 0x000000);
 			}
 		}
 	}

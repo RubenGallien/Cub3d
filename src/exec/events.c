@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:13:17 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/28 17:46:39 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/31 01:16:41 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,10 @@
 
 void	move_player(t_game *game)
 {
-	if (game->player->up == 1 && game->map[((int)(game->player->pos_y - (2 * game->player->pdy)) / 50)][(int)(game->player->pos_x + 2 * game->player->pdx) / 50] != '1')
-	{
-		game->player->pos_x += 2 * cos(to_radiant(game->player->angle));
-		game->player->pos_y -= 2 * sin(to_radiant(game->player->angle));
-	}
-	if (game->player->down == 1 && game->map[((int)(game->player->pos_y + (2 * game->player->pdy)) / 50)][(int)(game->player->pos_x - 2 * game->player->pdx) / 50] != '1')
-	{
-		game->player->pos_x -= 2 * cos(to_radiant(game->player->angle));
-		game->player->pos_y += 2 * sin(to_radiant(game->player->angle));
-	}
-	if (game->player->left == 1 && game->map[(int)(game->player->pos_y - sin(to_radiant(game->player->angle + 90)) * 2) / 50][((int)(game->player->pos_x + cos(to_radiant(game->player->angle + 90)) * 2) / 50)] != '1')
-	{
-		game->player->pos_x += cos(to_radiant(game->player->angle + 90)) * 2;
-		game->player->pos_y -= sin(to_radiant(game->player->angle + 90)) * 2;
-	}
-	if (game->player->right == 1 && game->map[(int)(game->player->pos_y + sin(to_radiant(game->player->angle + 90)) * 2) / 50][((int)(game->player->pos_x - cos(to_radiant(game->player->angle + 90)) * 2) / 50)] != '1')
-	{
-		game->player->pos_x -= cos(to_radiant(game->player->angle + 90)) * 2;
-		game->player->pos_y += sin(to_radiant(game->player->angle + 90)) * 2;
-	}
 	if (game->player->left_r == 1)
-		game->player->angle += 2;
+		game->player->angle += 5;
 	if (game->player->right_r == 1)
-		game->player->angle -= 2;
+		game->player->angle -= 5;
 	if (game->player->right_r == 1 || game->player->left_r == 1)
 	{
 		game->player->angle =  (int)game->player->angle % 360;
@@ -45,6 +25,26 @@ void	move_player(t_game *game)
 			game->player->angle += 360;
 		game->player->pdx = cos(to_radiant(game->player->angle));
 		game->player->pdy = sin(to_radiant(game->player->angle));
+	}
+	if (game->player->up == 1 && game->map[((int)(game->player->pos_y - (3 * game->player->pdy)) / 50)][(int)(game->player->pos_x + 2 * game->player->pdx) / 50] != '1')
+	{
+		game->player->pos_x += 3 * game->player->pdx;
+		game->player->pos_y -= 3 * game->player->pdy;
+	}
+	if (game->player->down == 1 && game->map[((int)(game->player->pos_y + (3 * game->player->pdy)) / 50)][(int)(game->player->pos_x - 2 * game->player->pdx) / 50] != '1')
+	{
+		game->player->pos_x -= 3 * game->player->pdx;
+		game->player->pos_y += 3 * game->player->pdy;
+	}
+	if (game->player->left == 1 && game->map[(int)(game->player->pos_y - sin(to_radiant(game->player->angle + 90)) * 3) / 50][((int)(game->player->pos_x + cos(to_radiant(game->player->angle + 90)) * 3) / 50)] != '1')
+	{
+		game->player->pos_x += cos(to_radiant(game->player->angle + 90)) * 3;
+		game->player->pos_y -= sin(to_radiant(game->player->angle + 90)) * 3;
+	}
+	if (game->player->right == 1 && game->map[(int)(game->player->pos_y + sin(to_radiant(game->player->angle + 90)) * 3) / 50][((int)(game->player->pos_x - cos(to_radiant(game->player->angle + 90)) * 3) / 50)] != '1')
+	{
+		game->player->pos_x -= cos(to_radiant(game->player->angle + 90)) * 3;
+		game->player->pos_y += sin(to_radiant(game->player->angle + 90)) * 3;
 	}
 }
 
@@ -54,6 +54,13 @@ int	on_keypress(int keysym, t_game *game)
 	{
 		ft_exit(game);
 		game->mlx_win = NULL;
+	}
+	else if (keysym == XK_f)
+	{
+		if (game->torch == 1)
+			game->torch = 0;
+		else
+			game->torch = 1;
 	}
 	else if (keysym == XK_w)
 	{

@@ -98,8 +98,12 @@ void	init_textures(t_game *game)
 {
 	int		i;
 	char	*wall[] = {WALL_E, WALL_W, WALL_S, WALL_N};
+	char	*torch[] = {TORCH_ON, TORCH_OFF};
 
 	i = -1;
 	while (++i < 4)
 		set_data_assets(game, wall[i], &game->textures.wall[i]);
+	i = -1;
+	while (++i < 2)
+		set_data_assets(game, torch[i], &game->textures.torch[i]);
 }

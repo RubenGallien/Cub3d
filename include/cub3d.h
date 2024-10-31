@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/29 23:26:46 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/30 23:48:56 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,24 @@
 # define MM_TILE_X (MM_S_X / MM_SIZE)
 # define MM_TILE_Y (MM_S_Y / MM_SIZE)
 # define RES 32
+# define SIZE_P_X (MM_TILE_X / 5)
+# define SIZE_P_Y (MM_TILE_Y / 5)
 
 // assets
 #define WALL_E "textures/wall/coal_ore.xpm"
 #define WALL_W "textures/wall/deepslate_diamond_ore.xpm"
 #define WALL_N "textures/wall/deepslate_gold_ore.xpm"
 #define WALL_S "textures/wall/deepslate_iron_ore.xpm"
-
-# define SIZE_P_X (MM_TILE_X / 5)
-# define SIZE_P_Y (MM_TILE_Y / 5)
+#define TORCH_ON "textures/utils/torch.xpm"
+#define	TORCH_OFF "textures/utils/torch_off.xpm"
 
 # include "parsing.h"
+
+typedef struct s_rgb {
+	double r;
+	double g;
+	double b;
+} t_rgb;
 
 typedef struct s_img
 {
@@ -68,6 +75,7 @@ typedef struct s_img
 typedef struct s_asset
 {
 	t_img	wall[4];
+	t_img	torch[2];
 }			t_asset;
 
 typedef struct s_ray
@@ -119,6 +127,7 @@ typedef struct s_game
 	void		*mlx_win;
 	char		**map;
 	int			tick;
+	int			torch;
 	t_asset		textures;
 	t_img		world;
 	t_player	*player;
@@ -153,7 +162,8 @@ double		to_radiant(double number);
 void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
 double			found_distance(double x1, double y1, double x2, double y2);
 int			to_degrees(double number);
-
+void		draw_torch(t_game *game, int x, int y);
+void	apply_darker(t_game *game);
 // minimap
 void 	minimap(t_game *game);
 
