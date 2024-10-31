@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/31 11:50:54 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/10/31 15:38:25 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include <string.h>
 # include <fcntl.h>
 
-# define WALL_SIZE 50
+# define WALL_SIZE 64
 # define EPSILON 0.0001
 # define ONE_DEGREE 0.0174533
 # define FOV 60
@@ -36,23 +36,30 @@
 # define P3	(3 * PI / 2)
 # define S_W 1920
 # define S_H 1080
-# define MM_S_X 250
-# define MM_S_Y 250
+# define MM_S_X 320
+# define MM_S_Y 320
 # define MM_SIZE 5
 # define MM_TILE_X (MM_S_X / MM_SIZE)
 # define MM_TILE_Y (MM_S_Y / MM_SIZE)
-# define RES 32
-
-// assets
-#define WALL_E "textures/wall/coal_ore.xpm"
-#define WALL_W "textures/wall/deepslate_diamond_ore.xpm"
-#define WALL_N "textures/wall/deepslate_gold_ore.xpm"
-#define WALL_S "textures/wall/deepslate_iron_ore.xpm"
-
+# define RES 8
 # define SIZE_P_X (MM_TILE_X / 5)
 # define SIZE_P_Y (MM_TILE_Y / 5)
 
+// assets
+#define WALL_E "textures/wall/deepslate_coal_ore.xpm"
+#define WALL_W "textures/wall/deepslate_diamond_ore.xpm"
+#define WALL_N "textures/wall/deepslate_gold_ore.xpm"
+#define WALL_S "textures/wall/deepslate_iron_ore.xpm"
+#define TORCH_ON "textures/utils/torch.xpm"
+#define	TORCH_OFF "textures/utils/torch_off.xpm"
+
 # include "parsing.h"
+
+typedef struct s_rgb {
+	double r;
+	double g;
+	double b;
+} t_rgb;
 
 typedef struct s_img
 {
@@ -68,6 +75,7 @@ typedef struct s_img
 typedef struct s_asset
 {
 	t_img	wall[4];
+	t_img	torch[2];
 }			t_asset;
 
 typedef struct s_ray
@@ -85,8 +93,8 @@ typedef struct s_ray
 	double	ra;
 	double	xo;
 	double	yo;
-	double long		distance_h;
-	double long		distance_v;
+	double	distance_h;
+	double 	distance_v;
 	double			wall_height;
 	int		color;
 	unsigned long		tmp;
@@ -101,7 +109,7 @@ typedef struct s_player
 	double	pdy;
 	double	pos_x;
 	double	pos_y;
-	double	angle;
+	int	angle;
 	char	pos;
 	int		left;
 	int		left_r;
@@ -119,6 +127,7 @@ typedef struct s_game
 	void		*mlx_win;
 	char		**map;
 	int			tick;
+	int			torch;
 	t_asset		textures;
 	t_img		world;
 	t_player	*player;
@@ -153,7 +162,8 @@ double		to_radiant(double number);
 void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
 double			found_distance(double x1, double y1, double x2, double y2);
 int			to_degrees(double number);
-
+void		draw_torch(t_game *game, int x, int y);
+void	apply_darker(t_game *game, int percentage);
 // minimap
 void 	minimap(t_game *game);
 

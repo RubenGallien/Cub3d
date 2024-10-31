@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:41:58 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/29 22:45:47 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/31 14:16:06 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,18 +61,18 @@ void	extra_h(t_game *game, int i)
 {
 	if (game->ray[i].ra < PI)
 	{
-		game->ray[i].ry = (((int)game->player->pos_y  / 50) * 50) - 0.0001;
-		game->ray[i].rx = (game->ray[i].ry - (int)game->player->pos_y) * \
-		game->ray[i].atan + (int)game->player->pos_x;
-		game->ray[i].yo = -50;
+		game->ray[i].ry = (((int)game->player->pos_y  / 64) * 64) - 0.0001;
+		game->ray[i].rx = (game->ray[i].ry - game->player->pos_y) * \
+		game->ray[i].atan + game->player->pos_x;
+		game->ray[i].yo = -64;
 		game->ray[i].xo = game->ray[i].yo * game->ray[i].atan;
 	}
 	if (game->ray[i].ra > PI)
 	{
-		game->ray[i].ry = (((int)game->player->pos_y  / 50) * 50) + 50;
-		game->ray[i].rx = (game->ray[i].ry - (int)game->player->pos_y) * \
-		game->ray[i].atan + (int)game->player->pos_x;
-		game->ray[i].yo = 50;
+		game->ray[i].ry = (((int)game->player->pos_y  / 64) * 64) + 64;
+		game->ray[i].rx = (game->ray[i].ry - game->player->pos_y) * \
+		game->ray[i].atan + game->player->pos_x;
+		game->ray[i].yo = 64;
 		game->ray[i].xo = game->ray[i].yo * game->ray[i].atan;
 	}
 }
@@ -80,18 +80,18 @@ void	extra_v(t_game *game, int i)
 {
 	if (game->ray[i].ra > P2 && game->ray[i].ra < P3)
 	{
-		game->ray[i].rx = (((int)game->player->pos_x  / 50) * 50) - 0.0001;
-		game->ray[i].ry = (game->ray[i].rx - (int)game->player->pos_x) * \
-		game->ray[i].ntan + (int)game->player->pos_y;
-		game->ray[i].xo = -50;
+		game->ray[i].rx = (((int)game->player->pos_x  / 64) * 64) - 0.0001;
+		game->ray[i].ry = (game->ray[i].rx - game->player->pos_x) * \
+		game->ray[i].ntan + game->player->pos_y;
+		game->ray[i].xo = -64;
 		game->ray[i].yo = game->ray[i].xo * game->ray[i].ntan;
 	}
 	if (game->ray[i].ra < P2 || game->ray[i].ra > P3)
 	{
-		game->ray[i].rx = (((int)game->player->pos_x  / 50) * 50) + 50;
-		game->ray[i].ry = (game->ray[i].rx - (int)game->player->pos_x) * \
-		game->ray[i].ntan + (int)game->player->pos_y;
-		game->ray[i].xo = 50;
+		game->ray[i].rx = (((int)game->player->pos_x  / 64) * 64) + 64;
+		game->ray[i].ry = (game->ray[i].rx - game->player->pos_x) * \
+		game->ray[i].ntan + game->player->pos_y;
+		game->ray[i].xo = 64;
 		game->ray[i].yo = game->ray[i].xo * game->ray[i].ntan;
 	}
 }

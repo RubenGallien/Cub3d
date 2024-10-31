@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 13:58:50 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/29 12:33:29 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/30 13:38:32 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ int	ft_free_img(t_game *game)
 	i = -1;
 	while (++i < 4)
 		mlx_destroy_image(game->mlx, game->textures.wall[i].img);
+	i = -1;
+	while (++i < 2)
+		mlx_destroy_image(game->mlx, game->textures.torch[i].img);
 	return (0);
 }
 

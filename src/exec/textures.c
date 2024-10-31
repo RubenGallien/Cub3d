@@ -21,18 +21,18 @@ int choose_color(t_ray ray, t_img wall, int y, float line_h, int x)
 
 	j = 0;
 	(void)x;
-	offset = ((ray.wall_height - S_H ) / 50);
-	if (offset * 2 > 49)
-		offset = 24;
+	offset = ((ray.wall_height - S_H ) / 64);
+	if (offset * 2 > 63)
+		offset = 31;
 	if (ray.wall_height > S_H)
 	{
 		// j = (y / (S_H / (50 - (offset * 2)))) + offset;
-		j = (y / (S_H / (50 - (offset)))) + (offset / 2);
+		j = (y / (S_H / (64 - (offset)))) + (offset / 2);
 		i = ray.offset;
 	}
 	else
 	{
-		j = y / (line_h / 50);
+		j = y / (line_h / 64);
 		i = ray.offset;
 	}
 	color = ((int *)wall.pixels)[j * wall.width + i];
@@ -46,26 +46,26 @@ void	choose_textures(t_game *game, int i)
 		game->ray[i].rx = game->ray[i].rx_tmp;
 		if (game->ray[i].ry > game->player->pos_y)
 		{
-			game->ray[i].offset = 49 - (int)game->ray[i].rx % 50;
+			game->ray[i].offset = 63 - (int)game->ray[i].rx % 64;
 			game->ray[i].f_wall = 3;
 		}
 		else if (game->ray[i].ry == game->player->pos_y)
 		{
 			if (game->ray[i].ra > PI && game->ray[i].ra < PI * 2)
 			{
-				game->ray[i].offset = 49 - (int)game->ray[i].rx % 50;
+				game->ray[i].offset = 63 - (int)game->ray[i].rx % 64;
 				game->ray[i].f_wall = 3;
 			}
 			else
 			{
 				game->ray[i].f_wall = 2;
-				game->ray[i].offset = (int)game->ray[i].rx % 50;
+				game->ray[i].offset = (int)game->ray[i].rx % 64;
 			}
 		}
 		else
 		{
 			game->ray[i].f_wall = 2;
-			game->ray[i].offset = (int)game->ray[i].rx % 50;
+			game->ray[i].offset = (int)game->ray[i].rx % 64;
 		}
 
 	}
@@ -73,12 +73,12 @@ void	choose_textures(t_game *game, int i)
 	{
 		if (game->ray[i].rx > game->player->pos_x)
 		{
-			game->ray[i].offset = (int)game->ray[i].ry % 50;
+			game->ray[i].offset = (int)game->ray[i].ry % 64;
 			game->ray[i].f_wall = 1;
 		}
 		else
 		{
-			game->ray[i].offset = 49 - (int)game->ray[i].ry % 50;
+			game->ray[i].offset = 63 - (int)game->ray[i].ry % 64;
 			game->ray[i].f_wall = 0;
 		}
 	}
@@ -98,8 +98,12 @@ void	init_textures(t_game *game)
 {
 	int		i;
 	char	*wall[] = {WALL_E, WALL_W, WALL_S, WALL_N};
+	char	*torch[] = {TORCH_ON, TORCH_OFF};
 
 	i = -1;
 	while (++i < 4)
 		set_data_assets(game, wall[i], &game->textures.wall[i]);
+	i = -1;
+	while (++i < 2)
+		set_data_assets(game, torch[i], &game->textures.torch[i]);
 }

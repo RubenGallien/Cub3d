@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 14:27:49 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/31 11:59:49 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/10/31 15:43:33 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ void	distance_until_wall_v(t_game *game, int i)
 {
 	while (game->ray[i].dof < game->info.ln_max)
 	{
-		game->ray[i].mx = game->ray[i].rx / 50;
-		game->ray[i].my = game->ray[i].ry / 50;
+		game->ray[i].mx = game->ray[i].rx / 64;
+		game->ray[i].my = game->ray[i].ry / 64;
 		if (game->ray[i].mx >= 0 && game->ray[i].my >= 0 \
 		&& game->ray[i].mx < game->info.ln_x && game->ray[i].my < game->info.ln_y && \
 		game->map[game->ray[i].my][game->ray[i].mx] == '1')
@@ -93,8 +93,8 @@ void	distance_until_wall_h(t_game *game, int i)
 {
 	while (game->ray[i].dof < game->info.ln_max)
 	{
-		game->ray[i].mx = game->ray[i].rx / 50;
-		game->ray[i].my = game->ray[i].ry / 50;
+		game->ray[i].mx = game->ray[i].rx / 64;
+		game->ray[i].my = game->ray[i].ry / 64;
 		if (game->ray[i].mx >= 0 && game->ray[i].my >= 0 \
 		&& game->ray[i].mx < game->info.ln_x && game->ray[i].my < game->info.ln_y && \
 		game->map[game->ray[i].my][game->ray[i].mx] == '1')
@@ -146,7 +146,7 @@ void	fill_rays_infos(t_game *game)
 	{
 		game->ray[i].distance_h = 100000000;
 		game->ray[i].distance_v = 100000000;
-		game->ray[i].tmp = game->info.ln_max * 50;
+		game->ray[i].tmp = game->info.ln_max * 64;
 		game->ray[i].ra = ra;
 		if (game->ray[i].ra < 0)
 			game->ray[i].ra += 2 * PI;
@@ -154,12 +154,6 @@ void	fill_rays_infos(t_game *game)
 			game->ray[i].ra -= 2 * PI;
 		check_inter_h(game, i);
 		check_inter_v(game, i);
-		// if (i == (FOV * RES) / 2)
-		// {
-		// 	printf("ra[%d] in degree = %d\n", i, to_degrees(game->ray[i].ra));
-		// 	printf("(%d)distance h = %Lf\n", i ,game->ray[i].distance_h);
-		// 	printf("(%d)distance v = %Lf\n", i, game->ray[i].distance_v);
-		// }
 		if (game->ray[i].distance_h <= game->ray[i].distance_v)
 			game->ray[i].wall_height = game->ray[i].distance_h;
 		if (game->ray[i].distance_v < game->ray[i].distance_h)
