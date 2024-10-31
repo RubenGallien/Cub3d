@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 13:18:05 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/28 15:36:05 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/10/31 11:32:23 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,6 @@ void	minimap(t_game *game)
 	start_x = (game->player->pos_x) - 125;
 	start_y = (game->player->pos_y) - 125;
 	draw_minimap(game, start_x, start_y);
-	draw_player(game, (S_W - MM_S_X) + (MM_S_X / 2), (MM_S_Y / 2), 0xFF0000);
 	draw_fov_line_mm(game);
+	draw_player(game, (S_W - MM_S_X) + (MM_S_X / 2), (MM_S_Y / 2), 0xFF0000);
 }
