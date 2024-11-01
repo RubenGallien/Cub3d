@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:13:17 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/31 15:42:37 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/10/31 15:46:30 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,13 @@ int	on_keypress(int keysym, t_game *game)
 	{
 		ft_exit(game);
 		game->mlx_win = NULL;
+	}
+	else if (keysym == XK_f)
+	{
+		if (game->torch == 1)
+			game->torch = 0;
+		else
+			game->torch = 1;
 	}
 	else if (keysym == XK_w)
 	{

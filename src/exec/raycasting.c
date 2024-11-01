@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 14:27:49 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/31 15:43:33 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/11/01 16:33:25 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,29 @@
 
 void	draw_walls(double dist_t, int start, t_game *game, t_ray ray)
 {
-		float line_h;
+		float 	line_h;
 		double	width;
-		int	x;
-		int	y;
+		int		x;
+		int		y;
+		float	ty;
+		float	ty_step;
+		float	off;
 
 		x = 0;
-		line_h = WALL_SIZE * S_H / dist_t;
+		line_h = (WALL_SIZE * S_H) / dist_t;
 		ray.wall_height = line_h;
+		off = 0;
 		if (line_h > S_H)
+		{
+			off = (ray.wall_height - S_H) / 2;
 			line_h = S_H;
+		}
 		width = S_W / (FOV * RES);
 		while (x < (int)width)
 		{
 			y = 0;
+			ty_step = 64.0 / ray.wall_height;
+		    ty = off * ty_step;
 			while (y < S_H)
 			{
 				if (y < (S_H - (int)line_h) / 2)
@@ -35,10 +44,13 @@ void	draw_walls(double dist_t, int start, t_game *game, t_ray ray)
 				else if (y >= (S_H - (S_H - (int)line_h) / 2))
 					my_mlx_pixel_put(&game->world, x + start, y, game->info.colour[0]);
 				else
+				{
 					my_mlx_pixel_put(&game->world, x + start, y, \
 					choose_color(ray, game->textures.wall[ray.f_wall], \
-					y - ((S_H - (int)line_h) / 2), line_h, x));
+					y - ((S_H - (int)line_h) / 2), line_h, ty));
+				}
 				y++;
+				ty += ty_step;
 			}
 			x++;
 		}

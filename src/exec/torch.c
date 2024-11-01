@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   torch.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 14:51:15 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/31 15:00:59 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/01 16:11:56 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	draw_torch(t_game *game, int x, int y)
 {
 	int				i;
 	int				j;
-	int				change_x;
 	unsigned char	*dst;
 	unsigned int	color;
 
@@ -56,16 +55,14 @@ void	draw_torch(t_game *game, int x, int y)
 	while (i < game->textures.torch[game->torch].width * 12)
 	{
 		j = -1;
-		change_x = 0;
 		while (++j < game->textures.torch[game->torch].height * 12)
 		{
 			color = ((int *)game->textures.torch[game->torch].pixels)[(j / 12) * game->textures.torch[game->torch].width + (i / 12)];
 			if (color == 0xFF000000)
 				continue ;
-			dst = game->world.pixels + ((y + j) * game->world.line_length + ((x - change_x) + i) \
+			dst = game->world.pixels + ((y + j) * game->world.line_length + (x + i) \
 			* (game->world.bits_per_pixel / 8));
 			*(unsigned int *)dst = color;
-			change_x++;
 		}
 		i++;
 	}

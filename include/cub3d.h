@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/31 15:38:25 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/11/01 16:32:24 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 # define MM_SIZE 5
 # define MM_TILE_X (MM_S_X / MM_SIZE)
 # define MM_TILE_Y (MM_S_Y / MM_SIZE)
-# define RES 8
+# define RES 16
 # define SIZE_P_X (MM_TILE_X / 5)
 # define SIZE_P_Y (MM_TILE_Y / 5)
 
@@ -155,7 +155,7 @@ void		extra_h(t_game *game, int i);
 void		extra_v(t_game *game, int i);
 void		incr_pos(t_game *game, int b, double save_x, double save_y);
 void		choose_textures(t_game *game, int i);
-int			choose_color(t_ray ray, t_img wall, int y, float line_h, int x);
+int			choose_color(t_ray ray, t_img wall, int y, float line_h, float ty);
 
 // utils
 double		to_radiant(double number);

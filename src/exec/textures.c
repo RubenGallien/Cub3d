@@ -12,22 +12,16 @@
 
 #include "cub3d.h"
 
-int choose_color(t_ray ray, t_img wall, int y, float line_h, int x)
+int choose_color(t_ray ray, t_img wall, int y, float line_h, float ty)
 {
 	unsigned int	color;
 	int				i;
-	int			j;
-	float			offset;
+	int				j;
 
 	j = 0;
-	(void)x;
-	offset = ((ray.wall_height - S_H ) / 64);
-	if (offset * 2 > 63)
-		offset = 31;
 	if (ray.wall_height > S_H)
 	{
-		// j = (y / (S_H / (50 - (offset * 2)))) + offset;
-		j = (y / (S_H / (64 - (offset)))) + (offset / 2);
+		j = ty;
 		i = ray.offset;
 	}
 	else
