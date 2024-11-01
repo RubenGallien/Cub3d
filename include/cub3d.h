@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/01 16:32:24 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/11/01 17:32:52 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,6 @@
 # define SIZE_P_Y (MM_TILE_Y / 5)
 
 // assets
-#define WALL_E "textures/wall/deepslate_coal_ore.xpm"
-#define WALL_W "textures/wall/deepslate_diamond_ore.xpm"
-#define WALL_N "textures/wall/deepslate_gold_ore.xpm"
-#define WALL_S "textures/wall/deepslate_iron_ore.xpm"
 #define TORCH_ON "textures/utils/torch.xpm"
 #define	TORCH_OFF "textures/utils/torch_off.xpm"
 

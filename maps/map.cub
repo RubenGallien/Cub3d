@@ -1,11 +1,11 @@
 
-NO ./textures/north
+NO ./textures/wall/deepslate_diamond_ore.xpm
 
-               SO            ./textures/south
+               SO            ./textures/wall/deepslate_coal_ore.xpm
 
-        EA           ./textures/east
+        EA           ./textures/wall/deepslate_gold_ore.xpm
 
-WE           ./textures/west
+WE           ./textures/wall/deepslate_iron_ore.xpm
 
                        F 79,79,79
 
