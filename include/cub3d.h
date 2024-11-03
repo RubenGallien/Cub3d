@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/01 17:32:52 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/03 23:04:07 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 # define MM_SIZE 5
 # define MM_TILE_X (MM_S_X / MM_SIZE)
 # define MM_TILE_Y (MM_S_Y / MM_SIZE)
-# define RES 16
+# define RES 32
 # define SIZE_P_X (MM_TILE_X / 5)
 # define SIZE_P_Y (MM_TILE_Y / 5)
 
@@ -51,11 +51,22 @@
 
 # include "parsing.h"
 
+typedef struct s_minimap
+{
+	int	x;
+	int	y;
+	int	start_x;
+	int	start_y;
+	int	c_x;
+	int	c_y;
+	int	r;
+}			t_minimap;
+
 typedef struct s_rgb {
-	double r;
-	double g;
-	double b;
-} t_rgb;
+	double	r;
+	double	g;
+	double	b;
+}			t_rgb;
 
 typedef struct s_img
 {
@@ -76,27 +87,30 @@ typedef struct s_asset
 
 typedef struct s_ray
 {
-	int		r;
-	int		mx;
-	int		my;
-	int		mp;
-	int		dof;
-	double	atan;
-	double	ntan;
-	double	rx;
-	double	rx_tmp;
-	double	ry;
-	double	ra;
-	double	xo;
-	double	yo;
-	double	distance_h;
-	double 	distance_v;
-	double			wall_height;
-	int		color;
+	int						r;
+	int						mx;
+	int						my;
+	int						mp;
+	int						dof;
+	double					atan;
+	double					ntan;
+	double					rx;
+	double					rx_tmp;
+	double					ry;
+	double					ra;
+	double					xo;
+	double					yo;
+	double				distance_h;
+	double 				distance_v;
+	double				wall_height;
+	int					color;
 	unsigned long		tmp;
-	int	offset;
-	int	f_wall;
-	int	flag;
+	int					offset;
+	double				off_y;
+	double				ty_step;
+	double				ty;
+	int					f_wall;
+	int					flag;
 }				t_ray;
 
 typedef struct s_player
@@ -105,7 +119,7 @@ typedef struct s_player
 	double	pdy;
 	double	pos_x;
 	double	pos_y;
-	int	angle;
+	int		angle;
 	char	pos;
 	int		left;
 	int		left_r;
@@ -124,6 +138,7 @@ typedef struct s_game
 	char		**map;
 	int			tick;
 	int			torch;
+	double		width_per_cell;
 	t_asset		textures;
 	t_img		world;
 	t_player	*player;
@@ -133,9 +148,10 @@ typedef struct s_game
 }			t_game;
 
 // init
-void		init_player(t_player *player, char **map);
+int			init_player(t_player *player, char **map);
 void		init_game(t_game *game, t_player *player, char **map);
 void		init_textures(t_game *game);
+
 // events
 int			on_keypress(int keysym, t_game *game);
 int			on_keyrelease(int keysym, t_game *game);
@@ -151,16 +167,17 @@ void		extra_h(t_game *game, int i);
 void		extra_v(t_game *game, int i);
 void		incr_pos(t_game *game, int b, double save_x, double save_y);
 void		choose_textures(t_game *game, int i);
-int			choose_color(t_ray ray, t_img wall, int y, float line_h, float ty);
+int			choose_color(t_ray ray, t_img wall, int y);
 
 // utils
 double		to_radiant(double number);
 void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
-double			found_distance(double x1, double y1, double x2, double y2);
-int			to_degrees(double number);
+double		found_distance(double x1, double y1, double x2, double y2);
 void		draw_torch(t_game *game, int x, int y);
-void	apply_darker(t_game *game, int percentage);
+void		apply_darker(t_game *game, int percentage);
+void		normalize_angle(double *angle);
+int			set_data_assets(t_game *game, char *_path, t_img *textures);
 // minimap
-void 	minimap(t_game *game);
+void		minimap(t_game *game);
 
 #endif

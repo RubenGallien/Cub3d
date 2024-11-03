@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 13:18:05 by rgallien          #+#    #+#             */
-/*   Updated: 2024/10/31 16:02:29 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/11/03 23:21:25 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,38 +55,52 @@ void	draw_player(t_game *game, int start_x, int start_y, int color)
 	}
 }
 
-void	draw_minimap(t_game *game, int start_x, int start_y)
+void	draw_minimap_aux(t_game *game, t_minimap *m)
 {
-	int	y;
-	int	x;
-	int	radius = MM_S_X / 2;
+	if ((m->start_x + m->x) % MM_TILE_X == 0 || \
+		(m->start_y + m->y) % MM_TILE_Y == 0)
+		my_mlx_pixel_put(&game->world, (S_W - MM_S_X - 10) \
+		+ m->x, m->y + 10, 0x000000);
+	else if (game->map[(m->start_y + m->y) / MM_TILE_Y] \
+	[(m->start_x + m->x) / MM_TILE_X] == '1')
+		my_mlx_pixel_put(&game->world, (S_W - MM_S_X - 10) \
+		+ m->x, m->y + 10, 0x0000FF);
+	else if (game->map[(m->start_y + m->y) / MM_TILE_Y] \
+	[(m->start_x + m->x) / MM_TILE_X] == '0' \
+	|| game->map[(m->start_y + m->y) / MM_TILE_Y][(m->start_x + m->x) / \
+	MM_TILE_X] == 'N' || game->map[(m->start_y + m->y) / MM_TILE_Y] \
+	[(m->start_x + m->x) / MM_TILE_X] == 'S' || game->map[(m->start_y + m->y) \
+	/ MM_TILE_Y][(m->start_x + m->x) / MM_TILE_X] == 'W' || \
+	game->map[(m->start_y + m->y) / MM_TILE_Y] \
+	[(m->start_x + m->x) / MM_TILE_X] == 'E')
+		my_mlx_pixel_put(&game->world, (S_W - MM_S_X - 10) \
+		+ m->x, m->y + 10, 0x9e9494);
+	else
+		my_mlx_pixel_put(&game->world, (S_W - MM_S_X - 10) \
+		+ m->x, m->y + 10, 0x000000);
+}
 
-	int	center_x = MM_S_X / 2;
-	int	center_y = MM_S_Y / 2;
-
-	y = -1;
-	while (++y < MM_S_Y)
+void	draw_minimap(t_game *game, t_minimap m)
+{
+	m.y = -1;
+	while (++m.y < MM_S_Y)
 	{
-		x = -1;
-		while (++x < MM_S_X)
+		m.x = -1;
+		while (++m.x < MM_S_X)
 		{
-			if ((x - center_x) * (x - center_x) + (y - center_y) * (y - center_y) <= radius * radius)
+			if ((m.x - m.c_x) * (m.x - m.c_x) + (m.y - m.c_y) * \
+			(m.y - m.c_y) <= m.r * m.r)
 			{
-				if (start_x + x < 0 || start_y + y < 0 || (start_y + y) / MM_TILE_Y < 0 || \
-				(start_x + x) / MM_TILE_X < 0 || (start_y + y) / MM_TILE_Y > game->y - 1 || (start_x + x) / MM_TILE_X > game->x - 1 || !game->map[(start_y + y) / MM_TILE_Y][(start_x + x) / MM_TILE_X])
-					my_mlx_pixel_put(&game->world, (S_W - MM_S_X - 10) + x, y + 10, 0x000000);
-				else if ((start_x + x) % MM_TILE_X == 0 || (start_y + y) % MM_TILE_Y == 0)
-					my_mlx_pixel_put(&game->world, (S_W - MM_S_X - 10) + x, y + 10, 0x000000);
-				else if (game->map[(start_y + y) / MM_TILE_Y][(start_x + x) / MM_TILE_X] == '1')
-					my_mlx_pixel_put(&game->world, (S_W - MM_S_X - 10) + x, y + 10, 0x0000FF);
-				else if (game->map[(start_y + y) / MM_TILE_Y][(start_x + x) / MM_TILE_X] == '0' \
-				|| game->map[(start_y + y) / MM_TILE_Y][(start_x + x) / MM_TILE_X] == 'N' || \
-				game->map[(start_y + y) / MM_TILE_Y][(start_x + x) / MM_TILE_X] == 'S' || \
-				game->map[(start_y + y) / MM_TILE_Y][(start_x + x) / MM_TILE_X] == 'W' || \
-				game->map[(start_y + y) / MM_TILE_Y][(start_x + x) / MM_TILE_X] == 'E')
-					my_mlx_pixel_put(&game->world, (S_W - MM_S_X - 10) + x, y + 10, 0x9e9494);
+				if (m.start_x + m.x < 0 || m.start_y + m.y < 0 || \
+				(m.start_y + m.y) / MM_TILE_Y < 0 || (m.start_x + m.x) / \
+				MM_TILE_X < 0 || (m.start_y + m.y) / MM_TILE_Y > game->y - 1 || \
+				(m.start_x + m.x) / MM_TILE_X > game->x - 1 || \
+				!game->map[(m.start_y + m.y) / MM_TILE_Y] \
+				[(m.start_x + m.x) / MM_TILE_X])
+					my_mlx_pixel_put(&game->world, (S_W - MM_S_X - 10) \
+					+ m.x, m.y + 10, 0x000000);
 				else
-					my_mlx_pixel_put(&game->world, (S_W - MM_S_X - 10) + x, y + 10, 0x000000);
+					draw_minimap_aux(game, &m);
 			}
 		}
 	}
@@ -94,13 +108,18 @@ void	draw_minimap(t_game *game, int start_x, int start_y)
 
 void	minimap(t_game *game)
 {
-	int	start_x;
-	int	start_y;
+	t_minimap	m;
 
-	start_x = (game->player->pos_x) - (MM_S_X / 2);
-	start_y = (game->player->pos_y) - (MM_S_X / 2);
-	draw_minimap(game, start_x, start_y);
+	m.start_x = (game->player->pos_x) - (MM_S_X / 2);
+	m.start_y = (game->player->pos_y) - (MM_S_X / 2);
+	m.c_x = MM_S_X / 2;
+	m.c_y = MM_S_X / 2;
+	m.x = -1;
+	m.y = -1;
+	m.r = MM_S_X / 2;
+	draw_minimap(game, m);
 	if (!game->torch)
 		draw_fov_line_mm(game);
-	draw_player(game, ((S_W - MM_S_X) + (MM_S_X / 2)) - 10, (MM_S_Y / 2) + 10, 0xFF0000);
+	draw_player(game, ((S_W - MM_S_X) + (MM_S_X / 2)) - 10, \
+	(MM_S_Y / 2) + 10, 0xFF0000);
 }

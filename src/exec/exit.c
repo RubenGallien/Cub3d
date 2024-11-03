@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 13:58:50 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/01 17:39:23 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/03 19:21:12 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,15 @@ int	ft_free_img(t_game *game)
 
 int	ft_exit(t_game *game)
 {
-	ft_free_img(game);
-	ft_free_info(&(game->info));
-	mlx_destroy_image(game->mlx, game->world.img);
-	mlx_destroy_window(game->mlx, game->mlx_win);
-	mlx_destroy_display(game->mlx);
-	free(game->mlx);
+	if (game->mlx)
+	{
+		ft_free_img(game);
+		mlx_destroy_image(game->mlx, game->world.img);
+		mlx_destroy_window(game->mlx, game->mlx_win);
+		mlx_destroy_display(game->mlx);
+		free(game->mlx);
+	}
+	if (game && &(game->info) != NULL)
+		ft_free_info(&(game->info));
 	return (exit(0), 0);
 }

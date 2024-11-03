@@ -28,8 +28,8 @@ int	game_loop(t_game *game)
 			apply_darker(game, 5);
 		minimap(game);
 		draw_torch(game, x_torch_start, y_torch_start);
-		// printf("PDX: %f, PDY: %f, Angle: %f\n", game->player->pdx, game->player->pdy, game->player->angle);
-		mlx_put_image_to_window(game->mlx, game->mlx_win, game->world.img, 0, 0);
+		mlx_put_image_to_window(game->mlx, game->mlx_win, \
+		game->world.img, 0, 0);
 	}
 	game->tick = (game->tick + 1) % ((150000 / 2) / SPEED);
 	return (0);
