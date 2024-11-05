@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/03 23:04:07 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/04 22:29:56 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@
 // assets
 #define TORCH_ON "textures/utils/torch.xpm"
 #define	TORCH_OFF "textures/utils/torch_off.xpm"
+#define CEILING "textures/ceiling/deepslate_top.xpm"
+#define FLOOR "textures/floor/deepslate.xpm"
 
 # include "parsing.h"
 
@@ -83,6 +85,8 @@ typedef struct s_asset
 {
 	t_img	wall[4];
 	t_img	torch[2];
+	t_img	ceiling;
+	t_img	floor;
 }			t_asset;
 
 typedef struct s_ray
@@ -109,6 +113,8 @@ typedef struct s_ray
 	double				off_y;
 	double				ty_step;
 	double				ty;
+	double				tx;
+	double				dy;
 	int					f_wall;
 	int					flag;
 }				t_ray;
@@ -167,7 +173,8 @@ void		extra_h(t_game *game, int i);
 void		extra_v(t_game *game, int i);
 void		incr_pos(t_game *game, int b, double save_x, double save_y);
 void		choose_textures(t_game *game, int i);
-int			choose_color(t_ray ray, t_img wall, int y);
+int			choose_color(t_ray ray, t_img wall, int y, int torch);
+int			choose_color_floor(t_ray ray, t_img floor, int y, int torch);
 
 // utils
 double		to_radiant(double number);

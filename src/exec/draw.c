@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 17:07:16 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/03 21:52:40 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/05 03:21:19 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,14 @@ void	draw_floor(double dist_t, int start, t_game *game, t_ray ray)
 		y = -1;
 		while (++y < S_H)
 		{
+			// ray.dy = y - (S_H / 2.0);
 			if (y >= (S_H - (S_H - (int)ray.wall_height) / 2))
-				my_mlx_pixel_put(&game->world, x + start, \
-				y, game->info.colour[0]);
+			{
+				// ray.tx = game->player->pos_x / 2 + cos(game->ray->ra) * dist_t * 64 / ray.dy;
+				// ray.ty = game->player->pos_y / 2 - sin(game->ray->ra) * dist_t * 64 / ray.dy;
+				my_mlx_pixel_put(&game->world, x + start, y, game->info.colour[0]);
+
+			}
 		}
 	}
 }
@@ -122,7 +127,7 @@ void	draw_wall(double dist_t, int start, t_game *game, t_ray ray)
 			y <= (S_H + (int)ray.wall_height) / 2)
 				my_mlx_pixel_put(&game->world, x + start, y, \
 				choose_color(ray, game->textures.wall[ray.f_wall], \
-				y - ((S_H - (int)ray.wall_height) / 2)));
+				y - ((S_H - (int)ray.wall_height) / 2), game->torch));
 			ray.ty += ray.ty_step;
 		}
 	}

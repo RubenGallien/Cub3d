@@ -6,17 +6,49 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 03:25:57 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/03 16:25:24 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/05 02:55:37 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	choose_color(t_ray ray, t_img wall, int y)
+
+void	apply_filter(unsigned int color, t_rgb *rgb, int torch, double wall)
+{
+	double	perc;
+	double	max_height;
+
+	max_height = S_H;
+	if (torch)
+		perc = wall / max_height;
+	else
+		perc = wall / (max_height * (max_height / (wall / 8)));
+	rgb->r = ((color >> 16) & 0xFF) / 255.0;
+	rgb->g = ((color >> 8) & 0xFF) / 255.0;
+	rgb->b = (color & 0xFF) / 255.0;
+	rgb->r *= perc;
+	rgb->g *= perc;
+	rgb->b *= perc;
+}
+
+int	choose_color_floor(t_ray ray, t_img floor, int y, int torch)
+{
+	unsigned int	color;
+
+	(void)torch;
+	(void)y;
+	printf("ty = %d\n", (int)ray.ty / 64);
+	printf("tx = %d\n", (int)ray.tx / 64);
+	color = ((int *)floor.pixels)[(int)ray.ty * floor.width + (int)ray.tx];
+	return (color);
+}
+
+int	choose_color(t_ray ray, t_img wall, int y, int torch)
 {
 	unsigned int	color;
 	int				i;
 	int				j;
+	t_rgb			rgb;
 
 	j = 0;
 	if (ray.off_y > 0.0)
@@ -25,6 +57,9 @@ int	choose_color(t_ray ray, t_img wall, int y)
 		j = y / (ray.wall_height / 64);
 	i = ray.offset;
 	color = ((int *)wall.pixels)[j * wall.width + i];
+	apply_filter(color, &rgb, torch, ray.wall_height);
+	color = (((int)(rgb.r * 255) & 0xFF) << 16) + (((int)(rgb.g * 255) \
+			& 0xFF) << 8) + ((int)(rgb.b * 255) & 0xFF);
 	return (color);
 }
 

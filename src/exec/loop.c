@@ -24,8 +24,6 @@ int	game_loop(t_game *game)
 		move_player(game);
 		fill_rays_infos(game);
 		draw_gameplan(game);
-		if (game->torch)
-			apply_darker(game, 5);
 		minimap(game);
 		draw_torch(game, x_torch_start, y_torch_start);
 		mlx_put_image_to_window(game->mlx, game->mlx_win, \

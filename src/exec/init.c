@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:14:12 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/03 19:26:45 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/04 19:50:41 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,16 @@ void	init_textures(t_game *game)
 	int		i;
 	char	*torch[2];
 
-	torch[0] = TORCH_ON;
-	torch[1] = TORCH_OFF;
+	torch[0] = TORCH_OFF;
+	torch[1] = TORCH_ON;
 	i = -1;
 	while (++i < 4)
 		set_data_assets(game, game->info.texture[i], &game->textures.wall[i]);
 	i = -1;
 	while (++i < 2)
 		set_data_assets(game, torch[i], &game->textures.torch[i]);
+	set_data_assets(game, CEILING, &game->textures.ceiling);
+	set_data_assets(game, FLOOR, &game->textures.floor);
 }
 
 double	get_angle(char c)
@@ -57,7 +59,7 @@ void	init_game(t_game *game, t_player *player, char **map)
 		i++;
 	}
 	game->y = i;
-	game->torch = 1;
+	game->torch = 0;
 	game->mlx = mlx_init();
 	game->mlx_win = mlx_new_window(game->mlx, S_W, S_H, "Welcome to Cub3D");
 	game->player = player;

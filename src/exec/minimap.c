@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 13:18:05 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/03 23:21:25 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/04 15:17:45 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	draw_fov_line_mm(t_game *game)
 	while (++i < FOV * RES)
 	{
 		l = -1;
-		while (++l < game->ray[i].wall_height && l < 159)
+		while (++l < game->ray[i].wall_height && l < 160)
 			my_mlx_pixel_put(&game->world, start_x + MM_SIZE + \
 			(l * cos(game->ray[i].ra)), \
 			start_y + MM_SIZE - (l * sin(game->ray[i].ra)), 0xd9d509);
@@ -118,7 +118,7 @@ void	minimap(t_game *game)
 	m.y = -1;
 	m.r = MM_S_X / 2;
 	draw_minimap(game, m);
-	if (!game->torch)
+	if (game->torch)
 		draw_fov_line_mm(game);
 	draw_player(game, ((S_W - MM_S_X) + (MM_S_X / 2)) - 10, \
 	(MM_S_Y / 2) + 10, 0xFF0000);
