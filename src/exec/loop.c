@@ -19,9 +19,11 @@ int	game_loop(t_game *game)
 
 	x_torch_start = S_W / 8;
 	y_torch_start = S_H - (64 * 12);
+	mlx_mouse_get_pos(game->mlx, game->mlx_win, &game->mouse.x, &game->mouse.y);
 	if (!game->tick && game->mlx_win)
 	{
 		move_player(game);
+		mlx_mouse_move(game->mlx, game->mlx_win, 960, 505);
 		fill_rays_infos(game);
 		draw_gameplan(game);
 		minimap(game);
