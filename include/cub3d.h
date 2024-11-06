@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/06 15:04:01 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/06 16:26:33 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,12 @@ typedef struct s_player
 	int		right_r;
 }				t_player;
 
+typedef struct s_mouse
+{
+	int	x;
+	int	y;
+}		t_mouse;
+
 typedef struct s_game
 {
 	int			x;
@@ -148,8 +154,8 @@ typedef struct s_game
 	t_asset		textures;
 	t_img		world;
 	t_player	*player;
+	t_mouse		mouse;
 	t_ray		ray[FOV * RES];
-	// t_ray		*ray;
 	t_map		info;
 }			t_game;
 

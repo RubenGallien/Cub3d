@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:14:12 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/04 19:50:41 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/06 13:58:17 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,10 @@ int	init_player(t_player *player, char **map)
 				count++;
 				if (count == 1)
 					init_player_aux(player, map, i, j);
-				if (count > 1)
-					return (write(2, "Too much player on the field\n", 30));
 			}
 		}
 	}
+	if (!count || count > 1)
+		return (ft_werror(SPAWN_ER), 1);
 	return (0);
 }
