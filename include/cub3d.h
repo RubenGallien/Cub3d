@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/04 22:29:56 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/06 15:04:01 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@
 # include <string.h>
 # include <fcntl.h>
 
-# define WALL_SIZE 64
+# define WALL_SIZE 96
 # define EPSILON 0.0001
 # define ONE_DEGREE 0.0174533
 # define FOV 60
-# define SPEED 100
+# define SPEED 3000
 # define PI	3.14159265359
 # define P2	(PI / 2)
 # define P3	(3 * PI / 2)

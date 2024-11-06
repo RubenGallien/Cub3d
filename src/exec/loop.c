@@ -19,7 +19,7 @@ int	game_loop(t_game *game)
 
 	x_torch_start = S_W / 8;
 	y_torch_start = S_H - (64 * 12);
-	if (!game->tick && game->mlx_win)
+	if (game->mlx_win)
 	{
 		move_player(game);
 		fill_rays_infos(game);
@@ -29,6 +29,6 @@ int	game_loop(t_game *game)
 		mlx_put_image_to_window(game->mlx, game->mlx_win, \
 		game->world.img, 0, 0);
 	}
-	game->tick = (game->tick + 1) % ((150000 / 2) / SPEED);
+	// game->tick = (game->tick + 1) % ((150000 / 2) / SPEED);
 	return (0);
 }

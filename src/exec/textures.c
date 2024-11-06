@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 03:25:57 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/05 02:55:37 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/06 13:34:41 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,12 @@ int	choose_color_floor(t_ray ray, t_img floor, int y, int torch)
 
 	(void)torch;
 	(void)y;
-	printf("ty = %d\n", (int)ray.ty / 64);
-	printf("tx = %d\n", (int)ray.tx / 64);
-	color = ((int *)floor.pixels)[(int)ray.ty * floor.width + (int)ray.tx];
+	int	ty;
+	int	tx;
+
+	tx = ((int)ray.tx % 64) & 63;
+	ty = ((int)ray.ty % 64) & 63;
+	color = ((int *)floor.pixels)[(ty * floor.width + tx)];
 	return (color);
 }
 
@@ -51,15 +54,17 @@ int	choose_color(t_ray ray, t_img wall, int y, int torch)
 	t_rgb			rgb;
 
 	j = 0;
+	(void)rgb;
+	(void)torch;
 	if (ray.off_y > 0.0)
 		j = ray.ty;
 	else
 		j = y / (ray.wall_height / 64);
 	i = ray.offset;
 	color = ((int *)wall.pixels)[j * wall.width + i];
-	apply_filter(color, &rgb, torch, ray.wall_height);
-	color = (((int)(rgb.r * 255) & 0xFF) << 16) + (((int)(rgb.g * 255) \
-			& 0xFF) << 8) + ((int)(rgb.b * 255) & 0xFF);
+	// apply_filter(color, &rgb, torch, ray.wall_height);
+	// color = (((int)(rgb.r * 255) & 0xFF) << 16) + (((int)(rgb.g * 255) \
+	// 		& 0xFF) << 8) + ((int)(rgb.b * 255) & 0xFF);
 	return (color);
 }
 
