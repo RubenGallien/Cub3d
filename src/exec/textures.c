@@ -6,12 +6,11 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 03:25:57 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/06 13:34:41 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/08 01:04:39 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
 
 void	apply_filter(unsigned int color, t_rgb *rgb, int torch, double wall)
 {
@@ -20,9 +19,11 @@ void	apply_filter(unsigned int color, t_rgb *rgb, int torch, double wall)
 
 	max_height = S_H;
 	if (torch)
-		perc = wall / max_height;
+		perc = (wall / max_height) - 0.1;
 	else
 		perc = wall / (max_height * (max_height / (wall / 8)));
+	if (perc < 0)
+		perc = 0;
 	rgb->r = ((color >> 16) & 0xFF) / 255.0;
 	rgb->g = ((color >> 8) & 0xFF) / 255.0;
 	rgb->b = (color & 0xFF) / 255.0;
@@ -31,18 +32,40 @@ void	apply_filter(unsigned int color, t_rgb *rgb, int torch, double wall)
 	rgb->b *= perc;
 }
 
-int	choose_color_floor(t_ray ray, t_img floor, int y, int torch)
+void color_f_c(unsigned int color, t_rgb *rgb, int torch, int y)
+{
+	double perc;
+
+	if (torch)
+	{
+		perc = (double)y / S_H - 0.550;
+	}
+	else
+		perc = 0.01;
+	if (perc < 0)
+		perc = 0;
+	rgb->r = ((color >> 16) & 0xFF) / 255.0 * perc;
+	rgb->g = ((color >> 8) & 0xFF) / 255.0 * perc;
+	rgb->b = (color & 0xFF) / 255.0 * perc;
+}
+
+
+
+int	choose_color_floor_ceiling(t_ray ray, t_img floor, int y, int torch)
 {
 	unsigned int	color;
+	int				ty;
+	int				tx;
+	t_rgb			rgb;
 
 	(void)torch;
 	(void)y;
-	int	ty;
-	int	tx;
-
 	tx = ((int)ray.tx % 64) & 63;
 	ty = ((int)ray.ty % 64) & 63;
 	color = ((int *)floor.pixels)[(ty * floor.width + tx)];
+	color_f_c(color, &rgb, torch, y);
+	color = (((int)(rgb.r * 255) & 0xFF) << 16) + (((int)(rgb.g * 255) \
+	& 0xFF) << 8) + ((int)(rgb.b * 255) & 0xFF);
 	return (color);
 }
 
@@ -62,9 +85,9 @@ int	choose_color(t_ray ray, t_img wall, int y, int torch)
 		j = y / (ray.wall_height / 64);
 	i = ray.offset;
 	color = ((int *)wall.pixels)[j * wall.width + i];
-	// apply_filter(color, &rgb, torch, ray.wall_height);
-	// color = (((int)(rgb.r * 255) & 0xFF) << 16) + (((int)(rgb.g * 255) \
-	// 		& 0xFF) << 8) + ((int)(rgb.b * 255) & 0xFF);
+	apply_filter(color, &rgb, torch, ray.wall_height);
+	color = (((int)(rgb.r * 255) & 0xFF) << 16) + (((int)(rgb.g * 255) \
+	& 0xFF) << 8) + ((int)(rgb.b * 255) & 0xFF);
 	return (color);
 }
 

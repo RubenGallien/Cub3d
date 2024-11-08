@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:13:17 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/06 15:38:10 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/11/07 23:25:19 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	move_player(t_game *game)
 	else if (game->player->right_r == 1)
 		game->player->angle -= 2;
 	else if (delta)
-		game->player->angle -= 180 * ((double)delta / 960) ;
+		game->player->angle -= 180 * ((double)delta / 960);
 	if (game->player->right_r == 1 || game->player->left_r == 1 || delta)
 	{
 		game->player->angle = (int)game->player->angle % 360;
