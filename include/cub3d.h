@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/07 23:36:17 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/08 14:29:58 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 # define MM_SIZE 5
 # define MM_TILE_X (MM_S_X / MM_SIZE)
 # define MM_TILE_Y (MM_S_Y / MM_SIZE)
-# define RES 32
+# define RES 8
 # define SIZE_P_X (MM_TILE_X / 5)
 # define SIZE_P_Y (MM_TILE_Y / 5)
 
@@ -91,6 +91,8 @@ typedef struct s_asset
 
 typedef struct s_ray
 {
+	double					perc;
+	unsigned int			color;
 	int						r;
 	int						mx;
 	int						my;
@@ -107,7 +109,6 @@ typedef struct s_ray
 	double				distance_h;
 	double 				distance_v;
 	double				wall_height;
-	int					color;
 	unsigned long		tmp;
 	int					offset;
 	double				off_y;
@@ -179,7 +180,7 @@ void		extra_h(t_game *game, int i);
 void		extra_v(t_game *game, int i);
 void		incr_pos(t_game *game, int b, double save_x, double save_y);
 void		choose_textures(t_game *game, int i);
-int			choose_color(t_ray ray, t_img wall, int y, int torch);
+int			choose_color(t_ray *ray, t_img wall, int y);
 int			choose_color_floor_ceiling(t_ray ray, t_img floor, int y, int torch);
 
 // utils

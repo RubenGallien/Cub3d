@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 17:07:16 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/07 23:59:26 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/08 14:33:41 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	draw_floor(double dist_t, int start, t_game *game, t_ray ray)
 	beta = fabs(ray.ra - to_radiant(game->player->angle));
 	while (++x < (int)game->width_per_cell)
 	{
-		y = ((S_H - (S_H - (int)ray.wall_height) / 2)) - 1;
+		y = ((S_H - (S_H - (int)ray.wall_height) / 2)) - 2;
 		while (++y < S_H)
 		{
 			r = y - (S_H / 2.0);
@@ -49,8 +49,12 @@ void	draw_floor(double dist_t, int start, t_game *game, t_ray ray)
 	}
 }
 
-void	draw_wall_aux(double dist_t, t_ray *ray)
+double	draw_wall_aux(double dist_t, t_ray *ray, int torch)
 {
+	double	perc;
+	double	max_height;
+
+	max_height = S_H;
 	ray->wall_height = (WALL_SIZE * S_H) / dist_t;
 	ray->off_y = 0.0;
 	if (ray->wall_height > S_H)
@@ -58,6 +62,13 @@ void	draw_wall_aux(double dist_t, t_ray *ray)
 		ray->off_y = (ray->wall_height - S_H) / 2;
 		ray->wall_height = S_H;
 	}
+	if (torch)
+		perc = (ray->wall_height / max_height) - 0.175;
+	else
+		perc = ray->wall_height / (max_height * (max_height / (ray->wall_height / 8)));
+	if (perc < 0)
+		perc = 0;
+	return (perc);
 }
 
 void	draw_wall(double dist_t, int start, t_game *game, t_ray ray)
@@ -67,7 +78,7 @@ void	draw_wall(double dist_t, int start, t_game *game, t_ray ray)
 	int		min;
 	int		max;
 
-	draw_wall_aux(dist_t, &ray);
+	ray.perc = draw_wall_aux(dist_t, &ray, game->torch);
 	min = (S_H - (int)ray.wall_height) / 2;
 	max = (S_H + (int)ray.wall_height) / 2;
 	x = -1;
@@ -79,8 +90,8 @@ void	draw_wall(double dist_t, int start, t_game *game, t_ray ray)
 		while (++y < max)
 		{
 			my_mlx_pixel_put(&game->world, x + start, y, \
-			choose_color(ray, game->textures.wall[ray.f_wall], \
-			y - ((S_H - (int)ray.wall_height) / 2), game->torch));
+			choose_color(&ray, game->textures.wall[ray.f_wall], \
+			y - ((S_H - (int)ray.wall_height) / 2)));
 			ray.ty += ray.ty_step;
 		}
 	}

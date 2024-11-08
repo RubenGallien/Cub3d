@@ -6,30 +6,17 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 03:25:57 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/08 01:04:39 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/08 17:41:56 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	apply_filter(unsigned int color, t_rgb *rgb, int torch, double wall)
+void	apply_filter(unsigned int color, t_rgb *rgb, t_ray ray)
 {
-	double	perc;
-	double	max_height;
-
-	max_height = S_H;
-	if (torch)
-		perc = (wall / max_height) - 0.1;
-	else
-		perc = wall / (max_height * (max_height / (wall / 8)));
-	if (perc < 0)
-		perc = 0;
-	rgb->r = ((color >> 16) & 0xFF) / 255.0;
-	rgb->g = ((color >> 8) & 0xFF) / 255.0;
-	rgb->b = (color & 0xFF) / 255.0;
-	rgb->r *= perc;
-	rgb->g *= perc;
-	rgb->b *= perc;
+	rgb->r = ((color >> 16) & 0xFF) / 255.0 * ray.perc;
+	rgb->g = ((color >> 8) & 0xFF) / 255.0 * ray.perc;
+	rgb->b = (color & 0xFF) / 255.0 * ray.perc;
 }
 
 void color_f_c(unsigned int color, t_rgb *rgb, int torch, int y)
@@ -69,26 +56,23 @@ int	choose_color_floor_ceiling(t_ray ray, t_img floor, int y, int torch)
 	return (color);
 }
 
-int	choose_color(t_ray ray, t_img wall, int y, int torch)
+int	choose_color(t_ray *ray, t_img wall, int y)
 {
-	unsigned int	color;
 	int				i;
 	int				j;
 	t_rgb			rgb;
 
 	j = 0;
-	(void)rgb;
-	(void)torch;
-	if (ray.off_y > 0.0)
-		j = ray.ty;
+	if (ray->off_y > 0.0)
+		j = ray->ty;
 	else
-		j = y / (ray.wall_height / 64);
-	i = ray.offset;
-	color = ((int *)wall.pixels)[j * wall.width + i];
-	apply_filter(color, &rgb, torch, ray.wall_height);
-	color = (((int)(rgb.r * 255) & 0xFF) << 16) + (((int)(rgb.g * 255) \
+		j = y / (ray->wall_height / 64);
+	i = ray->offset;
+	ray->color = ((int *)wall.pixels)[j * wall.width + i];
+	apply_filter(ray->color, &rgb, *ray);
+	ray->color = (((int)(rgb.r * 255) & 0xFF) << 16) + (((int)(rgb.g * 255) \
 	& 0xFF) << 8) + ((int)(rgb.b * 255) & 0xFF);
-	return (color);
+	return (ray->color);
 }
 
 void	h_textures(t_game *game, int i)
