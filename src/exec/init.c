@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:14:12 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/06 13:58:17 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/11/08 13:26:12 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	init_game(t_game *game, t_player *player, char **map)
 		i++;
 	}
 	game->y = i;
+	game->tick = 0;
 	game->torch = 0;
 	game->mlx = mlx_init();
 	game->mlx_win = mlx_new_window(game->mlx, S_W, S_H, "Welcome to Cub3D");

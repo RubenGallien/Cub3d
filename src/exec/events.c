@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:13:17 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/07 23:25:19 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/08 18:40:16 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,11 @@ void	left_and_right(t_game *game)
 
 void	move_player(t_game *game)
 {
-	int	delta;
-
-	delta = game->mouse.x - 960;
 	if (game->player->left_r == 1)
 		game->player->angle += 2;
 	else if (game->player->right_r == 1)
 		game->player->angle -= 2;
-	else if (delta)
-		game->player->angle -= 180 * ((double)delta / 960);
-	if (game->player->right_r == 1 || game->player->left_r == 1 || delta)
+	if (game->player->right_r == 1 || game->player->left_r == 1)
 	{
 		game->player->angle = (int)game->player->angle % 360;
 		if (game->player->angle < 0)
@@ -69,4 +64,23 @@ void	move_player(t_game *game)
 	}
 	up_and_down(game);
 	left_and_right(game);
+}
+
+void	mouse_ctrl(t_game *game)
+{
+	int	delta;
+
+	if (game->player->right_r == 1 || game->player->left_r == 1)
+		return ;
+	delta = game->mouse.x - 960;
+	// printf("delta = %d\n", delta);
+	if (delta)
+	{
+		game->player->angle -= 180 * ((double)delta / 240);
+		game->player->angle = (int)game->player->angle % 360;
+		if (game->player->angle < 0)
+			game->player->angle += 360;
+		game->player->pdx = cos(to_radiant(game->player->angle));
+		game->player->pdy = sin(to_radiant(game->player->angle));
+	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/07 23:36:17 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/08 13:33:49 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,7 @@ void		init_textures(t_game *game);
 int			on_keypress(int keysym, t_game *game);
 int			on_keyrelease(int keysym, t_game *game);
 void		move_player(t_game *game);
+void		mouse_ctrl(t_game *game);
 int			ft_exit(t_game *game);
 
 // raycasting
@@ -190,6 +191,7 @@ void		draw_torch(t_game *game, int x, int y);
 void		apply_darker(t_game *game, int percentage);
 void		normalize_angle(double *angle);
 int			set_data_assets(t_game *game, char *_path, t_img *textures);
+
 // minimap
 void		minimap(t_game *game);
 
