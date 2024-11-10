@@ -6,22 +6,15 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 03:25:57 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/08 17:41:56 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/10 17:19:19 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	apply_filter(unsigned int color, t_rgb *rgb, t_ray ray)
+void	color_f_c(unsigned int color, t_rgb *rgb, int torch, int y)
 {
-	rgb->r = ((color >> 16) & 0xFF) / 255.0 * ray.perc;
-	rgb->g = ((color >> 8) & 0xFF) / 255.0 * ray.perc;
-	rgb->b = (color & 0xFF) / 255.0 * ray.perc;
-}
-
-void color_f_c(unsigned int color, t_rgb *rgb, int torch, int y)
-{
-	double perc;
+	double	perc;
 
 	if (torch)
 	{
@@ -36,9 +29,7 @@ void color_f_c(unsigned int color, t_rgb *rgb, int torch, int y)
 	rgb->b = (color & 0xFF) / 255.0 * perc;
 }
 
-
-
-int	choose_color_floor_ceiling(t_ray ray, t_img floor, int y, int torch)
+int	choose_col_floor_ceiling(t_ray ray, t_img floor, int y, int torch)
 {
 	unsigned int	color;
 	int				ty;
@@ -56,11 +47,12 @@ int	choose_color_floor_ceiling(t_ray ray, t_img floor, int y, int torch)
 	return (color);
 }
 
-int	choose_color(t_ray *ray, t_img wall, int y)
+int	choose_color(t_ray *ray, t_game *game, int y)
 {
 	int				i;
 	int				j;
 	t_rgb			rgb;
+	t_img			wall;
 
 	j = 0;
 	if (ray->off_y > 0.0)
@@ -68,8 +60,11 @@ int	choose_color(t_ray *ray, t_img wall, int y)
 	else
 		j = y / (ray->wall_height / 64);
 	i = ray->offset;
+	wall = game->textures.wall[ray->f_wall];
 	ray->color = ((int *)wall.pixels)[j * wall.width + i];
-	apply_filter(ray->color, &rgb, *ray);
+	rgb.r = ((ray->color >> 16) & 0xFF) / 255.0 * ray->perc;
+	rgb.g = ((ray->color >> 8) & 0xFF) / 255.0 * ray->perc;
+	rgb.b = (ray->color & 0xFF) / 255.0 * ray->perc;
 	ray->color = (((int)(rgb.r * 255) & 0xFF) << 16) + (((int)(rgb.g * 255) \
 	& 0xFF) << 8) + ((int)(rgb.b * 255) & 0xFF);
 	return (ray->color);

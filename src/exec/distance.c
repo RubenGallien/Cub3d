@@ -6,15 +6,18 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:41:58 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/03 19:21:28 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/10 17:23:07 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	to_degrees(double number)
+void	choose_distance(t_game *game, int i)
 {
-	return (number * (180 / PI));
+	if (game->ray[i].distance_h <= game->ray[i].distance_v)
+		game->ray[i].wall_height = game->ray[i].distance_h;
+	else
+		game->ray[i].wall_height = game->ray[i].distance_v;
 }
 
 void	incr_pos(t_game *game, int b, double save_x, double save_y)
@@ -86,7 +89,7 @@ void	extra_h(t_game *game, int i)
 
 void	extra_v(t_game *game, int i)
 {
-	if (game->ray[i].ra > P2 && game->ray[i].ra < P3)
+	if (game->ray[i].ra > (PI / 2) && game->ray[i].ra < (3 * PI / 2))
 	{
 		game->ray[i].rx = (((int)game->player->pos_x / 64) * 64) - 0.0001;
 		game->ray[i].ry = (game->ray[i].rx - game->player->pos_x) * \
@@ -94,7 +97,7 @@ void	extra_v(t_game *game, int i)
 		game->ray[i].xo = -64;
 		game->ray[i].yo = game->ray[i].xo * game->ray[i].ntan;
 	}
-	if (game->ray[i].ra < P2 || game->ray[i].ra > P3)
+	if (game->ray[i].ra < (PI / 2) || game->ray[i].ra > (3 * PI / 2))
 	{
 		game->ray[i].rx = (((int)game->player->pos_x / 64) * 64) + 64;
 		game->ray[i].ry = (game->ray[i].rx - game->player->pos_x) * \

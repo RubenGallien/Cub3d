@@ -6,45 +6,46 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 17:07:16 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/08 14:33:41 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/10 17:19:27 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+void	draw_floor_aux(t_ray *ray, int y, t_game *game)
+{
+	ray->r = y - (S_H / 2.0);
+	ray->straight_line = (WALL_SIZE / 3) * ray->proj / ray->r;
+	ray->d = ray->straight_line / cos(ray->beta);
+	ray->tx = game->player->pos_x + cos(ray->ra) * ray->d;
+	ray->ty = game->player->pos_y - sin(ray->ra) * ray->d;
+}
+
 void	draw_floor(double dist_t, int start, t_game *game, t_ray ray)
 {
 	int		x;
 	int		y;
-	double		proj;
-	double		r;
-	double		straight_line;
-	double		beta;
-	double		d;
-	double		n;
 
 	ray.wall_height = (WALL_SIZE * S_H) / dist_t;
 	if (ray.wall_height > S_H)
 		ray.wall_height = S_H;
 	x = -1;
-	proj = S_W / (2 * tan(to_radiant(FOV / 2)));
-	beta = fabs(ray.ra - to_radiant(game->player->angle));
+	ray.proj = S_W / (2 * tan(to_radiant(FOV / 2)));
+	ray.beta = fabs(ray.ra - to_radiant(game->player->angle));
 	while (++x < (int)game->width_per_cell)
 	{
 		y = ((S_H - (S_H - (int)ray.wall_height) / 2)) - 2;
 		while (++y < S_H)
 		{
-			r = y - (S_H / 2.0);
-			straight_line = (WALL_SIZE / 3) * proj / r;
-			d = straight_line / cos(beta);
-			ray.tx = game->player->pos_x + cos(ray.ra) * d;
-			ray.ty = game->player->pos_y - sin(ray.ra) * d;
-			my_mlx_pixel_put(&game->world, x + start, y, choose_color_floor_ceiling(ray, game->textures.floor, \
+			draw_floor_aux(&ray, y, game);
+			my_mlx_pixel_put(&game->world, x + start, y, \
+			choose_col_floor_ceiling(ray, game->textures.floor, \
 			y, game->torch));
-			n = ray.ty - (S_H / 2);
-			ray.ty = (S_H / 2) - n;
-			my_mlx_pixel_put(&game->world, x + start, (S_H / 2) - (y - (S_H / 2)), choose_color_floor_ceiling(ray, game->textures.ceiling, \
-			y, game->torch));
+			ray.n = ray.ty - (S_H / 2);
+			ray.ty = (S_H / 2) - ray.n;
+			my_mlx_pixel_put(&game->world, x + start, (S_H / 2) - \
+			(y - (S_H / 2)), choose_col_floor_ceiling \
+			(ray, game->textures.ceiling, y, game->torch));
 		}
 	}
 }
@@ -65,7 +66,8 @@ double	draw_wall_aux(double dist_t, t_ray *ray, int torch)
 	if (torch)
 		perc = (ray->wall_height / max_height) - 0.175;
 	else
-		perc = ray->wall_height / (max_height * (max_height / (ray->wall_height / 8)));
+		perc = ray->wall_height / (max_height * \
+		(max_height / (ray->wall_height / 8)));
 	if (perc < 0)
 		perc = 0;
 	return (perc);
@@ -86,11 +88,11 @@ void	draw_wall(double dist_t, int start, t_game *game, t_ray ray)
 	{
 		ray.ty_step = 64.0 / ((WALL_SIZE * S_H) / dist_t);
 		ray.ty = ray.off_y * ray.ty_step;
-		y =  min -1;
+		y = min -1;
 		while (++y < max)
 		{
 			my_mlx_pixel_put(&game->world, x + start, y, \
-			choose_color(&ray, game->textures.wall[ray.f_wall], \
+			choose_color(&ray, game, \
 			y - ((S_H - (int)ray.wall_height) / 2)));
 			ray.ty += ray.ty_step;
 		}
@@ -115,7 +117,6 @@ void	draw_gameplan(t_game *game)
 		ca_tmp *= cos(ca);
 		draw_wall(ca_tmp, start, game, game->ray[i]);
 		draw_floor(ca_tmp, start, game, game->ray[i]);
-		// draw_ceiling(ca_tmp, start, game, game->ray[i]);
 		start += S_W / (FOV * RES);
 	}
 }
