@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 14:27:49 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/03 18:15:29 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/10 17:01:51 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,7 @@ void	fill_rays_infos(t_game *game)
 		normalize_angle(&game->ray[i].ra);
 		check_inter_h(game, i);
 		check_inter_v(game, i);
-		if (game->ray[i].distance_h <= game->ray[i].distance_v)
-			game->ray[i].wall_height = game->ray[i].distance_h;
-		if (game->ray[i].distance_v < game->ray[i].distance_h)
-			game->ray[i].wall_height = game->ray[i].distance_v;
+		choose_distance(game, i);
 		choose_textures(game, i);
 		ra -= ONE_DEGREE / RES;
 	}

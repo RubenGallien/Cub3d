@@ -6,7 +6,7 @@
 #    By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/02 14:25:51 by lvicino           #+#    #+#              #
-#    Updated: 2024/11/02 17:08:23 by rgallien         ###   ########.fr        #
+#    Updated: 2024/11/09 22:30:24 by rgallien         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,8 @@ EXEC		=	events.c \
 				textures.c \
 				torch.c \
 				key.c \
-				draw.c
+				draw.c \
+				converter.c
 
 EXEC		:=	$(EXEC:%=$(EXEC_DIR)/%)
 EXEC_OBJ	=	$(EXEC:$(EXEC_DIR)/%.c=$(BUILD_DIR)/%.o)

@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/08 13:33:49 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/11/11 10:36:55 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,24 +32,19 @@
 # define FOV 60
 # define SPEED 3000
 # define PI	3.14159265359
-# define P2	(PI / 2)
-# define P3	(3 * PI / 2)
 # define S_W 1920
 # define S_H 1080
 # define MM_S_X 320
 # define MM_S_Y 320
 # define MM_SIZE 5
-# define MM_TILE_X (MM_S_X / MM_SIZE)
-# define MM_TILE_Y (MM_S_Y / MM_SIZE)
-# define RES 32
-# define SIZE_P_X (MM_TILE_X / 5)
-# define SIZE_P_Y (MM_TILE_Y / 5)
+# define RES 8
 
 // assets
-#define TORCH_ON "textures/utils/torch.xpm"
-#define	TORCH_OFF "textures/utils/torch_off.xpm"
-#define CEILING "textures/ceiling/deepslate_top.xpm"
-#define FLOOR "textures/floor/deepslate.xpm"
+# define TORCH_ON "textures/utils/torch.xpm"
+# define TORCH_OFF "textures/utils/torch_off.xpm"
+# define CEILING "textures/ceiling/deepslate_top.xpm"
+# define FLOOR "textures/floor/deepslate.xpm"
+# define DOOR "textures/door/door.xpm"
 
 # include "parsing.h"
 
@@ -64,7 +59,8 @@ typedef struct s_minimap
 	int	r;
 }			t_minimap;
 
-typedef struct s_rgb {
+typedef struct s_rgb
+{
 	double	r;
 	double	g;
 	double	b;
@@ -87,11 +83,13 @@ typedef struct s_asset
 	t_img	torch[2];
 	t_img	ceiling;
 	t_img	floor;
+	t_img	door;
 }			t_asset;
 
 typedef struct s_ray
 {
-	int						r;
+	double					perc;
+	unsigned int			color;
 	int						mx;
 	int						my;
 	int						mp;
@@ -104,19 +102,24 @@ typedef struct s_ray
 	double					ra;
 	double					xo;
 	double					yo;
-	double				distance_h;
-	double 				distance_v;
-	double				wall_height;
-	int					color;
-	unsigned long		tmp;
-	int					offset;
-	double				off_y;
-	double				ty_step;
-	double				ty;
-	double				tx;
-	double				dy;
-	int					f_wall;
-	int					flag;
+	double					distance_h;
+	double					distance_v;
+	double					wall_height;
+	unsigned long			tmp;
+	int						offset;
+	double					off_y;
+	double					ty_step;
+	double					ty;
+	double					tx;
+	double					dy;
+	int						f_wall;
+	int						flag;
+	double					proj;
+	double					r;
+	double					straight_line;
+	double					beta;
+	double					d;
+	double					n;
 }				t_ray;
 
 typedef struct s_player
@@ -171,6 +174,9 @@ void		move_player(t_game *game);
 void		mouse_ctrl(t_game *game);
 int			ft_exit(t_game *game);
 
+// distance
+void		choose_distance(t_game *game, int i);
+
 // raycasting
 int			game_loop(t_game *game);
 void		draw_gameplan(t_game *game);
@@ -180,8 +186,8 @@ void		extra_h(t_game *game, int i);
 void		extra_v(t_game *game, int i);
 void		incr_pos(t_game *game, int b, double save_x, double save_y);
 void		choose_textures(t_game *game, int i);
-int			choose_color(t_ray ray, t_img wall, int y, int torch);
-int			choose_color_floor_ceiling(t_ray ray, t_img floor, int y, int torch);
+int			choose_color(t_ray *ray, t_game *game, int y);
+int			choose_col_floor_ceiling(t_ray ray, t_img floor, int y, int torch);
 
 // utils
 double		to_radiant(double number);
@@ -194,5 +200,8 @@ int			set_data_assets(t_game *game, char *_path, t_img *textures);
 
 // minimap
 void		minimap(t_game *game);
+
+//convert
+int			to_degrees(double number);
 
 #endif

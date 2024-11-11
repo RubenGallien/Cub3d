@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:14:12 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/08 13:26:12 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/11/11 10:37:34 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	init_textures(t_game *game)
 		set_data_assets(game, torch[i], &game->textures.torch[i]);
 	set_data_assets(game, CEILING, &game->textures.ceiling);
 	set_data_assets(game, FLOOR, &game->textures.floor);
+	set_data_assets(game, DOOR, &game->textures.door);
 }
 
 double	get_angle(char c)
@@ -74,8 +75,8 @@ void	init_game(t_game *game, t_player *player, char **map)
 
 void	init_player_aux(t_player *player, char **map, int i, int j)
 {
-	player->pos_x = j * MM_TILE_X + (MM_TILE_Y / 2);
-	player->pos_y = i * MM_TILE_Y + (MM_TILE_Y / 2);
+	player->pos_x = j * (MM_S_X / MM_SIZE) + ((MM_S_Y / MM_SIZE) / 2);
+	player->pos_y = i * (MM_S_Y / MM_SIZE) + ((MM_S_Y / MM_SIZE) / 2);
 	player->left = 0;
 	player->right = 0;
 	player->angle = get_angle(map[i][j]);
