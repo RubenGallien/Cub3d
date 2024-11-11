@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:14:12 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/10 17:30:05 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/11 12:30:45 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	init_textures(t_game *game)
 	set_data_assets(game, CEILING, &game->textures.ceiling);
 	set_data_assets(game, FLOOR, &game->textures.floor);
 	set_data_assets(game, DOOR, &game->textures.door);
+	set_data_assets(game, SPIDER, &game->textures.spider);
 }
 
 double	get_angle(char c)

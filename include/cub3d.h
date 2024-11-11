@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/10 17:36:25 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/11 12:37:35 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@
 # define CEILING "textures/ceiling/deepslate_top.xpm"
 # define FLOOR "textures/floor/deepslate.xpm"
 # define DOOR "textures/door/door.xpm"
+# define SPIDER "textures/sprite/spider.xpm"
 
 # include "parsing.h"
 
@@ -84,6 +85,7 @@ typedef struct s_asset
 	t_img	ceiling;
 	t_img	floor;
 	t_img	door;
+	t_img	spider;
 }			t_asset;
 
 typedef struct s_ray
