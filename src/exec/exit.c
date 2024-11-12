@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 13:58:50 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/11 12:33:26 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/12 11:10:09 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,14 @@ int	ft_free_img(t_game *game)
 
 int	ft_exit(t_game *game)
 {
+	t_spider	*tmp;
+
+	while (game->spider)
+	{
+		tmp = game->spider->next;
+		free(game->spider);
+		game->spider = tmp;
+	}
 	if (game->mlx)
 	{
 		ft_free_img(game);

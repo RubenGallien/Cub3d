@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 15:14:47 by lvicino           #+#    #+#             */
-/*   Updated: 2024/10/29 13:43:40 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/11/12 10:50:47 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int	is_closed(char **map, int ln_x, int ln_y)
 		{
 			if (map[y][x] != '0' && map[y][x] != '1' && map[y][x] != ' ' && \
 			map[y][x] != 'N' && map[y][x] != 'S' && map[y][x] != 'E' && \
-			map[y][x] != 'W' && map[y][x] != 'V' && map[y][x] != 'H')
+			map[y][x] != 'W' && map[y][x] != 'V' && map[y][x] != 'H' \
+			&& map[y][x] != 'A')
 				return (ft_werror(COMP_ER), 0);
 			else if ((map[y][x] == '0' || map[y][x] == 'V' || \
 			map[y][x] == 'H' || map[y][x] == 'N' || map[y][x] == 'S' || \
