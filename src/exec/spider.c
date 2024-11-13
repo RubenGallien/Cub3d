@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 12:25:57 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/12 13:46:30 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/13 01:47:54 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,34 @@ void	sort_spider(t_game *game, t_spider **spider)
 
 void	draw_spider(t_game *game)
 {
+	t_spider	*curr;
+
+	init_spider(game);
+	// print_spider(game);
 	sort_spider(game, &game->spider);
-	// projection;
-	// scale;
-	// draw;
+	// print_spider(game);
+	curr = game->spider;
+	while (curr)
+	{
+		curr->hx = curr->x - game->player->pos_x;
+		curr->hy = curr->y - game->player->pos_y;
+		curr->p = to_degrees(atan2(-curr->hy, curr->hx));
+		if (curr->p > 360)
+			curr->p -= 360;
+		if (curr->p < 0)
+			curr->p += 360;
+		curr->q = game->player->angle + (FOV / 2) - curr->p;
+		if (game->player->angle >= 0 && game->player->angle <= 90 \
+		&& curr->p >= 270 && curr->p <= 360)
+			curr->q += 360;
+		if (game->player->angle >= 270 && game->player->angle <= 360 \
+		&& curr->p >= 90 && curr->p <= 90)
+			curr->q -= 360;
+		curr->sp_screen_x = curr->q * (S_W / (2 * tan(to_radiant(FOV / 2))) / FOV);
+		curr->sp_screen_y = (S_H / (2 * tan(to_radiant(FOV / 2))) / 2);
+		printf("x = %f\n", curr->sp_screen_x);
+		printf("y = %f\n", curr->sp_screen_y);
+		curr = curr->next;
+	}
+	exit(0);
 }

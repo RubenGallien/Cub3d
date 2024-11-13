@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/12 15:32:40 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/13 01:09:07 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ typedef struct s_spider
 {
 	double			x;
 	double			y;
+	double			hx;
+	double			hy;
 	double			distance;
 	double			p;
 	double			q;
