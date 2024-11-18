@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/18 17:07:31 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/18 23:02:30 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ typedef struct s_ray
 	double					distance_h;
 	double					distance_v;
 	double					wall_height;
+	double					save_dist;
 	unsigned long			tmp;
 	int						offset;
 	double					off_y;
