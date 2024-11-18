@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/18 01:04:52 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/18 17:07:31 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 # define MM_S_X 320
 # define MM_S_Y 320
 # define MM_SIZE 5
-# define RES 8
+# define RES 32
 
 // assets
 # define TORCH_ON "textures/utils/torch.xpm"

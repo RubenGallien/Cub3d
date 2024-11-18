@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 12:25:57 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/18 01:42:33 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/18 16:54:56 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,14 +136,12 @@ void	make_spider(t_game *game)
 	while (curr)
 	{
 		recup_spider_infos(curr, game);
-		// draw_sprite(game->textures.spider, &game->world,
-		// curr->sp_screen_x, curr->sp_screen_y);
 		if (curr->proj_sprite_h >= S_H || curr->proj_sprite_w >= S_W)
 		{
 			curr = curr->next;
 			continue;
 		}
-		draw_spider(curr, game, curr->sp_screen_x, curr->sp_screen_y);
+		draw_spider(curr, game, curr->sp_screen_x - (curr->proj_sprite_w / 2), curr->sp_screen_y - (curr->proj_sprite_h / 2));
 		curr = curr->next;
 	}
 }
