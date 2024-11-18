@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 17:07:16 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/12 13:50:59 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/17 20:38:35 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	draw_floor_aux(t_ray *ray, int y, t_game *game)
 {
 	ray->r = y - (S_H / 2.0);
-	ray->straight_line = (WALL_SIZE / 3) * ray->proj / ray->r;
+	ray->straight_line = (WALL_SIZE / 3) * game->proj / ray->r;
 	ray->d = ray->straight_line / cos(ray->beta);
 	ray->tx = game->player->pos_x + cos(ray->ra) * ray->d;
 	ray->ty = game->player->pos_y - sin(ray->ra) * ray->d;
@@ -30,7 +30,6 @@ void	draw_floor(double dist_t, int start, t_game *game, t_ray ray)
 	if (ray.wall_height > S_H)
 		ray.wall_height = S_H;
 	x = -1;
-	ray.proj = S_W / (2 * tan(to_radiant(FOV / 2)));
 	ray.beta = fabs(ray.ra - to_radiant(game->player->angle));
 	while (++x < (int)game->width_per_cell)
 	{

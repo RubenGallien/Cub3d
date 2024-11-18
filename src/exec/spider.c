@@ -6,11 +6,36 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 12:25:57 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/13 01:47:54 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/18 01:42:33 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int	draw_sprite(t_img asset, t_img *img, int x, int y)
+{
+	int				i;
+	int				j;
+	unsigned char	*dst;
+	unsigned int	color;
+
+	i = 0;
+	while (i < asset.width)
+	{
+		j = -1;
+		while (++j < asset.height)
+		{
+			color = ((int *)asset.pixels)[j * asset.width + i];
+			if (color == 0xFF000000 || (y + j) < 0 || (y + j) > S_H || (x + j) < 0 || (x + j) > S_W)
+				continue ;
+			dst = img->pixels + ((y + j) * img->line_length + (x + i) \
+			* (img->bits_per_pixel / 8));
+			*(unsigned int *)dst = color;
+		}
+		i++;
+	}
+	return (1);
+}
 
 void	ft_add_spider(t_spider **lst, t_spider *new)
 {
@@ -101,36 +126,24 @@ void	sort_spider(t_game *game, t_spider **spider)
 	}
 }
 
-void	draw_spider(t_game *game)
+void	make_spider(t_game *game)
 {
 	t_spider	*curr;
 
 	init_spider(game);
-	// print_spider(game);
 	sort_spider(game, &game->spider);
-	// print_spider(game);
 	curr = game->spider;
 	while (curr)
 	{
-		curr->hx = curr->x - game->player->pos_x;
-		curr->hy = curr->y - game->player->pos_y;
-		curr->p = to_degrees(atan2(-curr->hy, curr->hx));
-		if (curr->p > 360)
-			curr->p -= 360;
-		if (curr->p < 0)
-			curr->p += 360;
-		curr->q = game->player->angle + (FOV / 2) - curr->p;
-		if (game->player->angle >= 0 && game->player->angle <= 90 \
-		&& curr->p >= 270 && curr->p <= 360)
-			curr->q += 360;
-		if (game->player->angle >= 270 && game->player->angle <= 360 \
-		&& curr->p >= 90 && curr->p <= 90)
-			curr->q -= 360;
-		curr->sp_screen_x = curr->q * (S_W / (2 * tan(to_radiant(FOV / 2))) / FOV);
-		curr->sp_screen_y = (S_H / (2 * tan(to_radiant(FOV / 2))) / 2);
-		printf("x = %f\n", curr->sp_screen_x);
-		printf("y = %f\n", curr->sp_screen_y);
+		recup_spider_infos(curr, game);
+		// draw_sprite(game->textures.spider, &game->world,
+		// curr->sp_screen_x, curr->sp_screen_y);
+		if (curr->proj_sprite_h >= S_H || curr->proj_sprite_w >= S_W)
+		{
+			curr = curr->next;
+			continue;
+		}
+		draw_spider(curr, game, curr->sp_screen_x, curr->sp_screen_y);
 		curr = curr->next;
 	}
-	exit(0);
 }

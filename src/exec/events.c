@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:13:17 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/10 16:40:50 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/13 15:41:46 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ void	move_player(t_game *game)
 		game->player->angle += 2;
 	else if (game->player->right_r == 1)
 		game->player->angle -= 2;
-	else if (delta)
-		game->player->angle -= 180 * ((double)delta / 960);
+	// else if (delta)
+	// 	game->player->angle -= 180 * ((double)delta / 960);
 	if (game->player->right_r == 1 || game->player->left_r == 1 || delta)
 	{
 		game->player->angle = (int)game->player->angle % 360;

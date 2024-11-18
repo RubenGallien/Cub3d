@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/13 01:09:07 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/18 01:04:52 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ typedef struct s_spider
 	double			q;
 	double			sp_screen_x;
 	double			sp_screen_y;
+	double			proj_sprite_h;
+	double			proj_sprite_w;
 	struct s_spider	*prev;
 	struct s_spider	*next;
 }				t_spider;
@@ -171,6 +173,7 @@ typedef struct s_game
 	int			tick;
 	int			torch;
 	double		width_per_cell;
+	double		proj;
 	t_spider	*spider;
 	t_asset		textures;
 	t_img		world;
@@ -222,6 +225,8 @@ int			to_degrees(double number);
 
 // spider
 void		print_spider(t_game *game);
-void		draw_spider(t_game *game);
+void		make_spider(t_game *game);
+void		recup_spider_infos(t_spider *curr, t_game *game);
+void	draw_spider(t_spider *curr, t_game *game, int start_x, int start_y);
 
 #endif

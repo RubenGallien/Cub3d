@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:37:51 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/12 23:52:51 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/17 20:29:21 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int	main(int argc, char **argv, char **envp)
 		ft_exit(&game);
 	init_game(&game, &player, game.info.map);
 	init_textures(&game);
-	// init_spider(&game);
 	mlx_hook(game.mlx_win, DestroyNotify, StructureNotifyMask, &ft_exit, &game);
 	mlx_hook(game.mlx_win, KeyPress, KeyPressMask, &on_keypress, &game);
 	mlx_hook(game.mlx_win, KeyRelease, KeyReleaseMask, &on_keyrelease, &game);

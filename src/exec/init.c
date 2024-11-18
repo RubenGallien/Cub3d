@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:14:12 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/12 11:07:48 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/17 20:38:18 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	init_game(t_game *game, t_player *player, char **map)
 	}
 	game->y = i;
 	game->torch = 0;
+	game->proj = S_W / (2 * tan(to_radiant(FOV / 2)));
 	game->mlx = mlx_init();
 	game->mlx_win = mlx_new_window(game->mlx, S_W, S_H, "Welcome to Cub3D");
 	game->player = player;
