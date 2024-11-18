@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:31:25 by lvicino           #+#    #+#             */
-/*   Updated: 2024/10/29 12:27:36 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/11/13 17:22:42 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,9 @@ int	check_description_file(char *map_file, t_map *info)
 int	parsing(int ac, char **av, t_map *info)
 {
 	if (ac == 1)
-		ft_putstr_fd("Enter a map name\n", 2);
+		ft_werror("Enter a map name\n");
 	else if (ac > 2)
-		ft_putstr_fd("Too many arguments\n", 2);
+		ft_werror("Too many arguments\n");
 	else if (check_description_file(av[1], info))
 		return (1);
 	if (info->ln_x > info->ln_y)
