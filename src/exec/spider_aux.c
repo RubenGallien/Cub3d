@@ -6,11 +6,35 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 21:50:55 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/18 23:06:37 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/19 11:03:44 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+#include <math.h>
+
+int	get_color_spider(unsigned int color, t_spider *curr, int torch)
+{
+	t_rgb	rgb;
+	float	perc;
+	float	max_distance;
+
+	if (torch)
+		max_distance = 350;
+	else
+		max_distance = 150;
+	if (curr->distance > max_distance)
+		perc = 0.0;
+	else
+		perc = 1.0 - (curr->distance / max_distance);
+	rgb.r = ((color >> 16) & 0xFF) * perc;
+	rgb.g = ((color >> 8) & 0xFF) * perc;
+	rgb.b = (color & 0xFF) * perc;
+	color = (((int)rgb.r & 0xFF) << 16) + \
+	(((int)rgb.g & 0xFF) << 8) + ((int)rgb.b & 0xFF);
+	return (color);
+}
 
 void	draw_spider(t_spider *curr, t_game *game, int start_x, int start_y)
 {
@@ -24,13 +48,15 @@ void	draw_spider(t_spider *curr, t_game *game, int start_x, int start_y)
 		y = -1;
 		while (++y < curr->proj_sprite_h)
 		{
-			color = ((int *)game->textures.spider.pixels)[(int)(y / (curr->proj_sprite_h / 64)) * \
-			game->textures.spider.width + (int)(x / (curr->proj_sprite_h / 64))];
+			color = ((int *)game->textures.spider.pixels)[(int)(y / \
+			(curr->proj_sprite_h / 64)) *(game->textures.spider.width) + \
+			(int)(x / (curr->proj_sprite_h / 64))];
 			if (start_x + x < 0 || start_x + x >= S_W || start_y + y < 0 \
 			|| start_y + y >= S_H || color == 0xFF000000)
-				continue;
+				continue ;
 			if (game->ray[start_x + x].save_dist < curr->distance)
-				continue;
+				continue ;
+			color = get_color_spider(color, curr, game->torch);
 			my_mlx_pixel_put(&game->world, start_x + x, start_y + y, color);
 		}
 	}

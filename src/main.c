@@ -6,25 +6,11 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:37:51 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/17 20:29:21 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/19 10:54:17 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	print_spider(t_game *game)
-{
-	t_spider	*current;
-
-	current = game->spider;
-	while (current)
-	{
-		printf("x = %f\n", current->x);
-		printf("y = %f\n", current->y);
-		printf("distance = %f\n\n", current->distance);
-		current = current->next;
-	}
-}
 
 int	main(int argc, char **argv, char **envp)
 {

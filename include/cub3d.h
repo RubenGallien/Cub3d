@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/18 23:02:30 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/19 10:54:03 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@
 # define TORCH_ON "textures/utils/torch.xpm"
 # define TORCH_OFF "textures/utils/torch_off.xpm"
 # define CEILING "textures/ceiling/deepslate_top.xpm"
-# define FLOOR "textures/floor/deepslate.xpm"
-# define DOOR "textures/door/door.xpm"
+# define FLOOR	"textures/floor/deepslate.xpm"
+# define DOOR 	"textures/door/door.xpm"
 # define SPIDER "textures/sprite/spider.xpm"
 
 # include "parsing.h"
@@ -228,6 +228,6 @@ int			to_degrees(double number);
 void		print_spider(t_game *game);
 void		make_spider(t_game *game);
 void		recup_spider_infos(t_spider *curr, t_game *game);
-void	draw_spider(t_spider *curr, t_game *game, int start_x, int start_y);
+void		draw_spider(t_spider *curr, t_game *game, int start_x, int start_y);
 
 #endif
