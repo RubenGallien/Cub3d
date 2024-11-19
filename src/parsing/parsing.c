@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:31:25 by lvicino           #+#    #+#             */
-/*   Updated: 2024/11/13 17:22:42 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/11/18 14:48:36 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ void	init_info(t_map *info)
 	i = -1;
 	while (++i < 5)
 		info->texture[i] = NULL;
+	info->texture_f = NULL;
+	info->texture_c = NULL;
 	info->colour[0] = -1;
 	info->colour[1] = -1;
 	info->seed = NULL;

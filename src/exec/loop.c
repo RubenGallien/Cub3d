@@ -24,14 +24,15 @@ int	game_loop(t_game *game)
 	{
 		mouse_ctrl(game);
 		move_player(game);
-		mlx_mouse_move(game->mlx, game->mlx_win, S_W / 2, S_H / 2);
+		mlx_mouse_move(game->mlx, game->mlx_win, 960, 505);
 		fill_rays_infos(game);
 		draw_gameplan(game);
+		// make_spider(game);
 		minimap(game);
 		draw_torch(game, x_torch_start, y_torch_start);
 		mlx_put_image_to_window(game->mlx, game->mlx_win, \
 		game->world.img, 0, 0);
 	}
-	game->tick = (game->tick + 1) % (150000 / SPEED);
+	game->tick = (game->tick + 1) % (15000 / SPEED);
 	return (0);
 }

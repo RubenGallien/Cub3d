@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:57:14 by lvicino           #+#    #+#             */
-/*   Updated: 2024/10/30 17:47:36 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/11/18 14:48:44 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 /*Map errors*/
 # define CUB_ER "Map description file needs to end with the '.cub' extension\n"
 # define WALL_ER "Map must be surrounded by walls\n"
-# define COMP_ER "Map can be composed of only these 6 characters: 01NSEWVH\n"
+# define COMP_ER "Map can be composed of only these 6 characters: 01NSEWVHA\n"
 # define SPAWN_ER "Map must contain 1 starting position\n"
 
 /*Element errors*/
@@ -32,6 +32,8 @@ typedef struct s_map
 	char	*seed;
 	char	**map;
 	char	**texture;
+	char	*texture_f;
+	char	*texture_c;
 	int		colour[2];
 	int		ln_x;
 	int		ln_y;

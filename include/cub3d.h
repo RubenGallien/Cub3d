@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/11 13:41:08 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/11/19 12:06:10 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,22 @@
 # define EPSILON 0.0001
 # define ONE_DEGREE 0.0174533
 # define FOV 60
-# define SPEED 3000
+# define SPEED 200
 # define PI	3.14159265359
 # define S_W 1920
 # define S_H 1080
 # define MM_S_X 320
 # define MM_S_Y 320
 # define MM_SIZE 5
-# define RES 8
+# define RES 32
 
 // assets
 # define TORCH_ON "textures/utils/torch.xpm"
 # define TORCH_OFF "textures/utils/torch_off.xpm"
-# define CEILING "textures/ceiling/deepslate_top.xpm"
 # define FLOOR "textures/floor/deepslate.xpm"
+# define CEILING "textures/ceiling/deepslate_top.xpm"
 # define DOOR "textures/door/door.xpm"
+# define SPIDER "textures/sprite/spider.xpm"
 
 # include "parsing.h"
 
@@ -58,6 +59,23 @@ typedef struct s_minimap
 	int	c_y;
 	int	r;
 }			t_minimap;
+
+typedef struct s_spider
+{
+	double			x;
+	double			y;
+	double			hx;
+	double			hy;
+	double			distance;
+	double			p;
+	double			q;
+	double			sp_screen_x;
+	double			sp_screen_y;
+	double			proj_sprite_h;
+	double			proj_sprite_w;
+	struct s_spider	*prev;
+	struct s_spider	*next;
+}				t_spider;
 
 typedef struct s_rgb
 {
@@ -84,6 +102,7 @@ typedef struct s_asset
 	t_img	ceiling;
 	t_img	floor;
 	t_img	door;
+	t_img	spider;
 }			t_asset;
 
 typedef struct s_ray
@@ -154,6 +173,8 @@ typedef struct s_game
 	int			tick;
 	int			torch;
 	double		width_per_cell;
+	double		proj;
+	t_spider	*spider;
 	t_asset		textures;
 	t_img		world;
 	t_player	*player;
@@ -166,7 +187,7 @@ typedef struct s_game
 int			init_player(t_player *player, char **map);
 void		init_game(t_game *game, t_player *player, char **map);
 void		init_textures(t_game *game);
-
+void		init_spider(t_game *game);
 // events
 int			on_keypress(int keysym, t_game *game);
 int			on_keyrelease(int keysym, t_game *game);
@@ -203,5 +224,11 @@ void		minimap(t_game *game);
 
 //convert
 int			to_degrees(double number);
+
+// spider
+void		print_spider(t_game *game);
+void		make_spider(t_game *game);
+void		recup_spider_infos(t_spider *curr, t_game *game);
+void	draw_spider(t_spider *curr, t_game *game, int start_x, int start_y);
 
 #endif

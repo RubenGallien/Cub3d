@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 15:16:08 by lvicino           #+#    #+#             */
-/*   Updated: 2024/10/30 17:49:51 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/11/19 11:08:36 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,28 @@ int	check_texture(t_map *info)
 			return (ft_werror(NULL), perror(info->texture[i]), 0);
 		close(fd);
 	}
-	i = -1;
-	while (++i < 2)
-	{
-		if (*info->colour < 0)
-			return (ft_werror(NDEF_ER), 0);
-	}
+	if ((info->colour[0] < 0 && !info->texture_f) || \
+	(info->colour[1] < 0 && !info->texture_c))
+		return (ft_werror(NDEF_ER), 0);
 	return (1);
+}
+
+int	bigger(char *s1, char *s2)
+{
+	int	a;
+	int	b;
+
+	a = ft_strlen(s1);
+	b = ft_strlen(s2);
+	if (a > b)
+		return (a);
+	return (b);
 }
 
 int	fill_texture_tab(int i, char **tmp, t_map *info)
 {
+	char *str;
+
 	if (0 <= i && i <= 3 && !info->texture[i])
 	{
 		info->texture[i] = ft_strtrim(tmp[1], "\n");
@@ -46,7 +57,16 @@ int	fill_texture_tab(int i, char **tmp, t_map *info)
 	}
 	else if (4 <= i && i <= 5 && info->colour[i - 4] < 0)
 	{
-		if (get_colour(ft_strtrim(tmp[1], "\n"), &(info->colour[i - 4])))
+		str = ft_strrchr(tmp[1], '.');
+		if (str && !ft_strncmp(str, ".xpm\n", 6))
+		{
+			if (i == 4)
+				info->texture_f = ft_strtrim(tmp[1], "\n");
+			else
+				info->texture_c = ft_strtrim(tmp[1], "\n");
+			return (ft_free_str(tmp, 3), 1);
+		}
+		else if (get_colour(ft_strtrim(tmp[1], "\n"), &(info->colour[i - 4])))
 			return (ft_free_str(tmp, 3), 1);
 		return (ft_free_str(tmp, 3), 0);
 	}

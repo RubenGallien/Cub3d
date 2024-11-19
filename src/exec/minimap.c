@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 13:18:05 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/18 14:08:19 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/11/18 14:27:16 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	draw_minimap_aux(t_game *game, t_minimap *m)
 	tile_y = MM_S_Y / MM_SIZE;
 	if ((m->start_x + m->x) % tile_x == 0 || (m->start_y + m->y) % tile_y == 0)
 		my_mlx_pixel_put(&game->world, (S_W - MM_S_X - 10) \
-		+ m->x, m->y + 10, 0x000000);
+		+ m->x, m->y + 10, 0xc6c7cf);
 	else if (game->map[(m->start_y + m->y) / tile_y] \
 	[(m->start_x + m->x) / tile_x] == '1')
 		my_mlx_pixel_put(&game->world, (S_W - MM_S_X - 10) \
@@ -83,10 +83,10 @@ void	draw_minimap_aux(t_game *game, t_minimap *m)
 	game->map[(m->start_y + m->y) / tile_y] \
 	[(m->start_x + m->x) / tile_x] == 'E')
 		my_mlx_pixel_put(&game->world, (S_W - MM_S_X - 10) \
-		+ m->x, m->y + 10, 0xc6c7cf);
+		+ m->x, m->y + 10, 0xaba9a2);
 	else
 		my_mlx_pixel_put(&game->world, (S_W - MM_S_X - 10) \
-		+ m->x, m->y + 10, 0xc6c7cf);
+		+ m->x, m->y + 10, 0xFF0000); //! add diff space door and spiders
 }
 
 void	draw_minimap(t_game *game, t_minimap m, int tile_x, int tile_y)

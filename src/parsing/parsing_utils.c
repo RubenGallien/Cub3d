@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 00:10:14 by lvicino           #+#    #+#             */
-/*   Updated: 2024/10/29 12:24:13 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/11/18 14:58:27 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,8 @@ void	ft_free_info(t_map *info)
 		ft_free_str(info->texture, 4);
 		info->texture = NULL;
 	}
+	if (info->texture_f)
+		free(info->texture_f);
+	if (info->texture_c)
+		free(info->texture_c);
 }

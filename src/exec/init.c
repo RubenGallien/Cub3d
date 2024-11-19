@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:14:12 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/11 10:37:34 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/11/18 14:11:11 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	init_textures(t_game *game)
 	set_data_assets(game, CEILING, &game->textures.ceiling);
 	set_data_assets(game, FLOOR, &game->textures.floor);
 	set_data_assets(game, DOOR, &game->textures.door);
+	set_data_assets(game, SPIDER, &game->textures.spider);
 }
 
 double	get_angle(char c)
@@ -62,6 +63,7 @@ void	init_game(t_game *game, t_player *player, char **map)
 	game->y = i;
 	game->tick = 0;
 	game->torch = 0;
+	game->proj = S_W / (2 * tan(to_radiant(FOV / 2)));
 	game->mlx = mlx_init();
 	game->mlx_win = mlx_new_window(game->mlx, S_W, S_H, "Welcome to Cub3D");
 	game->player = player;

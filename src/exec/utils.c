@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 20:42:34 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/09 22:19:56 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/18 14:17:23 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
 	unsigned char	*dst;
 
+	// printf("??");
 	dst = img->pixels + (y * img->line_length + x * (img->bits_per_pixel / 8));
+	// printf("?");
 	*(unsigned int *)dst = color;
+	// printf("????");
 }
