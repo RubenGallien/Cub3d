@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/19 12:06:10 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/11/19 12:17:16 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@
 // assets
 # define TORCH_ON "textures/utils/torch.xpm"
 # define TORCH_OFF "textures/utils/torch_off.xpm"
-# define FLOOR "textures/floor/deepslate.xpm"
 # define CEILING "textures/ceiling/deepslate_top.xpm"
-# define DOOR "textures/door/door.xpm"
+# define FLOOR	"textures/floor/deepslate.xpm"
+# define DOOR 	"textures/door/door.xpm"
 # define SPIDER "textures/sprite/spider.xpm"
 
 # include "parsing.h"
@@ -124,6 +124,7 @@ typedef struct s_ray
 	double					distance_h;
 	double					distance_v;
 	double					wall_height;
+	double					save_dist;
 	unsigned long			tmp;
 	int						offset;
 	double					off_y;
@@ -229,6 +230,6 @@ int			to_degrees(double number);
 void		print_spider(t_game *game);
 void		make_spider(t_game *game);
 void		recup_spider_infos(t_spider *curr, t_game *game);
-void	draw_spider(t_spider *curr, t_game *game, int start_x, int start_y);
+void		draw_spider(t_spider *curr, t_game *game, int start_x, int start_y);
 
 #endif

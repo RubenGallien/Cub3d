@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:41:58 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/12 15:30:02 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/18 23:02:40 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	choose_distance(t_game *game, int i)
 		game->ray[i].wall_height = game->ray[i].distance_h;
 	else
 		game->ray[i].wall_height = game->ray[i].distance_v;
+	game->ray[i].save_dist = game->ray[i].wall_height;
 }
 
 void	incr_pos(t_game *game, int b, double save_x, double save_y)

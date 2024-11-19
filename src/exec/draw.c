@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 17:07:16 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/17 20:38:35 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/19 10:35:07 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	draw_floor(double dist_t, int start, t_game *game, t_ray ray)
 	while (++x < (int)game->width_per_cell)
 	{
 		y = ((S_H - (S_H - (int)ray.wall_height) / 2)) - 2;
-		while (++y < S_H)
+		while (++y <= S_H)
 		{
 			draw_floor_aux(&ray, y, game);
 			my_mlx_pixel_put(&game->world, x + start, y, \
