@@ -12,6 +12,11 @@
 
 #include "cub3d.h"
 
+// void	draw_sprite(game)
+// {
+
+// }
+
 int	game_loop(t_game *game)
 {
 	int	y_torch_start;
@@ -24,12 +29,14 @@ int	game_loop(t_game *game)
 	{
 		mouse_ctrl(game);
 		move_player(game);
-		mlx_mouse_move(game.mlx, game.mlx_win, S_W / 2, S_H / 2);
+		mlx_mouse_move(game->mlx, game->mlx_win, S_W / 2, S_H / 2);
 		fill_rays_infos(game);
 		draw_gameplan(game);
 		make_spider(game);
+		// draw_sprite(game);
 		minimap(game);
-		draw_torch(game, x_torch_start, y_torch_start);
+		if (game->torch)
+			draw_torch(game, x_torch_start, y_torch_start);
 		mlx_put_image_to_window(game->mlx, game->mlx_win, \
 		game->world.img, 0, 0);
 	}

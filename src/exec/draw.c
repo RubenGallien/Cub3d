@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 17:07:16 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/19 10:35:07 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/19 18:04:46 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,6 @@ void	draw_gameplan(t_game *game)
 		draw_wall(ca_tmp, start, game, game->ray[i]);
 		draw_floor(ca_tmp, start, game, game->ray[i]);
 		start += S_W / (FOV * RES);
+		// free_door(game->ray[i].doors);
 	}
 }

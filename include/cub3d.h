@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/19 12:17:16 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/11/19 17:41:14 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define EPSILON 0.0001
 # define ONE_DEGREE 0.0174533
 # define FOV 60
-# define SPEED 200
+# define SPEED 100
 # define PI	3.14159265359
 # define S_W 1920
 # define S_H 1080
@@ -59,6 +59,14 @@ typedef struct s_minimap
 	int	c_y;
 	int	r;
 }			t_minimap;
+
+typedef struct s_door
+{
+	double			dist;
+	double			wall_h;
+	int				tick;
+	struct s_door	*next;
+}			t_door;
 
 typedef struct s_spider
 {
@@ -140,6 +148,8 @@ typedef struct s_ray
 	double					beta;
 	double					d;
 	double					n;
+	t_door					*doors;
+	int						n_door;
 }				t_ray;
 
 typedef struct s_player
@@ -212,7 +222,6 @@ int			choose_color(t_ray *ray, t_game *game, int y);
 int			choose_col_floor_ceiling(t_ray ray, t_img floor, int y, int torch);
 
 // utils
-double		to_radiant(double number);
 void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
 double		found_distance(double x1, double y1, double x2, double y2);
 void		draw_torch(t_game *game, int x, int y);
@@ -224,12 +233,16 @@ int			set_data_assets(t_game *game, char *_path, t_img *textures);
 void		minimap(t_game *game);
 
 //convert
-int			to_degrees(double number);
+double		to_radiant(double number);
+double		to_degrees(double number);
 
+// door
+void		check_door_v(t_game *game, int i, t_door *tmp, int n);
+void		check_door_h(t_game *game, int i);
+void		free_door(t_door *door);
 // spider
-void		print_spider(t_game *game);
 void		make_spider(t_game *game);
 void		recup_spider_infos(t_spider *curr, t_game *game);
 void		draw_spider(t_spider *curr, t_game *game, int start_x, int start_y);
-
+void		free_spider(t_spider *spider);
 #endif

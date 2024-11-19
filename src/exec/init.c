@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:14:12 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/18 14:11:11 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/11/19 18:19:24 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	init_textures(t_game *game)
 	torch[0] = TORCH_OFF;
 	torch[1] = TORCH_ON;
 	i = -1;
+
 	while (++i < 4)
 		set_data_assets(game, game->info.texture[i], &game->textures.wall[i]);
 	i = -1;

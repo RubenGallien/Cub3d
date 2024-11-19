@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   distance.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:41:58 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/18 23:02:40 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/19 17:38:00 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ void	straight_dist(t_game *game, char sense, int i)
 	}
 	if (sense == 'v')
 	{
-		if (to_degrees(game->ray[i].ra) == 89 || \
-		to_degrees(game->ray[i].ra) == 269)
+		if ((int)to_degrees(game->ray[i].ra) == 89 || \
+		(int)to_degrees(game->ray[i].ra) == 269)
 		{
 			game->ray[i].rx = game->player->pos_x;
 			game->ray[i].ry = game->player->pos_y;

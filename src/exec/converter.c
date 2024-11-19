@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*    converter.c                                       :+:      :+:    :+:   */
+/*   converter.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 22:19:23 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/09 22:20:19 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/19 17:41:11 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	to_degrees(double number)
+double	to_degrees(double number)
 {
 	return (number * (180 / PI));
 }

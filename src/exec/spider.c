@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   spider.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 12:25:57 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/19 11:10:22 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/19 16:51:55 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_spider	*ft_new_spider(int i, int j, t_game *game)
 {
 	t_spider	*new_node;
 
-	new_node = (t_spider *)malloc(sizeof(t_spider));
+	new_node = malloc(sizeof(t_spider));
 	if (!new_node)
 		return (NULL);
 	new_node->x = i * (MM_S_X / MM_SIZE) + ((MM_S_Y / MM_SIZE) / 2);
@@ -99,6 +99,8 @@ void	make_spider(t_game *game)
 {
 	t_spider	*curr;
 
+	if (game->spider)
+		free_spider(game->spider);
 	init_spider(game);
 	sort_spider(&game->spider);
 	curr = game->spider;
@@ -111,7 +113,7 @@ void	make_spider(t_game *game)
 			continue ;
 		}
 		draw_spider(curr, game, curr->sp_screen_x - (curr->proj_sprite_w / 2), \
-		curr->sp_screen_y - (curr->proj_sprite_h / 2));
+		curr->sp_screen_y - (curr->proj_sprite_h / 2) - 94);
 		curr = curr->next;
 	}
 }
