@@ -6,7 +6,7 @@
 #    By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/02 14:25:51 by lvicino           #+#    #+#              #
-#    Updated: 2024/11/19 14:16:10 by lvicino          ###   ########.fr        #
+#    Updated: 2024/11/21 14:42:33 by lvicino          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,11 +46,13 @@ PARSING_DEP	=	$(PARSING_OBJ:$(BUILD_DIR)/%.o=$(BUILD_DIR)/%.d)
 EXEC_DIR	=	src/exec
 
 EXEC		=	events.c \
+				move.c \
 				init.c \
 				loop.c \
 				utils.c \
 				raycasting.c \
 				minimap.c \
+				minimap_aux.c \
 				exit.c \
 				distance.c \
 				textures.c \
@@ -60,7 +62,7 @@ EXEC		=	events.c \
 				converter.c \
 				spider.c \
 				spider_aux.c \
-				door.c \
+				door.c
 
 EXEC		:=	$(EXEC:%=$(EXEC_DIR)/%)
 EXEC_OBJ	=	$(EXEC:$(EXEC_DIR)/%.c=$(BUILD_DIR)/%.o)

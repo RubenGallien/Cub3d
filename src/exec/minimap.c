@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 13:18:05 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/18 14:27:16 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/11/21 14:49:01 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	draw_player(t_game *game, int start_x, int start_y, t_minimap m)
 	i = -1;
 	while (++i < 8)
 		my_mlx_pixel_put(&game->world, start_x + (i * game->player->pdx), \
-		start_y - (i * game->player->pdy), 0xFF00FF);
+		start_y - (i * game->player->pdy), 0xFF0000);
 }
 
 void	draw_minimap_aux(t_game *game, t_minimap *m)
@@ -85,8 +85,7 @@ void	draw_minimap_aux(t_game *game, t_minimap *m)
 		my_mlx_pixel_put(&game->world, (S_W - MM_S_X - 10) \
 		+ m->x, m->y + 10, 0xaba9a2);
 	else
-		my_mlx_pixel_put(&game->world, (S_W - MM_S_X - 10) \
-		+ m->x, m->y + 10, 0xFF0000); //! add diff space door and spiders
+		draw_minimap_obj(game, m);
 }
 
 void	draw_minimap(t_game *game, t_minimap m, int tile_x, int tile_y)
@@ -105,7 +104,8 @@ void	draw_minimap(t_game *game, t_minimap m, int tile_x, int tile_y)
 				tile_x < 0 || (m.start_y + m.y) / tile_y > game->y - 1 || \
 				(m.start_x + m.x) / tile_x > game->x - 1 || \
 				!game->map[(m.start_y + m.y) / tile_y] \
-				[(m.start_x + m.x) / tile_x])
+				[(m.start_x + m.x) / tile_x] || game->map[(m.start_y + m.y) \
+				/ tile_y][(m.start_x + m.x) / tile_x] == ' ')
 					my_mlx_pixel_put(&game->world, (S_W - MM_S_X - 10) \
 					+ m.x, m.y + 10, 0xc6c7cf);
 				else

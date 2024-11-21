@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 00:10:14 by lvicino           #+#    #+#             */
-/*   Updated: 2024/11/18 14:58:27 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/11/21 14:19:16 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,25 @@ void	ft_free_str(char **str, int str_ln)
 		free(str);
 }
 
+void	ft_free_info_aux(t_map *info)
+{
+	if (info->texture)
+	{
+		ft_free_str(info->texture, 4);
+		info->texture = NULL;
+	}
+	if (info->texture_f)
+	{
+		free(info->texture_f);
+		info->texture_f = NULL;
+	}
+	if (info->texture_c)
+	{
+		free(info->texture_c);
+		info->texture_c = NULL;
+	}
+}
+
 void	ft_free_info(t_map *info)
 {
 	int	i;
@@ -46,13 +65,5 @@ void	ft_free_info(t_map *info)
 		ft_free_str(info->map, i);
 		info->map = NULL;
 	}
-	if (info->texture)
-	{
-		ft_free_str(info->texture, 4);
-		info->texture = NULL;
-	}
-	if (info->texture_f)
-		free(info->texture_f);
-	if (info->texture_c)
-		free(info->texture_c);
+	ft_free_info_aux(info);
 }

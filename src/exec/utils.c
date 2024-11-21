@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 20:42:34 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/19 12:18:42 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/11/21 11:14:04 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	set_data_assets(t_game *game, char *_path, t_img *textures)
 {
 	textures->img = mlx_xpm_file_to_image(game->mlx, _path, &textures->width, \
-	&textures->height);
+	&textures->height); //! need to check if successfull
 	textures->pixels = (unsigned char *)mlx_get_data_addr(textures->img, \
 	&textures->bits_per_pixel, &textures->line_length, &textures->endian);
 	return (1);

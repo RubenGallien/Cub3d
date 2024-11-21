@@ -6,11 +6,32 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 15:16:08 by lvicino           #+#    #+#             */
-/*   Updated: 2024/11/19 11:08:36 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/11/21 13:22:23 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int	check_texture_fc(t_map *info)
+{
+	int	fd;
+
+	if (info->texture_f)
+	{
+		fd = open(info->texture_f, O_RDONLY);
+		if (fd < 0)
+			return (ft_werror(NULL), perror(info->texture_f), 0);
+		close(fd);
+	}
+	if (info->texture_c)
+	{
+		fd = open(info->texture_c, O_RDONLY);
+		if (fd < 0)
+			return (ft_werror(NULL), perror(info->texture_c), 0);
+		close(fd);
+	}
+	return (1);
+}
 
 int	check_texture(t_map *info)
 {
@@ -31,19 +52,9 @@ int	check_texture(t_map *info)
 	if ((info->colour[0] < 0 && !info->texture_f) || \
 	(info->colour[1] < 0 && !info->texture_c))
 		return (ft_werror(NDEF_ER), 0);
+	if (!check_texture_fc(info))
+		return (0);
 	return (1);
-}
-
-int	bigger(char *s1, char *s2)
-{
-	int	a;
-	int	b;
-
-	a = ft_strlen(s1);
-	b = ft_strlen(s2);
-	if (a > b)
-		return (a);
-	return (b);
 }
 
 int	fill_texture_tab(int i, char **tmp, t_map *info)
@@ -60,15 +71,17 @@ int	fill_texture_tab(int i, char **tmp, t_map *info)
 		str = ft_strrchr(tmp[1], '.');
 		if (str && !ft_strncmp(str, ".xpm\n", 6))
 		{
-			if (i == 4)
+			if (i == 4 && info->colour[i - 4] < 0)
 				info->texture_f = ft_strtrim(tmp[1], "\n");
-			else
+			else if (1 == 5 && info->colour[i - 4] < 0)
 				info->texture_c = ft_strtrim(tmp[1], "\n");
+			else
+				return (ft_werror(MULTI_DEF_ER), ft_free_str(tmp, 3), 0);
 			return (ft_free_str(tmp, 3), 1);
 		}
 		else if (get_colour(ft_strtrim(tmp[1], "\n"), &(info->colour[i - 4])))
 			return (ft_free_str(tmp, 3), 1);
-		return (ft_free_str(tmp, 3), 0);
+		return (ft_free_str(tmp, 3), ft_werror(ID_ER), 0);
 	}
 	return (ft_free_str(tmp, 3), ft_werror(MULTI_DEF_ER), 0);
 }
