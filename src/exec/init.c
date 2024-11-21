@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:14:12 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/21 14:33:38 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/21 15:56:10 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,15 @@ void	init_textures(t_game *game)
 
 	torch[0] = TORCH_OFF;
 	torch[1] = TORCH_ON;
+	i = -1;
+	while (++i < 4)
+		game->textures.wall[i].img = NULL;
+	game->textures.torch[0].img = NULL;
+	game->textures.torch[1].img = NULL;
+	game->textures.ceiling.img = NULL;
+	game->textures.floor.img = NULL;
+	game->textures.door.img = NULL;
+	game->textures.spider.img = NULL;
 	i = -1;
 	while (++i < 4)
 		set_data_assets(game, game->info.texture[i], &game->textures.wall[i]);
