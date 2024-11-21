@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 17:07:16 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/20 17:42:01 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/21 13:23:28 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,5 @@ void	draw_gameplan(t_game *game)
 		draw_wall(ca_tmp, start, game, game->ray[i]);
 		draw_floor(ca_tmp, start, game, game->ray[i]);
 		start += S_W / (FOV * RES);
-		// free_door(game->ray[i].doors);
 	}
 }

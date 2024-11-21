@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 14:27:49 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/21 00:05:05 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/21 13:25:34 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,71 +14,49 @@
 
 void	distance_until_wall_v(t_game *game, int i)
 {
-	t_door	*tmp;
-	int		n;
-
-	n = -1;
-	game->ray[i].spider_v = 0;
-	tmp = NULL;
-	while (game->ray[i].dof < game->info.ln_max)
-	{
-		game->ray[i].mx = game->ray[i].rx / 64;
-		game->ray[i].my = game->ray[i].ry / 64;
-		if (game->ray[i].mx >= 0 && game->ray[i].my >= 0 \
-		&& game->ray[i].mx < game->info.ln_x && game->ray[i].my \
-		< game->info.ln_y && game->map[game->ray[i].my][game->ray[i].mx] == '1')
-		{
-			game->ray[i].dof = game->info.ln_max;
-			game->ray[i].distance_v = found_distance(game->player->pos_x, \
-			game->player->pos_y, game->ray[i].rx, game->ray[i].ry);
-		}
-		else
-		{
-			if (game->ray[i].mx >= 0 && game->ray[i].my >= 0 \
-			&& game->ray[i].mx < game->info.ln_x && game->ray[i].my < \
-			game->info.ln_y && game->map[game->ray[i].my][game->ray[i].mx] == 'A')
-				game->ray[i].spider_v = 1;
-			check_door_v(game, i, tmp, n);
-			game->ray[i].rx += game->ray[i].xo;
-			game->ray[i].ry += game->ray[i].yo;
-			game->ray[i].dof += 1;
-		}
-	}
-	if (n < game->ray[i].n_door && n >= 0)
-	{
-		game->ray[i].n_door = n + 1;
-		free_door(game->ray[i].doors);
-		game->ray[i].doors = tmp;
-	}
-	else if (game->ray[i].n_door >= 0)
-	{
-		game->ray[i].n_door++;
-		free_door(tmp);
-	}
-}
-
-void	distance_until_wall_h(t_game *game, int i)
-{
-	game->ray[i].spider_h = 0;
 	while (game->ray[i].dof < game->info.ln_max)
 	{
 		game->ray[i].mx = game->ray[i].rx / 64;
 		game->ray[i].my = game->ray[i].ry / 64;
 		if (game->ray[i].mx >= 0 && game->ray[i].my >= 0 \
 		&& game->ray[i].mx < game->info.ln_x && game->ray[i].my < \
-		game->info.ln_y && game->map[game->ray[i].my][game->ray[i].mx] == '1')
+		game->info.ln_y && (game->map[game->ray[i].my][game->ray[i].mx] == '1' \
+		|| game->map[game->ray[i].my][game->ray[i].mx] == 'D'))
 		{
+			if (game->map[game->ray[i].my][game->ray[i].mx] == 'D')
+				game->ray[i].v_door = 1;
+			game->ray[i].dof = game->info.ln_max;
+			game->ray[i].distance_v = found_distance(game->player->pos_x, \
+			game->player->pos_y, game->ray[i].rx, game->ray[i].ry);
+		}
+		else
+		{
+			game->ray[i].rx += game->ray[i].xo;
+			game->ray[i].ry += game->ray[i].yo;
+			game->ray[i].dof += 1;
+		}
+	}
+}
+
+void	distance_until_wall_h(t_game *game, int i)
+{
+	while (game->ray[i].dof < game->info.ln_max)
+	{
+		game->ray[i].mx = game->ray[i].rx / 64;
+		game->ray[i].my = game->ray[i].ry / 64;
+		if (game->ray[i].mx >= 0 && game->ray[i].my >= 0 \
+		&& game->ray[i].mx < game->info.ln_x && game->ray[i].my < \
+		game->info.ln_y && (game->map[game->ray[i].my][game->ray[i].mx] == '1' \
+		|| game->map[game->ray[i].my][game->ray[i].mx] == 'D'))
+		{
+			if (game->map[game->ray[i].my][game->ray[i].mx] == 'D')
+				game->ray[i].h_door = 1;
 			game->ray[i].dof = game->info.ln_max;
 			game->ray[i].distance_h = found_distance(game->player->pos_x, \
 			game->player->pos_y, game->ray[i].rx, game->ray[i].ry);
 		}
 		else
 		{
-			if (game->ray[i].mx >= 0 && game->ray[i].my >= 0 \
-			&& game->ray[i].mx < game->info.ln_x && game->ray[i].my < \
-			game->info.ln_y && game->map[game->ray[i].my][game->ray[i].mx] == 'A')
-				game->ray[i].spider_h = 1;
-			check_door_h(game, i);
 			game->ray[i].rx += game->ray[i].xo;
 			game->ray[i].ry += game->ray[i].yo;
 			game->ray[i].dof += 1;
@@ -118,8 +96,9 @@ void	fill_rays_infos(t_game *game)
 	ra = to_radiant(game->player->angle + (FOV / 2));
 	while (++i < FOV * RES)
 	{
-		game->ray[i].doors = NULL;
- 		game->ray[i].n_door = -1;
+		game->ray[i].door = 0;
+		game->ray[i].h_door = 0;
+		game->ray[i].v_door = 0;
 		game->ray[i].distance_h = 100000000;
 		game->ray[i].distance_v = 100000000;
 		game->ray[i].tmp = game->info.ln_max * 64;

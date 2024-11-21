@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/20 23:43:53 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/21 14:25:02 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,6 @@ typedef struct s_minimap
 	int	c_y;
 	int	r;
 }			t_minimap;
-
-typedef struct s_door
-{
-	double			dist;
-	double			wall_h;
-	int				tick;
-	int				offset;
-	unsigned		color;
-	struct s_door	*next;
-}			t_door;
 
 typedef struct s_spider
 {
@@ -151,10 +141,9 @@ typedef struct s_ray
 	double					d;
 	double					n;
 	int						spider;
-	int						spider_v;
-	int						spider_h;
-	t_door					*doors;
-	int						n_door;
+	int						v_door;
+	int						h_door;
+	int						door;
 }				t_ray;
 
 typedef struct s_player
@@ -188,6 +177,7 @@ typedef struct s_game
 	char		**map;
 	int			tick;
 	int			torch;
+	int			door;
 	double		width_per_cell;
 	double		proj;
 	t_spider	*spider;
@@ -242,9 +232,8 @@ double		to_radiant(double number);
 double		to_degrees(double number);
 
 // door
-void		check_door_v(t_game *game, int i, t_door *tmp, int n);
-void		check_door_h(t_game *game, int i);
-void		free_door(t_door *door);
+int			open_door(t_game *game);
+
 // spider
 void		make_spider(t_game *game);
 void		recup_spider_infos(t_spider *curr, t_game *game);

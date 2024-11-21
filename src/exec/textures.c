@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 03:25:57 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/20 23:35:39 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/21 13:28:21 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,10 @@ int	choose_color(t_ray *ray, t_game *game, int y)
 	else
 		j = y / (ray->wall_height / 64);
 	i = ray->offset;
-	wall = game->textures.wall[ray->f_wall];
+	if (ray->door)
+		wall = game->textures.door;
+	else
+		wall = game->textures.wall[ray->f_wall];
 	ray->color = ((int *)wall.pixels)[j * wall.width + i];
 	rgb.r = ((ray->color >> 16) & 0xFF) / 255.0 * ray->perc;
 	rgb.g = ((ray->color >> 8) & 0xFF) / 255.0 * ray->perc;
@@ -71,6 +74,7 @@ int	choose_color(t_ray *ray, t_game *game, int y)
 void	h_textures(t_game *game, int i)
 {
 	game->ray[i].rx = game->ray[i].rx_tmp;
+	game->ray[i].door = game->ray[i].h_door;
 	if (game->ray[i].ry > game->player->pos_y)
 	{
 		game->ray[i].offset = 63 - (int)game->ray[i].rx % 64;

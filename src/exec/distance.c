@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:41:58 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/21 00:06:18 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/21 13:26:58 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ void	choose_distance(t_game *game, int i)
 {
 	if (game->ray[i].distance_h <= game->ray[i].distance_v)
 	{
-		game->ray[i].spider = game->ray[i].spider_h;
+		game->ray[i].door = game->ray[i].h_door;
 		game->ray[i].wall_height = game->ray[i].distance_h;
 	}
 	else
 	{
-		game->ray[i].spider = game->ray[i].spider_v;
 		game->ray[i].wall_height = game->ray[i].distance_v;
+		game->ray[i].door = game->ray[i].v_door;
 	}
 	game->ray[i].save_dist = game->ray[i].wall_height;
 }

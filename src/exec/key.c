@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 03:20:27 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/02 16:03:51 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/21 14:38:45 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ int	on_keypress(int keysym, t_game *game)
 		else
 			game->torch = 1;
 	}
+	else if (keysym == XK_e)
+		open_door(game);
 	else if (keysym == XK_w)
 	{
 		game->player->up = 1;
