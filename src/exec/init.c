@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:14:12 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/19 18:19:24 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/11/21 14:33:38 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	init_textures(t_game *game)
 	torch[0] = TORCH_OFF;
 	torch[1] = TORCH_ON;
 	i = -1;
-
 	while (++i < 4)
 		set_data_assets(game, game->info.texture[i], &game->textures.wall[i]);
 	i = -1;
@@ -48,20 +47,7 @@ double	get_angle(char c)
 
 void	init_game(t_game *game, t_player *player, char **map)
 {
-	int	i;
-	int	j;
-
 	game->map = map;
-	i = 0;
-	while (game->map && game->map[i])
-	{
-		j = 0;
-		while (game->map && game->map[i][j])
-			j++;
-		game->x = j;
-		i++;
-	}
-	game->y = i;
 	game->tick = 0;
 	game->torch = 0;
 	game->proj = S_W / (2 * tan(to_radiant(FOV / 2)));

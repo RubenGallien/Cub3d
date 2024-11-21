@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 15:14:47 by lvicino           #+#    #+#             */
-/*   Updated: 2024/11/21 13:24:00 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/11/21 15:00:03 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	is_closed(char **map, int ln_x, int ln_y)
 			&& map[y][x] != 'A')
 				return (ft_werror(COMP_ER), 0);
 			else if ((map[y][x] == '0' || map[y][x] == 'D' || \
-			map[y][x] == 'N' || map[y][x] == 'S' || \
+			 map[y][x] == 'A' || map[y][x] == 'N' || map[y][x] == 'S' || \
 			map[y][x] == 'E' || map[y][x] == 'W') && \
 			(!y || y == ln_y - 1 || !x || x == ln_x - 1 || \
 			map[y - 1][x] == ' ' || map[y + 1][x] == ' ' || \

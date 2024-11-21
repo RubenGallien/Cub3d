@@ -12,11 +12,6 @@
 
 #include "cub3d.h"
 
-// void	draw_sprite(game)
-// {
-
-// }
-
 int	game_loop(t_game *game)
 {
 	int	y_torch_start;
@@ -33,7 +28,6 @@ int	game_loop(t_game *game)
 		fill_rays_infos(game);
 		draw_gameplan(game);
 		make_spider(game);
-		// draw_sprite(game);
 		minimap(game);
 		if (game->torch)
 			draw_torch(game, x_torch_start, y_torch_start);

@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/21 14:41:10 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/11/21 14:56:09 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,6 @@ typedef struct s_minimap
 	int	c_y;
 	int	r;
 }		t_minimap;
-
-typedef struct s_door
-{
-	double			dist;
-	double			wall_h;
-	int				tick;
-	struct s_door	*next;
-}					t_door;
 
 typedef struct s_spider
 {
@@ -183,6 +175,7 @@ typedef struct s_game
 	char		**map;
 	int			tick;
 	int			torch;
+	int			door;
 	double		width_per_cell;
 	double		proj;
 	t_spider	*spider;
@@ -243,9 +236,7 @@ double		to_radiant(double number);
 double		to_degrees(double number);
 
 // door
-void		check_door_v(t_game *game, int i, t_door *tmp, int n);
-void		check_door_h(t_game *game, int i);
-void		free_door(t_door *door);
+int			open_door(t_game *game);
 
 // spider
 void		make_spider(t_game *game);
