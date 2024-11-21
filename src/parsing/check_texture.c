@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 15:16:08 by lvicino           #+#    #+#             */
-/*   Updated: 2024/11/21 13:22:23 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/11/21 15:33:33 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	check_texture(t_map *info)
 
 int	fill_texture_tab(int i, char **tmp, t_map *info)
 {
-	char *str;
+	char	*str;
 
 	if (0 <= i && i <= 3 && !info->texture[i])
 	{

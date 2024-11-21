@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   door.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 14:15:29 by lvicino           #+#    #+#             */
-/*   Updated: 2024/11/21 14:43:13 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/21 15:35:28 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,29 @@
 
 int	open_door(t_game *game)
 {
-	if (game->map[(int)game->player->pos_y / 64][(int)(game->player->pos_x + \
-	(5 * game->player->pdx)) / 64] == 'd' && game->map[(int)game->player->pos_y \
-	/ 64][(int)game->player->pos_x / 64] != 'd')
-		game->map[(int)game->player->pos_y / 64][(int)(game->player->pos_x + \
-		(5 * game->player->pdx)) / 64] = 'D';
-	if (game->map[(int)game->player->pos_y / 64][(int)(game->player->pos_x + \
-	(5 * game->player->pdx)) / 64] == 'D' && game->map[(int)game->player->pos_y \
-	/ 64][(int)game->player->pos_x / 64] != 'D')
-		game->map[(int)game->player->pos_y / 64][(int)(game->player->pos_x + \
-		(5 * game->player->pdx)) / 64] = 'd';
+	int	i;
+
+	i = 0;
+	while (++i <= 75)
+	{
+		if (game->map \
+		[(int)(game->player->pos_y - (i * game->player->pdy)) / 64] \
+		[(int)(game->player->pos_x + (i * game->player->pdx)) / 64] == 'd')
+		{
+			game->map \
+			[(int)(game->player->pos_y - (i * game->player->pdy)) / 64] \
+			[(int)(game->player->pos_x + (i * game->player->pdx)) / 64] = 'D';
+			return (0);
+		}
+		else if (game->map \
+		[(int)(game->player->pos_y - (i * game->player->pdy)) / 64] \
+		[(int)(game->player->pos_x + (i * game->player->pdx)) / 64] == 'D')
+		{
+			game->map \
+			[(int)(game->player->pos_y - (i * game->player->pdy)) / 64] \
+			[(int)(game->player->pos_x + (i * game->player->pdx)) / 64] = 'd';
+			return (0);
+		}
+	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/21 14:56:09 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/11/21 15:04:24 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,8 +140,9 @@ typedef struct s_ray
 	double			beta;
 	double			d;
 	double			n;
-	t_door			*doors;
-	int				n_door;
+	int				h_door;
+	int				v_door;
+	int				door;
 }					t_ray;
 
 typedef struct s_player
