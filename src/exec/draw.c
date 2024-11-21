@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 17:07:16 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/19 18:04:46 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/11/20 17:42:01 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	draw_wall(double dist_t, int start, t_game *game, t_ray ray)
 	{
 		ray.ty_step = 64.0 / ((WALL_SIZE * S_H) / dist_t);
 		ray.ty = ray.off_y * ray.ty_step;
-		y = min -1;
+		y = min - 1;
 		while (++y < max)
 		{
 			my_mlx_pixel_put(&game->world, x + start, y, \

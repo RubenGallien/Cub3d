@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 14:27:49 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/19 18:12:26 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/11/21 00:05:05 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	distance_until_wall_v(t_game *game, int i)
 	int		n;
 
 	n = -1;
+	game->ray[i].spider_v = 0;
 	tmp = NULL;
 	while (game->ray[i].dof < game->info.ln_max)
 	{
@@ -33,6 +34,10 @@ void	distance_until_wall_v(t_game *game, int i)
 		}
 		else
 		{
+			if (game->ray[i].mx >= 0 && game->ray[i].my >= 0 \
+			&& game->ray[i].mx < game->info.ln_x && game->ray[i].my < \
+			game->info.ln_y && game->map[game->ray[i].my][game->ray[i].mx] == 'A')
+				game->ray[i].spider_v = 1;
 			check_door_v(game, i, tmp, n);
 			game->ray[i].rx += game->ray[i].xo;
 			game->ray[i].ry += game->ray[i].yo;
@@ -54,6 +59,7 @@ void	distance_until_wall_v(t_game *game, int i)
 
 void	distance_until_wall_h(t_game *game, int i)
 {
+	game->ray[i].spider_h = 0;
 	while (game->ray[i].dof < game->info.ln_max)
 	{
 		game->ray[i].mx = game->ray[i].rx / 64;
@@ -68,6 +74,10 @@ void	distance_until_wall_h(t_game *game, int i)
 		}
 		else
 		{
+			if (game->ray[i].mx >= 0 && game->ray[i].my >= 0 \
+			&& game->ray[i].mx < game->info.ln_x && game->ray[i].my < \
+			game->info.ln_y && game->map[game->ray[i].my][game->ray[i].mx] == 'A')
+				game->ray[i].spider_h = 1;
 			check_door_h(game, i);
 			game->ray[i].rx += game->ray[i].xo;
 			game->ray[i].ry += game->ray[i].yo;

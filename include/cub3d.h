@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/19 17:41:14 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/11/20 23:43:53 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ typedef struct s_door
 	double			dist;
 	double			wall_h;
 	int				tick;
+	int				offset;
+	unsigned		color;
 	struct s_door	*next;
 }			t_door;
 
@@ -148,6 +150,9 @@ typedef struct s_ray
 	double					beta;
 	double					d;
 	double					n;
+	int						spider;
+	int						spider_v;
+	int						spider_h;
 	t_door					*doors;
 	int						n_door;
 }				t_ray;

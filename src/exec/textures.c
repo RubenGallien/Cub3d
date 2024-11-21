@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 03:25:57 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/10 17:19:19 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/20 23:35:39 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@ void	color_f_c(unsigned int color, t_rgb *rgb, int torch, int y)
 	double	perc;
 
 	if (torch)
-	{
 		perc = (double)y / S_H - 0.550;
-	}
 	else
 		perc = 0.01;
 	if (perc < 0)

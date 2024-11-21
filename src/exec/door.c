@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   door.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 14:15:29 by lvicino           #+#    #+#             */
-/*   Updated: 2024/11/19 17:13:08 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/11/20 23:40:16 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ t_door	*get_door(int *n, t_game *game, int i, t_door *node)
 	door->next = NULL;
 	door->dist = found_distance(game->player->pos_x, \
 	game->player->pos_y, game->ray[i].rx, game->ray[i].ry);
+	door->dist -= 32;
 	if (node)
 		door->next = node;
 	return (door);
@@ -49,7 +50,7 @@ void	check_door_h(t_game *game, int i)
 	{
 		game->ray[i].doors = \
 		get_door(&game->ray[i].n_door, game, i, game->ray[i].doors);
-		// printf("door_H\n");
+		game->ray[i].doors->offset = (int)game->ray[i].rx % 64;
 	}
 }
 
@@ -61,7 +62,6 @@ void	check_door_v(t_game *game, int i, t_door *tmp, int n)
 		|| game->map[game->ray[i].my][game->ray[i].mx] == 'H'))
 	{
 		tmp = get_door(&n, game, i, tmp);
-		if (i == 959)
-			printf("door_V\n");
+		tmp->offset = (int)game->ray[i].ry % 64;
 	}
 }

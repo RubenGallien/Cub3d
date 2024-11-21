@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   spider.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 12:25:57 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/19 16:51:55 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/11/20 23:52:00 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,13 +107,13 @@ void	make_spider(t_game *game)
 	while (curr)
 	{
 		recup_spider_infos(curr, game);
-		if (curr->proj_sprite_h >= S_H || curr->proj_sprite_w >= S_W)
-		{
-			curr = curr->next;
-			continue ;
-		}
-		draw_spider(curr, game, curr->sp_screen_x - (curr->proj_sprite_w / 2), \
-		curr->sp_screen_y - (curr->proj_sprite_h / 2) - 94);
+		// if (curr->proj_sprite_h >= S_H || curr->proj_sprite_w >= S_W)
+		// {
+		// 	curr = curr->next;
+		// 	continue ;
+		// }
+		// draw_spider(curr, game, curr->sp_screen_x - (curr->proj_sprite_w / 2), 
+		// curr->sp_screen_y - (curr->proj_sprite_h / 2) - 94);
 		curr = curr->next;
 	}
 }
