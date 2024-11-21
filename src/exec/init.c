@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:14:12 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/21 15:56:10 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/22 00:53:44 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	init_game(t_game *game, t_player *player, char **map)
 {
 	game->map = map;
 	game->tick = 0;
+	game->animation = 0;
 	game->torch = 0;
 	game->proj = S_W / (2 * tan(to_radiant(FOV / 2)));
 	game->mlx = mlx_init();

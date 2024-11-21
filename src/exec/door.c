@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 14:15:29 by lvicino           #+#    #+#             */
-/*   Updated: 2024/11/21 15:35:28 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/11/21 16:23:43 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	open_door(t_game *game)
 	int	i;
 
 	i = 0;
-	while (++i <= 75)
+	while (++i <= 100)
 	{
 		if (game->map \
 		[(int)(game->player->pos_y - (i * game->player->pdy)) / 64] \

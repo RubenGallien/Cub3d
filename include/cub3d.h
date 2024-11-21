@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/21 15:04:24 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/11/21 15:53:32 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,7 @@ typedef struct s_game
 	void		*mlx_win;
 	char		**map;
 	int			tick;
+	int			animation;
 	int			torch;
 	int			door;
 	double		width_per_cell;
