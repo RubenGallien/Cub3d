@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 21:50:55 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/19 16:24:27 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/11/21 16:29:08 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,21 +46,34 @@ int	get_color_spider(unsigned int color, t_spider *curr, int torch)
 	return (color);
 }
 
+int	spider_anim(t_game *game, t_spider *curr, int x, int y)
+{
+	int	colour;
+
+	if (game->animation < 5)
+		colour = ((int *)game->textures.spider.pixels)[(int)(y / \
+		(curr->proj_sprite_h / 64)) *(game->textures.spider.width) + \
+		(int)(x / (curr->proj_sprite_h / 64))];
+	else
+		colour = ((int *)game->textures.spider.pixels)[(int)(y / \
+		(curr->proj_sprite_h / 64)) *(game->textures.spider.width) + \
+		(int)(64 - x / (curr->proj_sprite_h / 64))];
+	return (colour);
+}
+
 void	draw_spider(t_spider *curr, t_game *game, int start_x, int start_y)
 {
 	int				x;
 	int				y;
 	unsigned int	color;
 
-	x = -1;
+	x = 0;
 	while (++x < curr->proj_sprite_w)
 	{
 		y = -1;
 		while (++y < curr->proj_sprite_h)
 		{
-			color = ((int *)game->textures.spider.pixels)[(int)(y / \
-			(curr->proj_sprite_h / 64)) *(game->textures.spider.width) + \
-			(int)(x / (curr->proj_sprite_h / 64))];
+			color = spider_anim(game, curr, x, y);
 			if (start_x + x < 0 || start_x + x >= S_W || start_y + y < 0 \
 			|| start_y + y >= S_H || color == 0xFF000000)
 				continue ;

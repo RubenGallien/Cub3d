@@ -33,6 +33,7 @@ int	game_loop(t_game *game)
 			draw_torch(game, x_torch_start, y_torch_start);
 		mlx_put_image_to_window(game->mlx, game->mlx_win, \
 		game->world.img, 0, 0);
+		game->animation = (game->animation + 1) % 10;
 	}
 	game->tick = (game->tick + 1) % (15000 / SPEED);
 	return (0);
