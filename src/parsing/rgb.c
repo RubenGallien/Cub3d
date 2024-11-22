@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 17:32:21 by lvicino           #+#    #+#             */
-/*   Updated: 2024/11/21 13:11:59 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/11/22 17:39:23 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	get_colour(char *s, int *colour)
 	while (rgb[i])
 		i++;
 	if (i != 3)
-		return (ft_free_str(rgb, i), 0);
+		return (ft_free_str(rgb, i), ft_werror(ID_ER), 0);
 	i = -1;
 	while (rgb[++i])
 	{

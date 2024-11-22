@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 15:16:08 by lvicino           #+#    #+#             */
-/*   Updated: 2024/11/21 15:33:33 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/11/22 19:37:15 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ int	fill_texture_tab(int i, char **tmp, t_map *info)
 		str = ft_strrchr(tmp[1], '.');
 		if (str && !ft_strncmp(str, ".xpm\n", 6))
 		{
-			if (i == 4 && info->colour[i - 4] < 0)
+			if (i == 4 && info->colour[i - 4] < 0 && !info->texture_f)
 				info->texture_f = ft_strtrim(tmp[1], "\n");
-			else if (1 == 5 && info->colour[i - 4] < 0)
+			else if (i == 5 && info->colour[i - 4] < 0 && !info->texture_c)
 				info->texture_c = ft_strtrim(tmp[1], "\n");
 			else
 				return (ft_werror(MULTI_DEF_ER), ft_free_str(tmp, 3), 0);
@@ -81,7 +81,7 @@ int	fill_texture_tab(int i, char **tmp, t_map *info)
 		}
 		else if (get_colour(ft_strtrim(tmp[1], "\n"), &(info->colour[i - 4])))
 			return (ft_free_str(tmp, 3), 1);
-		return (ft_free_str(tmp, 3), ft_werror(ID_ER), 0);
+		return (ft_free_str(tmp, 3), 0);
 	}
 	return (ft_free_str(tmp, 3), ft_werror(MULTI_DEF_ER), 0);
 }
