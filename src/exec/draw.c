@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 17:07:16 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/21 13:23:28 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/22 23:11:14 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ void	draw_floor(double dist_t, int start, t_game *game, t_ray ray)
 			draw_floor_aux(&ray, y, game);
 			my_mlx_pixel_put(&game->world, x + start, y, \
 			choose_col_floor_ceiling(ray, game->textures.floor, \
-			y, game->torch));
+			y, game));
 			ray.n = ray.ty - (S_H / 2);
 			ray.ty = (S_H / 2) - ray.n;
 			my_mlx_pixel_put(&game->world, x + start, (S_H / 2) - \
 			(y - (S_H / 2)), choose_col_floor_ceiling \
-			(ray, game->textures.ceiling, y, game->torch));
+			(ray, game->textures.ceiling, y, game));
 		}
 	}
 }

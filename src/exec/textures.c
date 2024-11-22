@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 03:25:57 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/21 13:28:21 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/22 23:13:48 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,23 @@ void	color_f_c(unsigned int color, t_rgb *rgb, int torch, int y)
 	rgb->b = (color & 0xFF) / 255.0 * perc;
 }
 
-int	choose_col_floor_ceiling(t_ray ray, t_img floor, int y, int torch)
+int	choose_col_floor_ceiling(t_ray ray, t_img floor, int y, t_game *game)
 {
 	unsigned int	color;
 	int				ty;
 	int				tx;
 	t_rgb			rgb;
 
-	(void)torch;
 	(void)y;
 	tx = ((int)ray.tx % 64) & 63;
 	ty = ((int)ray.ty % 64) & 63;
-	color = ((int *)floor.pixels)[(ty * floor.width + tx)];
-	color_f_c(color, &rgb, torch, y);
+	if (floor.img)
+		color = ((int *)floor.pixels)[(ty * floor.width + tx)];
+	else if (y < (S_H / 2))
+		color = game->info.colour[1];
+	else
+		color = game->info.colour[0];
+	color_f_c(color, &rgb, game->torch, y);
 	color = (((int)(rgb.r * 255) & 0xFF) << 16) + (((int)(rgb.g * 255) \
 	& 0xFF) << 8) + ((int)(rgb.b * 255) & 0xFF);
 	return (color);

@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:14:12 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/22 00:53:44 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/22 23:32:10 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,10 @@
 void	init_textures(t_game *game)
 {
 	int		i;
-	char	*torch[2];
 
-	torch[0] = TORCH_OFF;
-	torch[1] = TORCH_ON;
 	i = -1;
 	while (++i < 4)
 		game->textures.wall[i].img = NULL;
-	game->textures.torch[0].img = NULL;
-	game->textures.torch[1].img = NULL;
 	game->textures.ceiling.img = NULL;
 	game->textures.floor.img = NULL;
 	game->textures.door.img = NULL;
@@ -31,11 +26,10 @@ void	init_textures(t_game *game)
 	i = -1;
 	while (++i < 4)
 		set_data_assets(game, game->info.texture[i], &game->textures.wall[i]);
-	i = -1;
-	while (++i < 2)
-		set_data_assets(game, torch[i], &game->textures.torch[i]);
-	set_data_assets(game, CEILING, &game->textures.ceiling);
-	set_data_assets(game, FLOOR, &game->textures.floor);
+	if (game->info.texture_c)
+		set_data_assets(game, CEILING, &game->textures.ceiling);
+	if (game->info.texture_f)
+		set_data_assets(game, FLOOR, &game->textures.floor);
 	set_data_assets(game, DOOR, &game->textures.door);
 	set_data_assets(game, SPIDER, &game->textures.spider);
 }

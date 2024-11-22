@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/21 15:53:32 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/11/22 23:05:03 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,7 +219,7 @@ void		extra_v(t_game *game, int i);
 void		incr_pos(t_game *game, int b, double save_x, double save_y);
 void		choose_textures(t_game *game, int i);
 int			choose_color(t_ray *ray, t_game *game, int y);
-int			choose_col_floor_ceiling(t_ray ray, t_img floor, int y, int torch);
+int			choose_col_floor_ceiling(t_ray ray, t_img floor, int y, t_game *game);
 
 // utils
 void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
@@ -236,6 +236,9 @@ void		draw_minimap_obj(t_game *game, t_minimap *m);
 //convert
 double		to_radiant(double number);
 double		to_degrees(double number);
+
+//torch
+void		init_torch(t_game *game);
 
 // door
 int			open_door(t_game *game);

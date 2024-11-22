@@ -6,11 +6,26 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 14:51:15 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/03 16:49:31 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/22 23:10:29 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	init_torch(t_game *game)
+{
+	int		i;
+	char	*torch[2];
+
+	torch[0] = TORCH_OFF;
+	torch[1] = TORCH_ON;
+	i = -1;
+	while (++i < 2)
+		game->textures.torch[i].img = NULL;
+	i = -1;
+	while (++i < 2)
+		set_data_assets(game, torch[i], &game->textures.torch[i]);
+}
 
 void	convert_rgb(t_rgb *rgb, t_game *game, int percentage, int incr[2])
 {
