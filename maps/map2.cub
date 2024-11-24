@@ -7,9 +7,9 @@ NO ./textures/wall/deepslate_diamond_ore.xpm
 
 WE           ./textures/wall/deepslate_iron_ore.xpm
 
-                       C textures/floor/deepslate.xpm
+                       F textures/floor/deepslate.xpm
 
-    F     3,3,3
+    C     textures/ceiling/deepslate_top.xpm
 
  1111111
 1000S0001
