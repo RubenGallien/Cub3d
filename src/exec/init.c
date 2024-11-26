@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:14:12 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/22 23:32:10 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/26 14:13:24 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ void	init_textures(t_game *game)
 	while (++i < 4)
 		set_data_assets(game, game->info.texture[i], &game->textures.wall[i]);
 	if (game->info.texture_c)
-		set_data_assets(game, CEILING, &game->textures.ceiling);
+		set_data_assets(game, game->info.texture_c, &game->textures.ceiling);
 	if (game->info.texture_f)
-		set_data_assets(game, FLOOR, &game->textures.floor);
+		set_data_assets(game, game->info.texture_f, &game->textures.floor);
 	set_data_assets(game, DOOR, &game->textures.door);
 	set_data_assets(game, SPIDER, &game->textures.spider);
 }

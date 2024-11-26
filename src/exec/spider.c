@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   spider.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 12:25:57 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/21 15:50:04 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/11/26 14:18:23 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ void	sort_spider(t_spider **spider)
 				curr->prev->next = next;
 			else
 				*spider = next;
+			if (next->next)
+				next->next->prev = curr;
 			next->prev = curr->prev;
 			curr->prev = next;
 			curr->next = next->next;
