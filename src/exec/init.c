@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:14:12 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/26 14:13:24 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/29 16:25:40 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,14 @@ void	init_textures(t_game *game)
 	int		i;
 
 	i = -1;
+	init_torch(game);
 	while (++i < 4)
 		game->textures.wall[i].img = NULL;
 	game->textures.ceiling.img = NULL;
 	game->textures.floor.img = NULL;
 	game->textures.door.img = NULL;
 	game->textures.spider.img = NULL;
+	game->textures.pause.img = NULL;
 	i = -1;
 	while (++i < 4)
 		set_data_assets(game, game->info.texture[i], &game->textures.wall[i]);
@@ -32,6 +34,7 @@ void	init_textures(t_game *game)
 		set_data_assets(game, game->info.texture_f, &game->textures.floor);
 	set_data_assets(game, DOOR, &game->textures.door);
 	set_data_assets(game, SPIDER, &game->textures.spider);
+	set_data_assets(game, PAUSE, &game->textures.pause);
 }
 
 double	get_angle(char c)
@@ -50,6 +53,8 @@ double	get_angle(char c)
 
 void	init_game(t_game *game, t_player *player, char **map)
 {
+	game->lock = 0;
+	game->last_mouse_x = S_W / 2;
 	game->map = map;
 	game->tick = 0;
 	game->animation = 0;
