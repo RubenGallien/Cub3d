@@ -12,15 +12,13 @@
 
 #include "cub3d.h"
 
-int	draw_pause(t_img asset, t_img *img, int x, int y)
+int	draw_pause(t_img asset, t_img *img, t_game *game)
 {
 	int				i;
 	int				j;
 	unsigned char	*dst;
 	unsigned int	color;
-	int				u;
 
-	u = 0;
 	i = 0;
 	while (i < asset.width)
 	{
@@ -30,13 +28,13 @@ int	draw_pause(t_img asset, t_img *img, int x, int y)
 			color = ((int *)asset.pixels)[j * asset.width + i];
 			if (color == 0xFF000000)
 				continue ;
-			dst = img->pixels + ((y + j) * img->line_length + (x + i) \
+			dst = img->pixels + (j * img->line_length + i \
 			* (img->bits_per_pixel / 8));
 			*(unsigned int *)dst = color;
-			u++;
 		}
 		i++;
 	}
+	mlx_put_image_to_window(game->mlx, game->mlx_win, game->world.img, 0, 0);
 	return (1);
 }
 
@@ -60,11 +58,8 @@ int	game_loop(t_game *game)
 		game->world.img, 0, 0);
 		game->animation = (game->animation + 1) % 10;
 	}
-	else if (!game->lock)
-	{
-		draw_pause(game->textures.pause, &game->world, 0, 0);
-		mlx_put_image_to_window(game->mlx, game->mlx_win, game->world.img, 0, 0);
-	}
+	else if (!game->lock && game->mlx_win)
+		draw_pause(game->textures.pause, &game->world, game);
 	game->tick = (game->tick + 1) % (15000 / SPEED);
 	return (0);
 }
