@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_texture.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 15:16:08 by lvicino           #+#    #+#             */
-/*   Updated: 2024/11/22 19:37:15 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/11/26 14:08:01 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	fill_texture_tab(int i, char **tmp, t_map *info)
 
 int	get_texture_def(t_map *info, char *str)
 {
-	const char	*list[] = {"NO", "SO", "EA", "WE", "F", "C"};
+	const char	*list[] = {"NO", "SO", "EA", "WE", "F", "C", NULL};
 	char		**tmp;
 	int			i;
 
