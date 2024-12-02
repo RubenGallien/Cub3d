@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 13:50:25 by lvicino           #+#    #+#             */
-/*   Updated: 2024/11/29 15:45:39 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/12/02 12:22:49 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@ void	move_player(t_game *game)
 		game->player->angle -= 2;
 	if (game->player->right_r == 1 || game->player->left_r == 1)
 	{
-		game->player->angle = (int)game->player->angle % 360;
 		if (game->player->angle < 0)
 			game->player->angle += 360;
+		else if (game->player->angle > 360)
+			game->player->angle -= 360;
 		game->player->pdx = cos(to_radiant(game->player->angle));
 		game->player->pdy = sin(to_radiant(game->player->angle));
 	}
@@ -44,10 +45,11 @@ int	mouse_ctrl(int x, int y, t_game *game)
 	delta = x - 960;
 	if (delta)
 	{
-		game->player->angle -= delta / 8;
-		game->player->angle = (int)game->player->angle % 360;
+		game->player->angle -= 45 * (delta / 960.0);
 		if (game->player->angle < 0)
 			game->player->angle += 360;
+		else if (game->player->angle > 360)
+			game->player->angle -= 360;
 		game->player->pdx = cos(to_radiant(game->player->angle));
 		game->player->pdy = sin(to_radiant(game->player->angle));
 	}
