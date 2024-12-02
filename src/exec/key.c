@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 03:20:27 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/29 13:47:19 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/12/02 12:29:52 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@ void	on_keypress_aux(int keysym, t_game *game)
 		game->player->left = 1;
 		game->player->right = 0;
 	}
-	else if (keysym == 65361)
+	else if (keysym == XK_Left)
 	{
 		game->player->left_r = 1;
 		game->player->right_r = 0;
 	}
-	else if (keysym == 65363)
+	else if (keysym == XK_Right)
 	{
 		game->player->right_r = 1;
 		game->player->left_r = 0;
@@ -83,17 +83,17 @@ int	on_keypress(int keysym, t_game *game)
 
 int	on_keyrelease(int keysym, t_game *game)
 {
-	if (keysym == 119)
+	if (keysym == XK_w)
 		game->player->up = 0;
-	else if (keysym == 115)
+	else if (keysym == XK_s)
 		game->player->down = 0;
-	else if (keysym == 100)
+	else if (keysym == XK_d)
 		game->player->right = 0;
-	else if (keysym == 97)
+	else if (keysym == XK_a)
 		game->player->left = 0;
-	else if (keysym == 65361)
+	else if (keysym == XK_Left)
 		game->player->left_r = 0;
-	else if (keysym == 65363)
+	else if (keysym == XK_Right)
 		game->player->right_r = 0;
 	return (0);
 }
