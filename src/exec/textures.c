@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 03:25:57 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/22 23:13:48 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/12/02 18:52:33 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,13 @@ void	color_f_c(unsigned int color, t_rgb *rgb, int torch, int y)
 	double	perc;
 
 	if (torch)
-		perc = (double)y / S_H - 0.550;
+		perc = ((double)y / S_H - 0.550);
 	else
-		perc = 0.01;
-	if (perc < 0)
-		perc = 0;
+		perc = 0.1;
+	if (perc < 0.1)
+		perc = 0.1;
+	else if (perc > 1.0)
+		perc = 1.0;
 	rgb->r = ((color >> 16) & 0xFF) / 255.0 * perc;
 	rgb->g = ((color >> 8) & 0xFF) / 255.0 * perc;
 	rgb->b = (color & 0xFF) / 255.0 * perc;
@@ -34,7 +36,6 @@ int	choose_col_floor_ceiling(t_ray ray, t_img floor, int y, t_game *game)
 	int				tx;
 	t_rgb			rgb;
 
-	(void)y;
 	tx = ((int)ray.tx % 64) & 63;
 	ty = ((int)ray.ty % 64) & 63;
 	if (floor.img)
