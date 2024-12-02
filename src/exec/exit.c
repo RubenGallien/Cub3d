@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 13:58:50 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/21 15:58:11 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/29 16:11:10 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int	ft_free_img(t_game *game)
 		mlx_destroy_image(game->mlx, game->textures.door.img);
 	if (game->textures.spider.img)
 		mlx_destroy_image(game->mlx, game->textures.spider.img);
+	if (game->textures.pause.img)
+		mlx_destroy_image(game->mlx, game->textures.pause.img);
 	return (0);
 }
 

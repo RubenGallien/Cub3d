@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:39:37 by rgallien          #+#    #+#             */
-/*   Updated: 2024/11/22 23:38:49 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/11/29 16:10:10 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@
 # define FLOOR	"textures/floor/deepslate.xpm"
 # define DOOR 	"textures/door/door.xpm"
 # define SPIDER "textures/sprite/spider.xpm"
+# define PAUSE "textures/pause/pause.xpm"
 
 # include "parsing.h"
 
@@ -103,6 +104,7 @@ typedef struct s_asset
 	t_img	floor;
 	t_img	door;
 	t_img	spider;
+	t_img	pause;
 }			t_asset;
 
 typedef struct s_ray
@@ -170,7 +172,9 @@ typedef struct s_mouse
 typedef struct s_game
 {
 	int			x;
+	int			last_mouse_x;
 	int			y;
+	int			lock;
 	void		*mlx;
 	void		*mlx_win;
 	char		**map;
@@ -198,14 +202,14 @@ void		init_spider(t_game *game);
 // events
 int			on_keypress(int keysym, t_game *game);
 int			on_keyrelease(int keysym, t_game *game);
-void		mouse_ctrl(t_game *game);
+int			mouse_ctrl(int x, int y, t_game *game);
 void		move_player(t_game *game);
 void		move_up(t_game *game);
 void		move_down(t_game *game);
 void		move_left(t_game *game);
 void		move_right(t_game *game);
 int			ft_exit(t_game *game);
-
+int			pause_game(t_game *game);
 // distance
 void		choose_distance(t_game *game, int i);
 
@@ -249,4 +253,5 @@ void		make_spider(t_game *game);
 void		recup_spider_infos(t_spider *curr, t_game *game);
 void		draw_spider(t_spider *curr, t_game *game, int start_x, int start_y);
 void		free_spider(t_spider *spider);
+
 #endif
